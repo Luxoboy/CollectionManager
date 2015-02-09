@@ -3,7 +3,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package com.luxoboy.collectionmanager.model;
 
 import java.sql.ResultSet;
 import java.sql.Connection;

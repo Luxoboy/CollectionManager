@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package com.luxoboy.collectionmanager.view;
 
 import javax.swing.AbstractListModel;
 
@@ -11,12 +11,12 @@ import javax.swing.AbstractListModel;
  *
  * @author orann
  */
-public class List extends javax.swing.JPanel {
+public class UserCollection extends javax.swing.JPanel {
 
     /**
      * Creates new form List
      */
-    public List() {
+    public UserCollection() {
         initComponents();
     }
 
@@ -32,21 +32,46 @@ public class List extends javax.swing.JPanel {
 
         scrollList = new javax.swing.JScrollPane();
         list = new javax.swing.JList();
+        detailPanel = new Details();
+        ratePanel = new javax.swing.JPanel();
 
         setLayout(new java.awt.GridBagLayout());
 
         list.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        list.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listValueChanged(evt);
+            }
+        });
         scrollList.setViewportView(list);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         add(scrollList, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        add(detailPanel, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        add(ratePanel, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listValueChanged
+        
+    }//GEN-LAST:event_listValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel detailPanel;
     private javax.swing.JList list;
+    private javax.swing.JPanel ratePanel;
     private javax.swing.JScrollPane scrollList;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package com.luxoboy.collectionmanager.view;
 
 /**
  *
@@ -17,6 +17,9 @@ public class Details extends javax.swing.JPanel {
     public Details() {
         initComponents();
     }
+    
+    public void updateInformations(){
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,11 +32,13 @@ public class Details extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         informationPanel = new javax.swing.JPanel();
+        picturePanel = new javax.swing.JPanel();
+        infoPanel = new javax.swing.JPanel();
         name = new javax.swing.JLabel();
         year = new javax.swing.JLabel();
-        photo = new javax.swing.JLabel();
         numberOfSeason = new javax.swing.JLabel();
         numberOfSeasonValue = new javax.swing.JLabel();
+        yearValue = new javax.swing.JLabel();
         descriptionPanel = new javax.swing.JPanel();
         description = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -43,46 +48,58 @@ public class Details extends javax.swing.JPanel {
 
         informationPanel.setLayout(new java.awt.GridBagLayout());
 
-        name.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
-        name.setText("name");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        informationPanel.add(name, gridBagConstraints);
-
-        year.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
-        year.setText("year");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        informationPanel.add(year, gridBagConstraints);
-
-        photo.setText("photo");
+        picturePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
-        informationPanel.add(photo, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
+        informationPanel.add(picturePanel, gridBagConstraints);
 
-        numberOfSeason.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
-        numberOfSeason.setText("number of season : ");
+        infoPanel.setLayout(new java.awt.GridBagLayout());
+
+        name.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        name.setText("Name");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        infoPanel.add(name, gridBagConstraints);
+
+        year.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        year.setText("Year :");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        infoPanel.add(year, gridBagConstraints);
+
+        numberOfSeason.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        numberOfSeason.setText("Number of season :");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        infoPanel.add(numberOfSeason, gridBagConstraints);
+
+        numberOfSeasonValue.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        numberOfSeasonValue.setText("0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        informationPanel.add(numberOfSeason, gridBagConstraints);
+        infoPanel.add(numberOfSeasonValue, gridBagConstraints);
 
-        numberOfSeasonValue.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
-        numberOfSeasonValue.setText("0");
+        yearValue.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        yearValue.setText("00/00/0000");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        informationPanel.add(numberOfSeasonValue, gridBagConstraints);
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        infoPanel.add(yearValue, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        informationPanel.add(infoPanel, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -93,9 +110,12 @@ public class Details extends javax.swing.JPanel {
 
         descriptionPanel.setLayout(new java.awt.GridBagLayout());
 
-        description.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
-        description.setText("description :");
+        description.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        description.setText("Description :");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
         descriptionPanel.add(description, gridBagConstraints);
 
@@ -120,12 +140,14 @@ public class Details extends javax.swing.JPanel {
     private javax.swing.JLabel description;
     private javax.swing.JPanel descriptionPanel;
     private javax.swing.JTextArea descriptionText;
+    private javax.swing.JPanel infoPanel;
     private javax.swing.JPanel informationPanel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel name;
     private javax.swing.JLabel numberOfSeason;
     private javax.swing.JLabel numberOfSeasonValue;
-    private javax.swing.JLabel photo;
+    private javax.swing.JPanel picturePanel;
     private javax.swing.JLabel year;
+    private javax.swing.JLabel yearValue;
     // End of variables declaration//GEN-END:variables
 }
