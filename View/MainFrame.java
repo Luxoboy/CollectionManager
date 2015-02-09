@@ -6,17 +6,26 @@
 
 package View;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author thiba_000
  */
 public class MainFrame extends javax.swing.JFrame {
+    
+    private JPanel searchView;
+    private JPanel detailsView;
+    private JPanel userCollectionView;
 
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
+        this.searchView = new Search();
+        this.detailsView = new Details();
+        this.userCollectionView = new UserCollection();
     }
 
     /**
@@ -28,33 +37,42 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar1 = new javax.swing.JMenuBar();
-        fileMenu = new javax.swing.JMenu();
-        collectionMenuItem = new javax.swing.JMenuItem();
-        searchMenuItem = new javax.swing.JMenuItem();
+        menuBar = new javax.swing.JMenuBar();
+        moviesMenu = new javax.swing.JMenu();
+        tvShowsMenu = new javax.swing.JMenu();
+        searchMenu = new javax.swing.JMenu();
         aboutMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        fileMenu.setText("Files");
-
-        collectionMenuItem.setText("Collection");
-        fileMenu.add(collectionMenuItem);
-
-        searchMenuItem.setText("Search");
-        searchMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchMenuItemActionPerformed(evt);
+        moviesMenu.setText("Movies");
+        moviesMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                moviesMenuMouseClicked(evt);
             }
         });
-        fileMenu.add(searchMenuItem);
+        menuBar.add(moviesMenu);
 
-        jMenuBar1.add(fileMenu);
+        tvShowsMenu.setText("TV Shows");
+        tvShowsMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tvShowsMenuMouseClicked(evt);
+            }
+        });
+        menuBar.add(tvShowsMenu);
+
+        searchMenu.setText("Search");
+        searchMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchMenuMouseClicked(evt);
+            }
+        });
+        menuBar.add(searchMenu);
 
         aboutMenu.setText("?");
-        jMenuBar1.add(aboutMenu);
+        menuBar.add(aboutMenu);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,9 +88,23 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void searchMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchMenuItemActionPerformed
+    private void moviesMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moviesMenuMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchMenuItemActionPerformed
+        this.setContentPane(userCollectionView);
+        this.pack();
+    }//GEN-LAST:event_moviesMenuMouseClicked
+
+    private void tvShowsMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tvShowsMenuMouseClicked
+        // TODO add your handling code here:
+        this.setContentPane(userCollectionView);
+        this.pack();
+    }//GEN-LAST:event_tvShowsMenuMouseClicked
+
+    private void searchMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMenuMouseClicked
+        // TODO add your handling code here:
+        this.setContentPane(searchView);
+        this.pack();
+    }//GEN-LAST:event_searchMenuMouseClicked
 
     /**
      * @param args the command line arguments
@@ -111,9 +143,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu aboutMenu;
-    private javax.swing.JMenuItem collectionMenuItem;
-    private javax.swing.JMenu fileMenu;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem searchMenuItem;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu moviesMenu;
+    private javax.swing.JMenu searchMenu;
+    private javax.swing.JMenu tvShowsMenu;
     // End of variables declaration//GEN-END:variables
 }
