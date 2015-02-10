@@ -30,6 +30,8 @@ public abstract class ApiRequest
      */
     protected static String FINAL_URL;
     
+    protected static String BASE_IMG_URL = null;
+    
     protected URL URL;
     
     protected HttpURLConnection connection;
@@ -95,8 +97,10 @@ public abstract class ApiRequest
     
     /**
      * Sends the request to the server and returns the received JSON data.
+     * Before sending request, this method appends API Key to URL.
      * @return  The result of the request.
      * @throws Exception In the event of an error, an exception is thrown.
+     * 
      */
     protected JSONObject fetch() throws Exception
     {
