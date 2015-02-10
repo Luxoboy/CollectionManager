@@ -61,6 +61,7 @@ public class DB {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             urlJdbc = buildUrlJdbc();
             connection = DriverManager.getConnection(urlJdbc);
+            System.out.println("Successully connected to database.");
             statusConnection = true;
         } catch (Exception e) {
             statusConnection = false;
