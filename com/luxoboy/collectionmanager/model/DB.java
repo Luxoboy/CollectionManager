@@ -21,85 +21,30 @@ public class DB {
     /**
      * Attributes
      */
-    private String hostname;
-    private String port;
-    private String DataBaseName;
-    private String login;
-    private String password;
-    private Connection connection;
-
-    /**
-     * Constructor
-     * @param hostname 
-     * @param port 
-     * @param DataBaseName
-     * @param login 
-     * @param password 
-     */
-    public DB(String hostname, String port, String DataBaseName, String login, String password) {
-        this.hostname = hostname;
-        this.port = port;
-        this.DataBaseName = DataBaseName;
-        this.login = login;
-        this.password = password;
-        connection=getConnection();
-    }
-    
-    /**
-     * 
-     * @param value new value of the attribute
-     */
-    public void setLogin(String value) {
-        login = value;
-    }
-    /**
-     * 
-     * @param value new value of the attribute
-     */
-    public void setPassword(String value) {
-        password = value;
-    }
-    
-    /**
-     * 
-     * @param value new value of the attribute
-     */
-    public void setHostname(String value) {
-        hostname = value;
-    }
-    
-    /**
-     * 
-     * @param value new value of the attribute
-     */
-    public void setPort(String value) {
-        port = value;
-    }
-    /**
-     * 
-     * @param value new value of the attribute
-     */
-    public void setDataBaseName(String value) {
-        DataBaseName = value;
-    }
+    static private final String hostname = "boxa.noip.me";
+    static private final String port = "3306";
+    static private final String DataBaseName = "collectionmanager";
+    static private final String login = "collecmanager";
+    static private final String password = "wastoc";
+    private static Connection connection = null;
 
     /**
      * Return connection to data base
      * @return connection to DB
      */
-    private Connection getConnection() {
-        if (etablishConnection()) {
-            return connection;
-        } else {
-            
-            return null;
+    static private void createConnection() throws Exception {
+        if(connection != null)
+            return;
+        if(!etablishConnection())
+        {
+            throw new Exception("Could not connect to database.");
         }
     }
     /**
      * build url before connecting to DB
      * @return the url
      */
-    private String buildUrlJdbc() {
+    static private String buildUrlJdbc() {
         String urlJdbc;
         urlJdbc = "jdbc:mysql://" + hostname + ":" + port + "/" + DataBaseName;
         urlJdbc = urlJdbc + "?user=" + login + "&password=" + password;
@@ -109,7 +54,7 @@ public class DB {
      * Private method that can etablished a connection to a DB MySQL
      * @return true if the conneciton is etablished, false otherwise
      */
-    private boolean etablishConnection() {
+    static private boolean etablishConnection() {
         boolean statusConnection = false;
         String urlJdbc;
         try {
@@ -130,7 +75,8 @@ public class DB {
      * @return result of the query (ResultSet)
      * @throws SQLException 
      */
-    public ResultSet executeQuery(String sql) throws SQLException{
+    static public ResultSet executeQuery(String sql) throws SQLException, Exception{
+        createConnection();
         return connection.createStatement().executeQuery(sql);
     }
     
@@ -140,16 +86,18 @@ public class DB {
      * @return result of the query (int)
      * @throws SQLException 
      */
-    public int executeUpdate(String sql) throws SQLException{
+    static public int executeUpdate(String sql) throws SQLException, Exception{
+        createConnection();
         return connection.createStatement().executeUpdate(sql);
     }
     
     /**
      * close the connection to the DB
      */
-    public void close(){
+    static public void close(){
         try {
             connection.close();
+            connection = null;
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
