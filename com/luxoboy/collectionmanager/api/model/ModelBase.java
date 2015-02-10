@@ -13,8 +13,20 @@ public class ModelBase
 {
     protected int id;
     
+    /**
+     * Indicates whether the object has all data loaded.
+     * If not, a fetch action can be triggered.
+     */
+    protected boolean isPopulated = false;
+    
     protected ModelBase(int id)
     {
         this.id = id;
     }
+    
+    protected int getId()
+    {
+        return id;
+    }
+    
 }
