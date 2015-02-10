@@ -9,7 +9,7 @@ package com.luxoboy.collectionmanager.api.images;
  *
  * @author Anthony Correia
  */
-public enum ImagesTypes
+public enum ImageTypes
 {
     Backdrop,
     Logo,

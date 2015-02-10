@@ -11,6 +11,9 @@ package com.luxoboy.collectionmanager.api.model;
  */
 public class ModelBase
 {
+    static public final String BASE_CACHE_PATH = "cache/";
+    static public final String BASE_IMG_PATH = "img/";
+    static public final String BASE_DATA_PATH = "data/";
     protected int id;
     
     /**

@@ -30,7 +30,7 @@ public abstract class ApiRequest
      */
     protected static String FINAL_URL;
     
-    protected static String BASE_IMG_URL = null;
+    public static String BASE_IMG_URL = null;
     
     protected URL URL;
     

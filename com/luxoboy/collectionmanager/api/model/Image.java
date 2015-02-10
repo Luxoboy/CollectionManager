@@ -6,8 +6,11 @@
 package com.luxoboy.collectionmanager.api.model;
 
 import com.luxoboy.collectionmanager.api.images.ImageSizes;
-import com.sun.javafx.iio.ImageStorage.ImageType;
+import com.luxoboy.collectionmanager.api.images.ImageTypes;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -15,24 +18,62 @@ import java.awt.image.BufferedImage;
  */
 public class Image
 {
-    private ImageType type;
-    private ImageSizes size;
+    private ImageTypes type;
+    private String size;
     private String filename;
     private BufferedImage img;
-
-    public Image(ImageType type, ImageSizes size, BufferedImage img, String filename)
+    
+    /**
+     * 
+     * @param type
+     * @param size
+     * @param img
+     * @param filename 
+     */
+    public Image(ImageTypes type, String size, String filename, BufferedImage img)
     {
         this.type = type;
         this.size = size;
         this.img = img;
         this.filename = filename;
         if(filename.startsWith("/"))
-            this.filename.substring(1);
+            this.filename = this.filename.substring(1);
+    }
+    
+    public Image(ImageTypes type, String size, String filename)
+    {
+        this.type = type;
+        this.size = size;
+        this.filename = filename;
+        if(filename.startsWith("/"))
+            this.filename = this.filename.substring(1);
+        loadImage();
+    }
+    
+    private void loadImage()
+    {
+        try
+        {
+            this.img = ImageIO.read(new File(getPath()));
+        }
+        catch(IOException ex)
+        {
+            ex.printStackTrace();
+            System.out.println("Error while loading image: "+getPath());
+        }
     }
     
     public String getPath()
     {
-        return ModelBase.BASE_CACHE_PATH+ModelBase.BASE_IMG_PATH+size+"/"+filename;
+        return buildPath(size, filename);
+    }
+    
+    static public String buildPath(String size, String filemane)
+    {
+        String filename_ = new String(filemane);
+        if(filename_.startsWith("/"))
+            filename_ = filename_.substring(1);
+        return ModelBase.BASE_CACHE_PATH+ModelBase.BASE_IMG_PATH+size+"/"+filename_;
     }
 
     public String getFilename()
@@ -40,12 +81,12 @@ public class Image
         return filename;
     }
     
-    public ImageType getType()
+    public ImageTypes getType()
     {
         return type;
     }
 
-    public ImageSizes getSize()
+    public String getSize()
     {
         return size;
     }
