@@ -7,9 +7,11 @@ package com.luxoboy.collectionmanager.api;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,7 +55,13 @@ public abstract class ApiRequest
         String final_url = BASE_URL+RESSOURCE_URL+"?";
         for(String key : parameters.keySet())
         {
-            final_url+=key+"="+parameters.get(key)+"&";
+            try
+            {
+                final_url+=key+"="+URLEncoder.encode(parameters.get(key), "UTF-8")+"&";
+            } catch (UnsupportedEncodingException ex)
+            {
+                final_url+=key+"="+parameters.get(key)+"&";
+            }
         }
         final_url+="api_key="+ApiKey.get();
         return final_url;
@@ -123,9 +131,10 @@ public abstract class ApiRequest
         
         if(connection.getResponseCode() != 200)
         {
-            throw new Exception("Incorred answer from server.");
+            throw new Exception("Incorrect answer from server.");
         }
         
+        System.out.println("Sending request: "+buildURL());
         String response = "";
         BufferedReader in = new BufferedReader(
 		        new InputStreamReader(connection.getInputStream()));
