@@ -8,10 +8,8 @@ package com.luxoboy.collectionmanager.api.model;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,29 +49,41 @@ public class TVShow extends ModelBase
         } catch (ParseException ex)
         {
             ex.printStackTrace();
-            System.out.println("Error while parsing first air date: "+first_air_date);
-            this.first_air_date = Date.from(Instant.EPOCH);
+            System.out.println("Error while parsing first air date: " + first_air_date);
+            this.first_air_date = new Date(0);
         }
     }
-    
+
     public static TVShow parseJSON(JSONObject obj)
     {
+        String original_name;
+        String first_air_date;
+        String name;
+        TVShow tvs;
+        int id;
         try
         {
-            int id = obj.getInt("id");
-            String original_name = obj.getString("original_name");
-            String first_air_date = obj.getString("first_air_date");
-            String name = obj.getString("name");
-            TVShow tvs = new TVShow(id, original_name, name, 
-                    obj.getJSONArray("origin_country"), first_air_date);
-            return tvs;
+            id = obj.getInt("id");
+            original_name = obj.getString("original_name");
+            name = obj.getString("name");
+            
+        } catch (JSONException ex)
+        {
+            ex.printStackTrace();
+            System.out.println("Error while parsing TV Show JSON DATA:\n" + obj.toString(1));
+            return null;
+        }
+        try
+        {
+            first_air_date = obj.getString("first_air_date");
         }
         catch(JSONException ex)
         {
-            ex.printStackTrace();
-            System.out.println("Error while parsing TV Show JSON DATA:\n"+obj.toString(1));
-            return null;
+            first_air_date = "1971-01-01";
         }
+        tvs = new TVShow(id, original_name, name,
+                    obj.getJSONArray("origin_country"), first_air_date);
+            return tvs;
     }
 
     public String getOriginal_name()
@@ -95,6 +105,5 @@ public class TVShow extends ModelBase
     {
         return first_air_date;
     }
-    
-    
+
 }
