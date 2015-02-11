@@ -16,6 +16,10 @@ import org.json.JSONObject;
  */
 public class SearchTV extends ApiRequest implements TVRequest
 {
+    /**
+     * Creates a SearchTV with a given pattern.
+     * @param pattern The pattern to look for in the database.
+     */
     public SearchTV(String pattern)
     {
         super("search/tv");
@@ -29,7 +33,7 @@ public class SearchTV extends ApiRequest implements TVRequest
         {
             JSONObject res = fetch();
             int total_pages = res.getInt("total_pages"),
-                    fetched_pages = 1;
+                    fetched_pages = 0;
             ArrayList<TVShow> shows = new ArrayList<>();
             JSONArray res_shows; 
             while(fetched_pages < total_pages && fetched_pages < MAX_FETCHED_PAGES)
