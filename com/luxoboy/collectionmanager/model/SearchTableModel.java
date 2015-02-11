@@ -25,7 +25,7 @@ public class SearchTableModel extends DefaultTableModel{
             this.name = show.getName();
             Calendar cal = Calendar.getInstance();
             cal.setTime(show.getFirst_air_date());
-            this.year = cal.YEAR;
+            this.year = cal.get(Calendar.YEAR);
         }
 
     }
