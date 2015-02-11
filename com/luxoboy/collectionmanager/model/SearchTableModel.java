@@ -85,6 +85,19 @@ public class SearchTableModel extends DefaultTableModel{
         fireTableRowsDeleted(index, index);
     }
     
+    public void removeLine(Line line) {
+        int index = list.indexOf(line);
+        list.remove(line);
+        fireTableRowsDeleted(index, index);
+    }
+    
+    public void clear()
+    {
+        int size = list.size();
+        list.clear();
+        fireTableRowsDeleted(0, size);
+    }
+    
     @Override
     public boolean isCellEditable(int i, int i1) {
         return false;
