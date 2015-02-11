@@ -7,6 +7,7 @@ package com.luxoboy.collectionmanager.view;
 
 import java.util.Date;
 import javax.swing.AbstractListModel;
+import javax.swing.JFrame;
 
 /**
  *
@@ -14,14 +15,13 @@ import javax.swing.AbstractListModel;
  */
 public class UserCollection extends javax.swing.JPanel {
 
+    private JFrame parent;
     /**
      * Creates new form List
      */
-    public UserCollection() {
+    public UserCollection(JFrame parent) {
+        this.parent = parent;
         initComponents();
-    }
-    
-    public void initView(String name, Date date, int numberOfSeason){
     }
 
     /**
