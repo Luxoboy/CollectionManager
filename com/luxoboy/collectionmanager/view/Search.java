@@ -79,6 +79,13 @@ public class Search extends javax.swing.JPanel {
                 {
                 }
             });
+            searchTextField.addActionListener(new java.awt.event.ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    searchTextFieldActionPerformed(evt);
+                }
+            });
             gridBagConstraints = new java.awt.GridBagConstraints();
             gridBagConstraints.gridx = 0;
             gridBagConstraints.gridy = 0;
@@ -155,6 +162,12 @@ public class Search extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void searchTextFieldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_searchTextFieldActionPerformed
+    {//GEN-HEADEREND:event_searchTextFieldActionPerformed
+        if(searchButton.isEnabled())
+            searchButtonActionPerformed(null);
+    }//GEN-LAST:event_searchTextFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

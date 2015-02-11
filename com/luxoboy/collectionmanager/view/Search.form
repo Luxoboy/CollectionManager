@@ -38,6 +38,9 @@
               <Dimension value="[200, 20]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchTextFieldActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="searchTextField.getDocument().addDocumentListener(new DocumentListener()&#xa;        {&#xa;&#xa;            @Override&#xa;            public void insertUpdate(DocumentEvent e)&#xa;            {&#xa;                searchButton.setEnabled(true);&#xa;            }&#xa;&#xa;            @Override&#xa;            public void removeUpdate(DocumentEvent e)&#xa;            {&#xa;                if(searchTextField.getText().equals(&quot;&quot;))&#xa;                    searchButton.setEnabled(false);&#xa;            }&#xa;&#xa;            @Override&#xa;            public void changedUpdate(DocumentEvent e)&#xa;            {&#xa;            }&#xa;        });"/>
           </AuxValues>
