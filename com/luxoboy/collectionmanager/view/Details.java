@@ -5,6 +5,8 @@
  */
 package com.luxoboy.collectionmanager.view;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author orann
@@ -43,6 +45,10 @@ public class Details extends javax.swing.JPanel {
         description = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         descriptionText = new javax.swing.JTextArea();
+        addButton = new javax.swing.JButton();
+        buttonPanel = new javax.swing.JPanel();
+        ImageIcon backButtonImage = new ImageIcon("Back-Button.png");
+        backButton = new javax.swing.JButton(backButtonImage);
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -62,7 +68,7 @@ public class Details extends javax.swing.JPanel {
         name.setText("Name");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         infoPanel.add(name, gridBagConstraints);
 
@@ -70,15 +76,15 @@ public class Details extends javax.swing.JPanel {
         year.setText("Year :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         infoPanel.add(year, gridBagConstraints);
 
         numberOfSeason.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        numberOfSeason.setText("Number of season :");
+        numberOfSeason.setText("Number of season : ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         infoPanel.add(numberOfSeason, gridBagConstraints);
 
@@ -86,7 +92,7 @@ public class Details extends javax.swing.JPanel {
         numberOfSeasonValue.setText("0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         infoPanel.add(numberOfSeasonValue, gridBagConstraints);
 
@@ -94,7 +100,7 @@ public class Details extends javax.swing.JPanel {
         yearValue.setText("00/00/0000");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         infoPanel.add(yearValue, gridBagConstraints);
 
@@ -104,7 +110,7 @@ public class Details extends javax.swing.JPanel {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 30, 0);
         add(informationPanel, gridBagConstraints);
@@ -123,6 +129,7 @@ public class Details extends javax.swing.JPanel {
         descriptionText.setColumns(20);
         descriptionText.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         descriptionText.setRows(5);
+        descriptionText.setEnabled(false);
         jScrollPane1.setViewportView(descriptionText);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -130,14 +137,37 @@ public class Details extends javax.swing.JPanel {
         gridBagConstraints.gridy = 1;
         descriptionPanel.add(jScrollPane1, gridBagConstraints);
 
+        addButton.setText("Add to my Collection");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        descriptionPanel.add(addButton, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
         add(descriptionPanel, gridBagConstraints);
+
+        buttonPanel.setLayout(new java.awt.GridBagLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        buttonPanel.add(backButton, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        add(buttonPanel, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
+    private javax.swing.JButton backButton;
+    private javax.swing.JPanel buttonPanel;
     private javax.swing.JLabel description;
     private javax.swing.JPanel descriptionPanel;
     private javax.swing.JTextArea descriptionText;
