@@ -7,6 +7,7 @@
 package com.luxoboy.collectionmanager.view;
 
 import com.luxoboy.collectionmanager.model.SearchTableModel;
+import javax.swing.JFrame;
 
 /**
  *
@@ -14,10 +15,12 @@ import com.luxoboy.collectionmanager.model.SearchTableModel;
  */
 public class Search extends javax.swing.JPanel {
 
+    private JFrame parent;
     /**
      * Creates new form Search
      */
-    public Search() {
+    public Search(JFrame parent) {
+        this.parent = parent;
         initComponents();
         this.buttonGroup.add(moviesRadioButton);
         this.buttonGroup.add(tvShowsRadioButton);

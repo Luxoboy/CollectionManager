@@ -24,7 +24,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         this.searchView = new Search(this);
-        this.detailsView = new Details();
+        this.detailsView = new Details(this);
         this.userCollectionView = new UserCollection(this);
     }
 
