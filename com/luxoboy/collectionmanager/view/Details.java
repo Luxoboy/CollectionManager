@@ -7,23 +7,26 @@ package com.luxoboy.collectionmanager.view;
 
 import com.luxoboy.collectionmanager.api.model.TVShow;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 /**
  *
  * @author orann
  */
 public class Details extends javax.swing.JPanel {
+    
+    private JFrame parent;
 
     /**
      * Creates new form Details
      */
-    public Details(Search s, TVShow tvs) {
-        search = s;
-        tvShow = tvs;        
+    public Details(JFrame parent) {
+        this.parent = parent;       
         initComponents();
     }
     
-    public void updateInformations(){
+    public void updateInformations(TVShow tv){
+        this.name.setText(tv.getName());
     }
 
     /**
@@ -68,7 +71,7 @@ public class Details extends javax.swing.JPanel {
         infoPanel.setLayout(new java.awt.GridBagLayout());
 
         name.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        name.setText(tvShow.getOriginalName);
+        name.setText("Name");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -100,7 +103,7 @@ public class Details extends javax.swing.JPanel {
         infoPanel.add(numberOfSeasonValue, gridBagConstraints);
 
         yearValue.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        yearValue.setText(tvShow.getYear());
+        yearValue.setText("00/00/00");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -179,17 +182,13 @@ public class Details extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        this.setVisible(false);
-        search.setVisible(true);
-        
+        this.setVisible(false);        
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addButtonActionPerformed
     
-    private Search search;
-    private TVShow tvShow;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JButton backButton;
