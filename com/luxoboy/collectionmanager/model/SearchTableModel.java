@@ -6,7 +6,9 @@
 
 package com.luxoboy.collectionmanager.model;
 
+import com.luxoboy.collectionmanager.api.model.TVShow;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,17 +18,18 @@ import javax.swing.table.DefaultTableModel;
 public class SearchTableModel extends DefaultTableModel{
     private class Line {
         
-        String name, year;
-        int seasonNumber;
+        String name;
+        int year;
 
-        public Line(String name, String year, int seasonNumber) {
-            this.name = name;
-            this.year = year;
-            this.seasonNumber = seasonNumber;
+        public Line(TVShow show) {
+            this.name = show.getName();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(show.getFirst_air_date());
+            this.year = cal.YEAR;
         }
 
     }
-    private String[] header = {"Name","Year", "Season Number"};
+    private String[] header = {"Name","Year"};
     private ArrayList<Line> list = new ArrayList();
 
     public SearchTableModel() {
@@ -40,8 +43,6 @@ public class SearchTableModel extends DefaultTableModel{
                 return list.get(row).name;
             case 1:
                 return list.get(row).year;
-            case 2:
-                return list.get(row).seasonNumber;
             default:
                 return null;
         }
@@ -70,8 +71,8 @@ public class SearchTableModel extends DefaultTableModel{
         return list.get(row).name;
     }
 
-    public void addLigne(String name, String date, int seasonNumber) {
-        addLine(new Line(name, date, seasonNumber));
+    public void addLigne(TVShow show) {
+        addLine(new Line(show));
     }
 
     private void addLine(Line l) {
