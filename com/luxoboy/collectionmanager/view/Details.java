@@ -123,6 +123,7 @@ public class Details extends javax.swing.JPanel {
         descriptionText.setColumns(20);
         descriptionText.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
         descriptionText.setRows(5);
+        descriptionText.setEnabled(false);
         jScrollPane1.setViewportView(descriptionText);
 
         gridBagConstraints = new java.awt.GridBagConstraints();

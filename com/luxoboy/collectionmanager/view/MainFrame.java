@@ -90,7 +90,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void moviesMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moviesMenuMouseClicked
         // TODO add your handling code here:
-        this.setContentPane(userCollectionView);
+        this.setContentPane(detailsView);
         this.pack();
     }//GEN-LAST:event_moviesMenuMouseClicked
 
