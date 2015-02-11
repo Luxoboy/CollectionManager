@@ -6,8 +6,12 @@
 
 package com.luxoboy.collectionmanager.view;
 
+import com.luxoboy.collectionmanager.api.SearchTV;
+import com.luxoboy.collectionmanager.api.model.TVShow;
 import com.luxoboy.collectionmanager.model.SearchTableModel;
 import javax.swing.JFrame;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -34,7 +38,8 @@ public class Search extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup = new javax.swing.ButtonGroup();
@@ -53,60 +58,103 @@ public class Search extends javax.swing.JPanel {
 
         searchTextField.setMinimumSize(new java.awt.Dimension(200, 20));
         searchTextField.setPreferredSize(new java.awt.Dimension(200, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        searchPanel.add(searchTextField, gridBagConstraints);
+        searchTextField.getDocument().addDocumentListener(new DocumentListener()
+            {
 
-        searchButton.setText("Search");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        searchPanel.add(searchButton, gridBagConstraints);
+                @Override
+                public void insertUpdate(DocumentEvent e)
+                {
+                    searchButton.setEnabled(true);
+                }
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 5, 0);
-        add(searchPanel, gridBagConstraints);
+                @Override
+                public void removeUpdate(DocumentEvent e)
+                {
+                    if(searchTextField.getText().equals(""))
+                    searchButton.setEnabled(false);
+                }
 
-        resultsTable.setModel(new SearchTableModel());
-        scrollResultsPanel.setViewportView(resultsTable);
+                @Override
+                public void changedUpdate(DocumentEvent e)
+                {
+                }
+            });
+            gridBagConstraints = new java.awt.GridBagConstraints();
+            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridy = 0;
+            gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+            searchPanel.add(searchTextField, gridBagConstraints);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 10, 10);
-        add(scrollResultsPanel, gridBagConstraints);
+            searchButton.setText("Search");
+            searchButton.setEnabled(false);
+            searchButton.addActionListener(new java.awt.event.ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    searchButtonActionPerformed(evt);
+                }
+            });
+            gridBagConstraints = new java.awt.GridBagConstraints();
+            gridBagConstraints.gridx = 1;
+            gridBagConstraints.gridy = 0;
+            gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+            searchPanel.add(searchButton, gridBagConstraints);
 
-        selectPanel.setLayout(new java.awt.GridBagLayout());
+            gridBagConstraints = new java.awt.GridBagConstraints();
+            gridBagConstraints.gridx = 1;
+            gridBagConstraints.gridy = 0;
+            gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+            gridBagConstraints.insets = new java.awt.Insets(10, 0, 5, 0);
+            add(searchPanel, gridBagConstraints);
 
-        moviesRadioButton.setText("Movies");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        selectPanel.add(moviesRadioButton, gridBagConstraints);
+            resultsTable.setModel(new SearchTableModel());
+            scrollResultsPanel.setViewportView(resultsTable);
 
-        tvShowsRadioButton.setText("TV Shows");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        selectPanel.add(tvShowsRadioButton, gridBagConstraints);
+            gridBagConstraints = new java.awt.GridBagConstraints();
+            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridy = 1;
+            gridBagConstraints.gridwidth = 2;
+            gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+            gridBagConstraints.insets = new java.awt.Insets(5, 10, 10, 10);
+            add(scrollResultsPanel, gridBagConstraints);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        add(selectPanel, gridBagConstraints);
-    }// </editor-fold>//GEN-END:initComponents
+            selectPanel.setLayout(new java.awt.GridBagLayout());
+
+            moviesRadioButton.setText("Movies");
+            gridBagConstraints = new java.awt.GridBagConstraints();
+            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridy = 0;
+            gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+            gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+            selectPanel.add(moviesRadioButton, gridBagConstraints);
+
+            tvShowsRadioButton.setText("TV Shows");
+            gridBagConstraints = new java.awt.GridBagConstraints();
+            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridy = 1;
+            gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+            gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+            selectPanel.add(tvShowsRadioButton, gridBagConstraints);
+
+            gridBagConstraints = new java.awt.GridBagConstraints();
+            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridy = 0;
+            add(selectPanel, gridBagConstraints);
+        }// </editor-fold>//GEN-END:initComponents
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_searchButtonActionPerformed
+    {//GEN-HEADEREND:event_searchButtonActionPerformed
+        if(tvShowsRadioButton.isSelected())
+        {
+            SearchTV search = new SearchTV(searchTextField.getText());
+            SearchTableModel model = (SearchTableModel)resultsTable.getModel();
+            model.clear();
+            for(TVShow show : search.proceed())
+            {
+                model.addLigne(show);
+            }
+        }
+    }//GEN-LAST:event_searchButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
