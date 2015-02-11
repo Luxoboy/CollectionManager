@@ -5,7 +5,9 @@
  */
 package com.luxoboy.collectionmanager.view;
 
+import java.util.Date;
 import javax.swing.AbstractListModel;
+import javax.swing.JFrame;
 
 /**
  *
@@ -13,10 +15,12 @@ import javax.swing.AbstractListModel;
  */
 public class UserCollection extends javax.swing.JPanel {
 
+    private JFrame parent;
     /**
      * Creates new form List
      */
-    public UserCollection() {
+    public UserCollection(JFrame parent) {
+        this.parent = parent;
         initComponents();
     }
 
@@ -45,6 +49,18 @@ public class UserCollection extends javax.swing.JPanel {
         description = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
         descriptionTextArea = new javax.swing.JTextArea();
+        reviewPanel = new javax.swing.JPanel();
+        review = new javax.swing.JLabel();
+        reviewScroll = new javax.swing.JScrollPane();
+        reviewTextArea = new javax.swing.JTextArea();
+        ratePanel = new javax.swing.JPanel();
+        rate = new javax.swing.JLabel();
+        note1 = new javax.swing.JRadioButton();
+        note2 = new javax.swing.JRadioButton();
+        note3 = new javax.swing.JRadioButton();
+        note4 = new javax.swing.JRadioButton();
+        note5 = new javax.swing.JRadioButton();
+        removeButton = new javax.swing.JButton();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -59,7 +75,6 @@ public class UserCollection extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         add(scrollList, gridBagConstraints);
 
@@ -76,6 +91,7 @@ public class UserCollection extends javax.swing.JPanel {
 
         infoPanel.setLayout(new java.awt.GridBagLayout());
 
+        name.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         name.setText("Name");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -83,6 +99,7 @@ public class UserCollection extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         infoPanel.add(name, gridBagConstraints);
 
+        year.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         year.setText("Year :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -90,6 +107,7 @@ public class UserCollection extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         infoPanel.add(year, gridBagConstraints);
 
+        numberOfSeason.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         numberOfSeason.setText("Number of season :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -97,6 +115,7 @@ public class UserCollection extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         infoPanel.add(numberOfSeason, gridBagConstraints);
 
+        numberOfSeasonValue.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         numberOfSeasonValue.setText("0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -104,6 +123,7 @@ public class UserCollection extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         infoPanel.add(numberOfSeasonValue, gridBagConstraints);
 
+        yearValue.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         yearValue.setText("00/00/0000");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -125,6 +145,7 @@ public class UserCollection extends javax.swing.JPanel {
 
         descriptionPanel.setLayout(new java.awt.GridBagLayout());
 
+        description.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         description.setText("Description :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -134,6 +155,7 @@ public class UserCollection extends javax.swing.JPanel {
 
         descriptionTextArea.setColumns(20);
         descriptionTextArea.setRows(5);
+        descriptionTextArea.setEnabled(false);
         scrollPane.setViewportView(descriptionTextArea);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -147,6 +169,73 @@ public class UserCollection extends javax.swing.JPanel {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         detailPanel.add(descriptionPanel, gridBagConstraints);
+
+        reviewPanel.setLayout(new java.awt.GridBagLayout());
+
+        review.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        review.setText("Review :");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        reviewPanel.add(review, gridBagConstraints);
+
+        reviewTextArea.setColumns(20);
+        reviewTextArea.setRows(5);
+        reviewScroll.setViewportView(reviewTextArea);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        reviewPanel.add(reviewScroll, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        detailPanel.add(reviewPanel, gridBagConstraints);
+
+        ratePanel.setLayout(new java.awt.GridBagLayout());
+
+        rate.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        rate.setText("Rate :");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        ratePanel.add(rate, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        ratePanel.add(note1, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        ratePanel.add(note2, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 0;
+        ratePanel.add(note3, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 0;
+        ratePanel.add(note4, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 0;
+        ratePanel.add(note5, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        detailPanel.add(ratePanel, gridBagConstraints);
+
+        removeButton.setText("Remove");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        detailPanel.add(removeButton, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -169,9 +258,21 @@ public class UserCollection extends javax.swing.JPanel {
     private javax.swing.JPanel informationsPanel;
     private javax.swing.JList list;
     private javax.swing.JLabel name;
+    private javax.swing.JRadioButton note1;
+    private javax.swing.JRadioButton note2;
+    private javax.swing.JRadioButton note3;
+    private javax.swing.JRadioButton note4;
+    private javax.swing.JRadioButton note5;
     private javax.swing.JLabel numberOfSeason;
     private javax.swing.JLabel numberOfSeasonValue;
     private javax.swing.JPanel picturePanel;
+    private javax.swing.JLabel rate;
+    private javax.swing.JPanel ratePanel;
+    private javax.swing.JButton removeButton;
+    private javax.swing.JLabel review;
+    private javax.swing.JPanel reviewPanel;
+    private javax.swing.JScrollPane reviewScroll;
+    private javax.swing.JTextArea reviewTextArea;
     private javax.swing.JScrollPane scrollList;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JLabel year;
