@@ -33,7 +33,18 @@ public class UserCollection extends javax.swing.JPanel {
         scrollList = new javax.swing.JScrollPane();
         list = new javax.swing.JList();
         detailPanel = new Details();
-        ratePanel = new javax.swing.JPanel();
+        informationsPanel = new javax.swing.JPanel();
+        picturePanel = new javax.swing.JPanel();
+        infoPanel = new javax.swing.JPanel();
+        name = new javax.swing.JLabel();
+        year = new javax.swing.JLabel();
+        numberOfSeason = new javax.swing.JLabel();
+        numberOfSeasonValue = new javax.swing.JLabel();
+        yearValue = new javax.swing.JLabel();
+        descriptionPanel = new javax.swing.JPanel();
+        description = new javax.swing.JLabel();
+        scrollPane = new javax.swing.JScrollPane();
+        descriptionTextArea = new javax.swing.JTextArea();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -51,16 +62,97 @@ public class UserCollection extends javax.swing.JPanel {
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         add(scrollList, gridBagConstraints);
+
+        detailPanel.setLayout(new java.awt.GridBagLayout());
+
+        informationsPanel.setLayout(new java.awt.GridBagLayout());
+
+        picturePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        informationsPanel.add(picturePanel, gridBagConstraints);
+
+        infoPanel.setLayout(new java.awt.GridBagLayout());
+
+        name.setText("Name");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        infoPanel.add(name, gridBagConstraints);
+
+        year.setText("Year :");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        infoPanel.add(year, gridBagConstraints);
+
+        numberOfSeason.setText("Number of season :");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        infoPanel.add(numberOfSeason, gridBagConstraints);
+
+        numberOfSeasonValue.setText("0");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        infoPanel.add(numberOfSeasonValue, gridBagConstraints);
+
+        yearValue.setText("00/00/0000");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        infoPanel.add(yearValue, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        informationsPanel.add(infoPanel, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        detailPanel.add(informationsPanel, gridBagConstraints);
+
+        descriptionPanel.setLayout(new java.awt.GridBagLayout());
+
+        description.setText("Description :");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        descriptionPanel.add(description, gridBagConstraints);
+
+        descriptionTextArea.setColumns(20);
+        descriptionTextArea.setRows(5);
+        scrollPane.setViewportView(descriptionTextArea);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        descriptionPanel.add(scrollPane, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        detailPanel.add(descriptionPanel, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         add(detailPanel, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        add(ratePanel, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listValueChanged
@@ -69,9 +161,20 @@ public class UserCollection extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel description;
+    private javax.swing.JPanel descriptionPanel;
+    private javax.swing.JTextArea descriptionTextArea;
     private javax.swing.JPanel detailPanel;
+    private javax.swing.JPanel infoPanel;
+    private javax.swing.JPanel informationsPanel;
     private javax.swing.JList list;
-    private javax.swing.JPanel ratePanel;
+    private javax.swing.JLabel name;
+    private javax.swing.JLabel numberOfSeason;
+    private javax.swing.JLabel numberOfSeasonValue;
+    private javax.swing.JPanel picturePanel;
     private javax.swing.JScrollPane scrollList;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JLabel year;
+    private javax.swing.JLabel yearValue;
     // End of variables declaration//GEN-END:variables
 }
