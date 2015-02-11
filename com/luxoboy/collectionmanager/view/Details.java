@@ -5,6 +5,7 @@
  */
 package com.luxoboy.collectionmanager.view;
 
+import com.luxoboy.collectionmanager.api.model.TVShow;
 import javax.swing.ImageIcon;
 
 /**
@@ -16,7 +17,9 @@ public class Details extends javax.swing.JPanel {
     /**
      * Creates new form Details
      */
-    public Details() {
+    public Details(Search s, TVShow tvs) {
+        search = s;
+        tvShow = tvs;        
         initComponents();
     }
     
@@ -65,7 +68,7 @@ public class Details extends javax.swing.JPanel {
         infoPanel.setLayout(new java.awt.GridBagLayout());
 
         name.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        name.setText("Name");
+        name.setText(tvShow.getOriginalName);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -97,7 +100,7 @@ public class Details extends javax.swing.JPanel {
         infoPanel.add(numberOfSeasonValue, gridBagConstraints);
 
         yearValue.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        yearValue.setText("00/00/0000");
+        yearValue.setText(tvShow.getYear());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -138,6 +141,11 @@ public class Details extends javax.swing.JPanel {
         descriptionPanel.add(jScrollPane1, gridBagConstraints);
 
         addButton.setText("Add to my Collection");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -150,6 +158,13 @@ public class Details extends javax.swing.JPanel {
         add(descriptionPanel, gridBagConstraints);
 
         buttonPanel.setLayout(new java.awt.GridBagLayout());
+
+        backButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -163,7 +178,18 @@ public class Details extends javax.swing.JPanel {
         add(buttonPanel, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        this.setVisible(false);
+        search.setVisible(true);
+        
+    }//GEN-LAST:event_backButtonActionPerformed
 
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addButtonActionPerformed
+    
+    private Search search;
+    private TVShow tvShow;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JButton backButton;
