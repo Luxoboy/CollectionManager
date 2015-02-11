@@ -32,7 +32,7 @@ public class UserCollection extends javax.swing.JPanel {
 
         scrollList = new javax.swing.JScrollPane();
         list = new javax.swing.JList();
-        detailPanel = new Details();
+        detailPanel = new javax.swing.JPanel();
         informationsPanel = new javax.swing.JPanel();
         picturePanel = new javax.swing.JPanel();
         infoPanel = new javax.swing.JPanel();
