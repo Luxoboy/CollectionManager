@@ -6,10 +6,9 @@
 package com.luxoboy.collectionmanager.api;
 
 import com.luxoboy.collectionmanager.api.model.TVShow;
-import java.io.Writer;
 import java.util.ArrayList;
+import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONWriter;
 
 /**
  *
@@ -29,13 +28,33 @@ public class SearchTV extends ApiRequest implements TVRequest
         try
         {
             JSONObject res = fetch();
-            System.out.println(res.toString(1));
+            int total_pages = res.getInt("total_pages"),
+                    fetched_pages = 1;
+            ArrayList<TVShow> shows = new ArrayList<>();
+            JSONArray res_shows; 
+            while(fetched_pages < total_pages && fetched_pages < MAX_FETCHED_PAGES)
+            {
+                if(fetched_pages != 1)
+                {
+                    addParameter("page", Integer.toString(fetched_pages+1));
+                    res = fetch();
+                }
+                res_shows = res.getJSONArray("results");
+                for(int i=0; i < res_shows.length(); i++)
+                {
+                    TVShow tvs = TVShow.parseJSON(res_shows.getJSONObject(i));
+                    if(tvs != null)
+                        shows.add(tvs);
+                }
+                fetched_pages++;
+            }
+            return shows;
+            
         } catch (Exception ex)
         {
             ex.printStackTrace();
             return null;
         }
-        return null;
     }
     
 }
