@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONObject;
@@ -23,12 +24,13 @@ public abstract class ApiRequest
     /**
      * Base URL of the API.
      */
-    protected static String BASE_URL = "http://api.themoviedb.org/3/";
+    protected static final String BASE_URL = "http://api.themoviedb.org/3/";
     
-    /**
-     * The final URL of the used ressource.
-     */
-    protected static String FINAL_URL;
+    private String RESSOURCE_URL;
+    
+    public static final int MAX_FETCHED_PAGES = 5;
+    
+    protected HashMap<String, String> parameters;
     
     public static String BASE_IMG_URL = null;
     
@@ -42,15 +44,19 @@ public abstract class ApiRequest
     
     protected ApiRequest(String RESSOURCE_URL)
     {
-        FINAL_URL = BASE_URL+RESSOURCE_URL+"?";
+        this.RESSOURCE_URL = RESSOURCE_URL;
+        this.parameters = new HashMap<>();
     }
     
-    /**
-     * Appends API Key to url.
-     */
-    protected void appendApiKey()
+    protected String buildURL()
     {
-        FINAL_URL+="api_key="+ApiKey.get();
+        String final_url = BASE_URL+RESSOURCE_URL+"?";
+        for(String key : parameters.keySet())
+        {
+            final_url+=key+"="+parameters.get(key)+"&";
+        }
+        final_url+="api_key="+ApiKey.get();
+        return final_url;
     }
     
     /**
@@ -60,7 +66,7 @@ public abstract class ApiRequest
      */
     protected void addParameter(String name, String value)
     {
-        FINAL_URL+=name+"="+value+"&";
+        parameters.put(name, value);
     }
     
     /**
@@ -104,7 +110,7 @@ public abstract class ApiRequest
      */
     protected JSONObject fetch() throws Exception
     {
-        appendApiKey();
+        final String FINAL_URL = buildURL();
         try
         {
             URL = new URL(FINAL_URL);
