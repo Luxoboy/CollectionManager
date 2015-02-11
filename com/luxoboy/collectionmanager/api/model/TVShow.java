@@ -24,6 +24,7 @@ public class TVShow extends ModelBase
     private String original_name, name;
     private ArrayList<String> origin_country;
     private Date first_air_date;
+    private String backdrop_filename;
 
     static private final DateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -54,6 +55,16 @@ public class TVShow extends ModelBase
         }
     }
 
+    public String getBackdrop_filename()
+    {
+        return backdrop_filename;
+    }
+
+    public void setBackdrop_filename(String backdrop_filename)
+    {
+        this.backdrop_filename = backdrop_filename;
+    }
+    
     public static TVShow parseJSON(JSONObject obj)
     {
         String original_name;
