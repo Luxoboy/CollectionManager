@@ -47,6 +47,8 @@ public class Details extends javax.swing.JPanel {
         numberOfSeason = new javax.swing.JLabel();
         numberOfSeasonValue = new javax.swing.JLabel();
         yearValue = new javax.swing.JLabel();
+        rate = new javax.swing.JLabel();
+        rateValue = new javax.swing.JLabel();
         descriptionPanel = new javax.swing.JPanel();
         description = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -74,7 +76,7 @@ public class Details extends javax.swing.JPanel {
         name.setText("Name");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         infoPanel.add(name, gridBagConstraints);
 
@@ -82,7 +84,7 @@ public class Details extends javax.swing.JPanel {
         year.setText("Year :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         infoPanel.add(year, gridBagConstraints);
 
@@ -90,7 +92,7 @@ public class Details extends javax.swing.JPanel {
         numberOfSeason.setText("Number of season : ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         infoPanel.add(numberOfSeason, gridBagConstraints);
 
@@ -98,7 +100,7 @@ public class Details extends javax.swing.JPanel {
         numberOfSeasonValue.setText("0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         infoPanel.add(numberOfSeasonValue, gridBagConstraints);
 
@@ -106,9 +108,25 @@ public class Details extends javax.swing.JPanel {
         yearValue.setText("00/00/00");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         infoPanel.add(yearValue, gridBagConstraints);
+
+        rate.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        rate.setText("Rate :");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        infoPanel.add(rate, gridBagConstraints);
+
+        rateValue.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        rateValue.setText("0/10");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        infoPanel.add(rateValue, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
@@ -203,6 +221,8 @@ public class Details extends javax.swing.JPanel {
     private javax.swing.JLabel numberOfSeason;
     private javax.swing.JLabel numberOfSeasonValue;
     private javax.swing.JPanel picturePanel;
+    private javax.swing.JLabel rate;
+    private javax.swing.JLabel rateValue;
     private javax.swing.JLabel year;
     private javax.swing.JLabel yearValue;
     // End of variables declaration//GEN-END:variables
