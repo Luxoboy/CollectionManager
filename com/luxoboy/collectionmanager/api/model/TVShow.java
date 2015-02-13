@@ -40,40 +40,11 @@ public class TVShow extends ModelBase
 
     static private final DateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
 
-    public TVShow(int id)
-    {
-        super(id);
-    }
-    
     private TVShow()
     {
         super(-1);
     }
 
-    public TVShow(int id, String original_name, String name, JSONArray original_country,
-            String first_air_date, double vote_average, String backdrop_filename)
-    {
-        super(id);
-        this.original_name = original_name;
-        this.name = name;
-        this.backdrop_filename = backdrop_filename;
-        this.origin_country = new ArrayList<>(original_country.length());
-        this.vote_average = vote_average;
-        for (int i = 0; i < original_country.length(); i++)
-        {
-            this.origin_country.add(original_country.getString(i));
-        }
-        try
-        {
-            this.first_air_date = date_format.parse(first_air_date);
-        } catch (ParseException ex)
-        {
-            ex.printStackTrace();
-            System.out.println("Error while parsing first air date: " + first_air_date);
-            this.first_air_date = new Date(0);
-        }
-        save();
-    }
 
     public String getBackdrop_filename()
     {
@@ -112,6 +83,19 @@ public class TVShow extends ModelBase
             ex.printStackTrace();
             System.out.println("Error while parsing TV Show JSON DATA:\n" + obj.toString(1));
             return false;
+        }
+        try
+        {
+            origin_country = new ArrayList<>();
+            JSONArray countries = obj.getJSONArray("origin_country");
+            for(int i=0; i < countries.length(); i++)
+            {
+                origin_country.add(countries.getString(i));
+            }
+        }
+        catch(JSONException ex)
+        {
+            origin_country = null;
         }
         try
         {
