@@ -5,6 +5,8 @@
  */
 package com.luxoboy.collectionmanager.api.model;
 
+import org.json.JSONObject;
+
 /**
  *
  * @author Anthony Correia
@@ -27,6 +29,15 @@ public abstract class ModelBase
     {
         this.id = id;
     }
+    
+    protected JSONObject toJSON_base()
+    {
+        JSONObject ret = new JSONObject();
+        ret.put("id", id);
+        return ret;
+    }
+    
+    abstract JSONObject toJSON();
     
     protected int getId()
     {
