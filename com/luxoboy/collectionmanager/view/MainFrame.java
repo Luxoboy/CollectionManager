@@ -7,13 +7,13 @@
 package com.luxoboy.collectionmanager.view;
 
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 /**
  *
  * @author thiba_000
  */
 public class MainFrame extends javax.swing.JFrame {
-    
     private JPanel searchView;
     private JPanel detailsView;
     private JPanel userCollectionView;
@@ -139,6 +139,13 @@ public class MainFrame extends javax.swing.JFrame {
                 new MainFrame().setVisible(true);
             }
         });
+        
+        try {
+            UIManager.setLookAndFeel(
+                    UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
