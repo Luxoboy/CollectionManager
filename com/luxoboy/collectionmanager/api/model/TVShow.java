@@ -5,6 +5,12 @@
  */
 package com.luxoboy.collectionmanager.api.model;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,9 +26,9 @@ import org.json.JSONObject;
  */
 public class TVShow extends ModelBase
 {
-    
+
     static public final String BASE_TV_SHOW_PATH = "tvs/";
-    
+
     private String original_name, name;
     private ArrayList<String> origin_country;
     private Date first_air_date;
@@ -58,6 +64,7 @@ public class TVShow extends ModelBase
             System.out.println("Error while parsing first air date: " + first_air_date);
             this.first_air_date = new Date(0);
         }
+        save();
     }
 
     public String getBackdrop_filename()
@@ -67,10 +74,10 @@ public class TVShow extends ModelBase
 
     public static TVShow parseJSON(JSONObject obj)
     {
-        String original_name,
-                first_air_date,
-                name,
-                backdrop_filename;
+        String original_name = null,
+                first_air_date = null,
+                name = null,
+                backdrop_filename = null;
         double vote_average;
         TVShow tvs;
         int id;
@@ -79,7 +86,10 @@ public class TVShow extends ModelBase
             id = obj.getInt("id");
             original_name = obj.getString("original_name");
             name = obj.getString("name");
-            backdrop_filename = obj.getString("backdrop_path").substring(1);
+            if (!obj.isNull("backdrop_path"))
+            {
+                backdrop_filename = obj.getString("backdrop_path").substring(1);
+            }
 
         } catch (JSONException ex)
         {
@@ -97,8 +107,7 @@ public class TVShow extends ModelBase
         try
         {
             vote_average = obj.getDouble("vote_average");
-        }
-        catch(JSONException ex)
+        } catch (JSONException ex)
         {
             vote_average = -1;
         }
@@ -107,12 +116,44 @@ public class TVShow extends ModelBase
                 backdrop_filename);
         return tvs;
     }
-    
+
+    /**
+     * Saves the data to a file containing data formatted in JSON.
+     *
+     * @throws Exception
+     */
+    private void save()
+    {
+        String path = buildDataFilePath();
+        Writer writer = null;
+        try
+        {
+            File f = new File(path);
+            if (!f.exists())
+            {
+                f.getParentFile().mkdirs();
+            }
+            writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(f)));
+            writer.write(toJSON().toString());
+        } catch (IOException ex)
+        {
+            System.out.println("Error occured when writing data file for TV Show"
+                    + "id " + id + ".");
+        } finally
+        {
+            if (writer != null)
+            {
+                writer.close();
+            }
+        }
+    }
+
     public double getVote_average()
     {
         return vote_average;
     }
-    
+
     public String getOriginal_name()
     {
         return original_name;
@@ -136,7 +177,32 @@ public class TVShow extends ModelBase
     @Override
     protected String buildDataFilePath()
     {
-        return getDataBasePath()+BASE_TV_SHOW_PATH+Integer.toString(id);
+        return getDataBasePath() + BASE_TV_SHOW_PATH + Integer.toString(id);
+    }
+
+    /**
+     * Exports all data to a JSON object.
+     *
+     * @return The created JSON object.
+     */
+    @Override
+    JSONObject toJSON()
+    {
+        JSONObject ret = toJSON_base();
+
+        ret.put("name", name);
+        ret.put("original_name", original_name);
+        ret.put("vote_average", vote_average);
+        ret.put("first_air_date", date_format.format(first_air_date));
+
+        JSONArray origin_country_array = new JSONArray();
+        for (String country : origin_country)
+        {
+            origin_country_array.put(country);
+        }
+        ret.put("origin_country", origin_country_array);
+
+        return ret;
     }
 
 }
