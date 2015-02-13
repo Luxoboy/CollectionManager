@@ -25,6 +25,7 @@ public class TVShow extends ModelBase
     private ArrayList<String> origin_country;
     private Date first_air_date;
     private String backdrop_filename;
+    private double vote_average;
 
     static private final DateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -34,12 +35,13 @@ public class TVShow extends ModelBase
     }
 
     public TVShow(int id, String original_name, String name, JSONArray original_country,
-            String first_air_date)
+            String first_air_date, double vote_average)
     {
         super(id);
         this.original_name = original_name;
         this.name = name;
         this.origin_country = new ArrayList<>(original_country.length());
+        this.vote_average = vote_average;
         for (int i = 0; i < original_country.length(); i++)
         {
             this.origin_country.add(original_country.getString(i));
@@ -64,12 +66,13 @@ public class TVShow extends ModelBase
     {
         this.backdrop_filename = backdrop_filename;
     }
-    
+
     public static TVShow parseJSON(JSONObject obj)
     {
         String original_name;
         String first_air_date;
         String name;
+        double vote_average;
         TVShow tvs;
         int id;
         try
@@ -77,7 +80,7 @@ public class TVShow extends ModelBase
             id = obj.getInt("id");
             original_name = obj.getString("original_name");
             name = obj.getString("name");
-            
+
         } catch (JSONException ex)
         {
             ex.printStackTrace();
@@ -87,16 +90,28 @@ public class TVShow extends ModelBase
         try
         {
             first_air_date = obj.getString("first_air_date");
-        }
-        catch(JSONException ex)
+        } catch (JSONException ex)
         {
             first_air_date = "1971-01-01";
         }
+        try
+        {
+            vote_average = obj.getDouble("vote_average");
+        }
+        catch(JSONException ex)
+        {
+            vote_average = -1;
+        }
         tvs = new TVShow(id, original_name, name,
-                    obj.getJSONArray("origin_country"), first_air_date);
-            return tvs;
+                obj.getJSONArray("origin_country"), first_air_date, vote_average);
+        return tvs;
     }
 
+    public double getVote_average()
+    {
+        return vote_average;
+    }
+    
     public String getOriginal_name()
     {
         return original_name;
