@@ -9,7 +9,7 @@ package com.luxoboy.collectionmanager.api.model;
  *
  * @author Anthony Correia
  */
-public class ModelBase
+public abstract class ModelBase
 {
     static public final String BASE_CACHE_PATH = "cache/";
     static public final String BASE_IMG_PATH = "img/";
@@ -42,5 +42,7 @@ public class ModelBase
     {
         return BASE_CACHE_PATH+BASE_DATA_PATH;
     }
+    
+    abstract protected String buildDataFilePath();
     
 }

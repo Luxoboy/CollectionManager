@@ -107,7 +107,7 @@ public class TVShow extends ModelBase
                 backdrop_filename);
         return tvs;
     }
-
+    
     public double getVote_average()
     {
         return vote_average;
@@ -131,6 +131,12 @@ public class TVShow extends ModelBase
     public Date getFirst_air_date()
     {
         return first_air_date;
+    }
+
+    @Override
+    protected String buildDataFilePath()
+    {
+        return getDataBasePath()+BASE_TV_SHOW_PATH+Integer.toString(id);
     }
 
 }
