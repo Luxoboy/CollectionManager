@@ -15,9 +15,9 @@ import javax.swing.UIManager;
 public class MainFrame extends javax.swing.JFrame
 {
 
-    private JPanel searchView;
-    private JPanel detailsView;
-    private JPanel userCollectionView;
+    private final JPanel searchView;
+    private final JPanel detailsView;
+    private final JPanel userCollectionView;
 
     /**
      * Creates new form MainFrame
