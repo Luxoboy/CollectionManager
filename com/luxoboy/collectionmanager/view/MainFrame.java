@@ -37,7 +37,8 @@ public class MainFrame extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         menuBar = new javax.swing.JMenuBar();
         moviesMenu = new javax.swing.JMenu();
@@ -48,25 +49,31 @@ public class MainFrame extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         moviesMenu.setText("Movies");
-        moviesMenu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        moviesMenu.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 moviesMenuMouseClicked(evt);
             }
         });
         menuBar.add(moviesMenu);
 
         tvShowsMenu.setText("TV Shows");
-        tvShowsMenu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        tvShowsMenu.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 tvShowsMenuMouseClicked(evt);
             }
         });
         menuBar.add(tvShowsMenu);
 
         searchMenu.setText("Search");
-        searchMenu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                searchMenuMouseClicked(evt);
+        searchMenu.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mousePressed(java.awt.event.MouseEvent evt)
+            {
+                searchMenuMousePressed(evt);
             }
         });
         menuBar.add(searchMenu);
@@ -102,11 +109,11 @@ public class MainFrame extends javax.swing.JFrame
         this.pack();
     }//GEN-LAST:event_tvShowsMenuMouseClicked
 
-    private void searchMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMenuMouseClicked
-        // TODO add your handling code here:
+    private void searchMenuMousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_searchMenuMousePressed
+    {//GEN-HEADEREND:event_searchMenuMousePressed
         this.setContentPane(searchView);
         this.pack();
-    }//GEN-LAST:event_searchMenuMouseClicked
+    }//GEN-LAST:event_searchMenuMousePressed
 
     /**
      * @param args the command line arguments

@@ -25,7 +25,7 @@
             <Property name="text" type="java.lang.String" value="Search"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="searchMenuMouseClicked"/>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="searchMenuMousePressed"/>
           </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="aboutMenu">
