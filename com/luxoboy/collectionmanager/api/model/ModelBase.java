@@ -34,4 +34,14 @@ public class ModelBase
         return id;
     }
     
+    static protected String getImgBasePath()
+    {
+        return BASE_CACHE_PATH+BASE_IMG_PATH;
+    }
+    
+    static protected String getDataBasePath()
+    {
+        return BASE_CACHE_PATH+BASE_DATA_PATH;
+    }
+    
 }
