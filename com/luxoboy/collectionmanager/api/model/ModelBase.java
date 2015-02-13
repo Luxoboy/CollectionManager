@@ -37,7 +37,9 @@ public abstract class ModelBase
         return ret;
     }
     
-    abstract JSONObject toJSON();
+    abstract protected JSONObject toJSON();
+    
+    abstract protected boolean parseJSON(JSONObject obj);
     
     protected int getId()
     {

@@ -46,7 +46,7 @@ public class SearchTV extends ApiRequest implements TVRequest
                 res_shows = res.getJSONArray("results");
                 for(int i=0; i < res_shows.length(); i++)
                 {
-                    TVShow tvs = TVShow.parseJSON(res_shows.getJSONObject(i));
+                    TVShow tvs = TVShow.loadFromJson(res_shows.getJSONObject(i));
                     if(tvs != null)
                         shows.add(tvs);
                 }

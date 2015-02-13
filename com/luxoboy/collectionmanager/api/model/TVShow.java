@@ -15,6 +15,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +43,11 @@ public class TVShow extends ModelBase
     public TVShow(int id)
     {
         super(id);
+    }
+    
+    private TVShow()
+    {
+        super(-1);
     }
 
     public TVShow(int id, String original_name, String name, JSONArray original_country,
@@ -73,38 +79,46 @@ public class TVShow extends ModelBase
     {
         return backdrop_filename;
     }
-
-    public static TVShow parseJSON(JSONObject obj)
+    
+    /**
+     * Parses a JSON object and popualates object.
+     * @param obj The JSON object to parse.
+     * @return False if the object could not be populated.
+     */
+    @Override
+     protected boolean parseJSON(JSONObject obj)
     {
-        String original_name = null,
-                first_air_date = null,
-                name = null,
-                backdrop_filename = null;
-        double vote_average;
-        TVShow tvs;
-        int id;
         try
         {
             id = obj.getInt("id");
-            original_name = obj.getString("original_name");
             name = obj.getString("name");
+        }
+        catch(JSONException ex)
+        {
+            return false;
+        }
+        try
+        {
+            original_name = obj.getString("original_name");
             if (!obj.isNull("backdrop_path"))
             {
                 backdrop_filename = obj.getString("backdrop_path").substring(1);
             }
+            else
+                backdrop_filename = "";
 
         } catch (JSONException ex)
         {
             ex.printStackTrace();
             System.out.println("Error while parsing TV Show JSON DATA:\n" + obj.toString(1));
-            return null;
+            return false;
         }
         try
         {
-            first_air_date = obj.getString("first_air_date");
-        } catch (JSONException ex)
+            first_air_date = date_format.parse(obj.getString("first_air_date"));
+        } catch (JSONException | ParseException ex)
         {
-            first_air_date = "1971-01-01";
+            first_air_date = new Date(0);
         }
         try
         {
@@ -113,10 +127,20 @@ public class TVShow extends ModelBase
         {
             vote_average = -1;
         }
-        tvs = new TVShow(id, original_name, name,
-                obj.getJSONArray("origin_country"), first_air_date, vote_average,
-                backdrop_filename);
-        return tvs;
+        return true;
+    }
+    
+    /**
+     * Creates new TV Show from JSON.
+     * @param obj The JSON object to extract data from.
+     * @return null if the TV Show could not be loaded.
+     */
+    public static TVShow loadFromJson(JSONObject obj)
+    {
+        TVShow tvs = new TVShow();
+        if(tvs.parseJSON(obj))
+            return tvs;
+        return null;
     }
 
     /**
@@ -194,7 +218,7 @@ public class TVShow extends ModelBase
      * @return The created JSON object.
      */
     @Override
-    JSONObject toJSON()
+    protected JSONObject toJSON()
     {
         JSONObject ret = toJSON_base();
 
