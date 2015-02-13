@@ -37,11 +37,12 @@ public class TVShow extends ModelBase
     }
 
     public TVShow(int id, String original_name, String name, JSONArray original_country,
-            String first_air_date, double vote_average)
+            String first_air_date, double vote_average, String backdrop_filename)
     {
         super(id);
         this.original_name = original_name;
         this.name = name;
+        this.backdrop_filename = backdrop_filename;
         this.origin_country = new ArrayList<>(original_country.length());
         this.vote_average = vote_average;
         for (int i = 0; i < original_country.length(); i++)
@@ -64,16 +65,12 @@ public class TVShow extends ModelBase
         return backdrop_filename;
     }
 
-    public void setBackdrop_filename(String backdrop_filename)
-    {
-        this.backdrop_filename = backdrop_filename;
-    }
-
     public static TVShow parseJSON(JSONObject obj)
     {
-        String original_name;
-        String first_air_date;
-        String name;
+        String original_name,
+                first_air_date,
+                name,
+                backdrop_filename;
         double vote_average;
         TVShow tvs;
         int id;
@@ -82,6 +79,7 @@ public class TVShow extends ModelBase
             id = obj.getInt("id");
             original_name = obj.getString("original_name");
             name = obj.getString("name");
+            backdrop_filename = obj.getString("backdrop_path").substring(1);
 
         } catch (JSONException ex)
         {
@@ -105,7 +103,8 @@ public class TVShow extends ModelBase
             vote_average = -1;
         }
         tvs = new TVShow(id, original_name, name,
-                obj.getJSONArray("origin_country"), first_air_date, vote_average);
+                obj.getJSONArray("origin_country"), first_air_date, vote_average,
+                backdrop_filename);
         return tvs;
     }
 
