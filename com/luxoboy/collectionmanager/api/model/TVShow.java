@@ -16,6 +16,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -144,7 +146,13 @@ public class TVShow extends ModelBase
         {
             if (writer != null)
             {
-                writer.close();
+                try
+                {
+                    writer.close();
+                } catch (IOException ex)
+                {
+                    ;
+                }
             }
         }
     }
