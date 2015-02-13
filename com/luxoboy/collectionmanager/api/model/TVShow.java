@@ -20,7 +20,9 @@ import org.json.JSONObject;
  */
 public class TVShow extends ModelBase
 {
-
+    
+    static public final String BASE_TV_SHOW_PATH = "tvs/";
+    
     private String original_name, name;
     private ArrayList<String> origin_country;
     private Date first_air_date;
