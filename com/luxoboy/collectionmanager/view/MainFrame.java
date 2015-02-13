@@ -44,6 +44,7 @@ public class MainFrame extends javax.swing.JFrame
         moviesMenu = new javax.swing.JMenu();
         tvShowsMenu = new javax.swing.JMenu();
         searchMenu = new javax.swing.JMenu();
+        searchMenuItem = new javax.swing.JMenuItem();
         aboutMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -69,13 +70,17 @@ public class MainFrame extends javax.swing.JFrame
         menuBar.add(tvShowsMenu);
 
         searchMenu.setText("Search");
-        searchMenu.addMouseListener(new java.awt.event.MouseAdapter()
+
+        searchMenuItem.setText("Search");
+        searchMenuItem.addActionListener(new java.awt.event.ActionListener()
         {
-            public void mousePressed(java.awt.event.MouseEvent evt)
+            public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                searchMenuMousePressed(evt);
+                searchMenuItemActionPerformed(evt);
             }
         });
+        searchMenu.add(searchMenuItem);
+
         menuBar.add(searchMenu);
 
         aboutMenu.setText("?");
@@ -109,11 +114,11 @@ public class MainFrame extends javax.swing.JFrame
         this.pack();
     }//GEN-LAST:event_tvShowsMenuMouseClicked
 
-    private void searchMenuMousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_searchMenuMousePressed
-    {//GEN-HEADEREND:event_searchMenuMousePressed
+    private void searchMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_searchMenuItemActionPerformed
+    {//GEN-HEADEREND:event_searchMenuItemActionPerformed
         this.setContentPane(searchView);
         this.pack();
-    }//GEN-LAST:event_searchMenuMousePressed
+    }//GEN-LAST:event_searchMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,6 +150,7 @@ public class MainFrame extends javax.swing.JFrame
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu moviesMenu;
     private javax.swing.JMenu searchMenu;
+    private javax.swing.JMenuItem searchMenuItem;
     private javax.swing.JMenu tvShowsMenu;
     // End of variables declaration//GEN-END:variables
 }

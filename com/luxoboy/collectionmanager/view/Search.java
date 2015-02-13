@@ -26,8 +26,6 @@ public class Search extends javax.swing.JPanel {
     public Search(JFrame parent) {
         this.parent = parent;
         initComponents();
-        this.buttonGroup.add(moviesRadioButton);
-        this.buttonGroup.add(tvShowsRadioButton);
         moviesRadioButton.setSelected(true);
     }
 
@@ -127,6 +125,7 @@ public class Search extends javax.swing.JPanel {
 
             selectPanel.setLayout(new java.awt.GridBagLayout());
 
+            buttonGroup.add(moviesRadioButton);
             moviesRadioButton.setText("Movies");
             gridBagConstraints = new java.awt.GridBagConstraints();
             gridBagConstraints.gridx = 0;
@@ -135,6 +134,7 @@ public class Search extends javax.swing.JPanel {
             gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
             selectPanel.add(moviesRadioButton, gridBagConstraints);
 
+            buttonGroup.add(tvShowsRadioButton);
             tvShowsRadioButton.setText("TV Shows");
             gridBagConstraints = new java.awt.GridBagConstraints();
             gridBagConstraints.gridx = 0;
