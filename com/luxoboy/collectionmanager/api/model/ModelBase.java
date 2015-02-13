@@ -14,6 +14,8 @@ public class ModelBase
     static public final String BASE_CACHE_PATH = "cache/";
     static public final String BASE_IMG_PATH = "img/";
     static public final String BASE_DATA_PATH = "data/";
+    static public final String BASE_TV_SHOW_PATH = "tvs/";
+    static public final String BASE_MOVIE_PATH = "movies/";
     protected int id;
     
     /**
