@@ -36,19 +36,28 @@ public class Details extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         java.awt.GridBagConstraints gridBagConstraints;
 
         informationPanel = new javax.swing.JPanel();
         picturePanel = new javax.swing.JPanel();
         infoPanel = new javax.swing.JPanel();
         name = new javax.swing.JLabel();
-        year = new javax.swing.JLabel();
         numberOfSeason = new javax.swing.JLabel();
         numberOfSeasonValue = new javax.swing.JLabel();
         yearValue = new javax.swing.JLabel();
         rate = new javax.swing.JLabel();
         rateValue = new javax.swing.JLabel();
+        createdBy = new javax.swing.JLabel();
+        authors = new javax.swing.JLabel();
+        genres = new javax.swing.JLabel();
+        genresValue = new javax.swing.JLabel();
+        status = new javax.swing.JLabel();
+        statusValue = new javax.swing.JLabel();
+        vote_average = new javax.swing.JLabel();
+        vote_averageValue = new javax.swing.JLabel();
+        goToHomepage = new javax.swing.JButton();
         descriptionPanel = new javax.swing.JPanel();
         description = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -80,19 +89,11 @@ public class Details extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         infoPanel.add(name, gridBagConstraints);
 
-        year.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        year.setText("Year :");
+        numberOfSeason.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        numberOfSeason.setText("Number of seasons");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        infoPanel.add(year, gridBagConstraints);
-
-        numberOfSeason.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        numberOfSeason.setText("Number of season : ");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         infoPanel.add(numberOfSeason, gridBagConstraints);
 
@@ -100,7 +101,7 @@ public class Details extends javax.swing.JPanel {
         numberOfSeasonValue.setText("0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         infoPanel.add(numberOfSeasonValue, gridBagConstraints);
 
@@ -108,7 +109,7 @@ public class Details extends javax.swing.JPanel {
         yearValue.setText("00/00/00");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         infoPanel.add(yearValue, gridBagConstraints);
 
@@ -116,7 +117,7 @@ public class Details extends javax.swing.JPanel {
         rate.setText("Rate :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         infoPanel.add(rate, gridBagConstraints);
 
@@ -124,9 +125,70 @@ public class Details extends javax.swing.JPanel {
         rateValue.setText("0/10");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         infoPanel.add(rateValue, gridBagConstraints);
+
+        createdBy.setText("Created by");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        infoPanel.add(createdBy, gridBagConstraints);
+
+        authors.setText("Vince Gilligan");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        infoPanel.add(authors, gridBagConstraints);
+
+        genres.setText("Genres");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        infoPanel.add(genres, gridBagConstraints);
+
+        genresValue.setText("Drama");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        infoPanel.add(genresValue, gridBagConstraints);
+
+        status.setText("Status");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        infoPanel.add(status, gridBagConstraints);
+
+        statusValue.setText("Ended");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        infoPanel.add(statusValue, gridBagConstraints);
+
+        vote_average.setText("Vote average");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        infoPanel.add(vote_average, gridBagConstraints);
+
+        vote_averageValue.setText("9.1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        infoPanel.add(vote_averageValue, gridBagConstraints);
+
+        goToHomepage.setText("Go to homepage");
+        goToHomepage.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                goToHomepageActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        infoPanel.add(goToHomepage, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
@@ -152,6 +214,7 @@ public class Details extends javax.swing.JPanel {
 
         descriptionText.setColumns(20);
         descriptionText.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
+        descriptionText.setLineWrap(true);
         descriptionText.setRows(5);
         descriptionText.setEnabled(false);
         jScrollPane1.setViewportView(descriptionText);
@@ -162,8 +225,10 @@ public class Details extends javax.swing.JPanel {
         descriptionPanel.add(jScrollPane1, gridBagConstraints);
 
         addButton.setText("Add to my Collection");
-        addButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        addButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 addButtonActionPerformed(evt);
             }
         });
@@ -181,8 +246,10 @@ public class Details extends javax.swing.JPanel {
         buttonPanel.setLayout(new java.awt.GridBagLayout());
 
         backButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        backButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        backButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 backButtonActionPerformed(evt);
             }
         });
@@ -206,14 +273,24 @@ public class Details extends javax.swing.JPanel {
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addButtonActionPerformed
+
+    private void goToHomepageActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_goToHomepageActionPerformed
+    {//GEN-HEADEREND:event_goToHomepageActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_goToHomepageActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
+    private javax.swing.JLabel authors;
     private javax.swing.JButton backButton;
     private javax.swing.JPanel buttonPanel;
+    private javax.swing.JLabel createdBy;
     private javax.swing.JLabel description;
     private javax.swing.JPanel descriptionPanel;
     private javax.swing.JTextArea descriptionText;
+    private javax.swing.JLabel genres;
+    private javax.swing.JLabel genresValue;
+    private javax.swing.JButton goToHomepage;
     private javax.swing.JPanel infoPanel;
     private javax.swing.JPanel informationPanel;
     private javax.swing.JScrollPane jScrollPane1;
@@ -223,7 +300,10 @@ public class Details extends javax.swing.JPanel {
     private javax.swing.JPanel picturePanel;
     private javax.swing.JLabel rate;
     private javax.swing.JLabel rateValue;
-    private javax.swing.JLabel year;
+    private javax.swing.JLabel status;
+    private javax.swing.JLabel statusValue;
+    private javax.swing.JLabel vote_average;
+    private javax.swing.JLabel vote_averageValue;
     private javax.swing.JLabel yearValue;
     // End of variables declaration//GEN-END:variables
 }
