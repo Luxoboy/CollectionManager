@@ -38,7 +38,7 @@ public class SearchTV extends ApiRequest implements TVRequest
             JSONArray res_shows; 
             while(fetched_pages < total_pages && fetched_pages < MAX_FETCHED_PAGES)
             {
-                if(fetched_pages != 1)
+                if(fetched_pages != 0)
                 {
                     addParameter("page", Integer.toString(fetched_pages+1));
                     res = fetch();

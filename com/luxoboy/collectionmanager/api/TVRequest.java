@@ -9,7 +9,7 @@ import com.luxoboy.collectionmanager.api.model.TVShow;
 import java.util.ArrayList;
 
 /**
- *
+ * Interface used for requests which generates new TV Shows.
  * @author Anthony Correia
  */
 public interface TVRequest

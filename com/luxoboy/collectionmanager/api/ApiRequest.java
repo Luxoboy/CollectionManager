@@ -145,4 +145,9 @@ public abstract class ApiRequest
         
         return new JSONObject(response);
     }
+
+    protected void setRESSOURCE_URL(String RESSOURCE_URL)
+    {
+        this.RESSOURCE_URL = RESSOURCE_URL;
+    }
 }
