@@ -41,7 +41,11 @@ public abstract class ModelBase
     
     abstract protected boolean parseJSON(JSONObject obj);
     
-    protected int getId()
+    abstract protected void parseJSONDetails(JSONObject obj);
+    
+    abstract protected String buildDataFilePath();
+    
+    public int getId()
     {
         return id;
     }
@@ -55,7 +59,12 @@ public abstract class ModelBase
     {
         return BASE_CACHE_PATH+BASE_DATA_PATH;
     }
+
+    public boolean isIsPopulated()
+    {
+        return isPopulated;
+    }
     
-    abstract protected String buildDataFilePath();
+    
     
 }

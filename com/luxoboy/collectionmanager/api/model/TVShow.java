@@ -15,10 +15,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,10 +30,13 @@ public class TVShow extends ModelBase
     static public final String BASE_TV_SHOW_PATH = "tvs/";
 
     private String original_name, name;
-    private ArrayList<String> origin_country;
-    private Date first_air_date;
-    private String backdrop_filename;
+    private ArrayList<String> origin_country, authors, genres;
+    private Date first_air_date, last_air_date;
+    private String backdrop_filename, homepage, original_language, overview,
+            status;
     private double vote_average;
+    private boolean in_production;
+    private int number_of_seasons, number_of_episodes;
 
     static private final DateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -45,26 +45,25 @@ public class TVShow extends ModelBase
         super(-1);
     }
 
-
     public String getBackdrop_filename()
     {
         return backdrop_filename;
     }
-    
+
     /**
      * Parses a JSON object and popualates object.
+     *
      * @param obj The JSON object to parse.
      * @return False if the object could not be populated.
      */
     @Override
-     protected boolean parseJSON(JSONObject obj)
+    protected boolean parseJSON(JSONObject obj)
     {
         try
         {
             id = obj.getInt("id");
             name = obj.getString("name");
-        }
-        catch(JSONException ex)
+        } catch (JSONException ex)
         {
             return false;
         }
@@ -74,9 +73,10 @@ public class TVShow extends ModelBase
             if (!obj.isNull("backdrop_path"))
             {
                 backdrop_filename = obj.getString("backdrop_path").substring(1);
-            }
-            else
+            } else
+            {
                 backdrop_filename = "";
+            }
 
         } catch (JSONException ex)
         {
@@ -88,12 +88,11 @@ public class TVShow extends ModelBase
         {
             origin_country = new ArrayList<>();
             JSONArray countries = obj.getJSONArray("origin_country");
-            for(int i=0; i < countries.length(); i++)
+            for (int i = 0; i < countries.length(); i++)
             {
                 origin_country.add(countries.getString(i));
             }
-        }
-        catch(JSONException ex)
+        } catch (JSONException ex)
         {
             origin_country = null;
         }
@@ -113,17 +112,143 @@ public class TVShow extends ModelBase
         }
         return true;
     }
-    
+
+    /**
+     * Parses JSON to extract details and fully populates object.
+     *
+     * @param obj
+     * @return
+     */
+    @Override
+    protected void parseJSONDetails(JSONObject obj)
+    {
+        JSONArray array = null;
+        try
+        {
+            authors = new ArrayList<>();
+            array = obj.getJSONArray("created_by");
+            for (int i = 0; i < array.length(); i++)
+            {
+                authors.add(array.getJSONObject(i).getString("name"));
+            }
+            array = null;
+        } catch (JSONException ex)
+        {
+            System.out.println("Error parsing authors in show " + name);
+            if (array != null)
+            {
+                System.out.println(array.toString(1));
+            }
+            authors = null;
+        }
+        try
+        {
+            genres = new ArrayList<>();
+            array = obj.getJSONArray("genres");
+            for (int i = 0; i < array.length(); i++)
+            {
+                genres.add(array.getJSONObject(i).getString("name"));
+            }
+            array = null;
+        }
+        catch(JSONException ex)
+        {
+            System.out.println("Error parsing genres in show " + name);
+            if (array != null)
+            {
+                System.out.println(array.toString(1));
+            }
+            genres = null;
+        }
+        try
+        {
+            homepage = obj.getString("homepage");
+        }
+        catch(JSONException ex )
+        {
+            System.out.println("Error parsing homepage of show "+name);
+            homepage = null;
+        }
+        try
+        {
+            in_production = obj.getBoolean("in_production");
+        }
+        catch(JSONException ex)
+        {
+            System.out.println("Error parsing in_production of show "+name);
+            in_production = false;
+        }
+        try
+        {
+            String last_air_date_str = obj.getString("last_air_date");
+            last_air_date = date_format.parse(last_air_date_str);
+        }
+        catch(JSONException | ParseException ex)
+        {
+            System.out.println("Error parsing last_air_date of show "+name);
+            last_air_date = new Date(0);
+        }
+        try
+        {
+            number_of_episodes = obj.getInt("number_of_episodes");
+        }
+        catch(JSONException ex)
+        {
+            System.out.println("Error parsing number_of_episodes of show "+name);
+            number_of_episodes = -1;
+        }
+        try
+        {
+            number_of_seasons = obj.getInt("number_of_seasons");
+        }
+        catch(JSONException ex)
+        {
+            System.out.println("Error parsing number_of_seasons of show "+name);
+            number_of_seasons = -1;
+        }
+        try
+        {
+            original_language = obj.getString("original_language");
+        }
+        catch(JSONException ex)
+        {
+            System.out.println("Error parsing original language of show "+name);
+            original_language = null;
+        }
+        try
+        {
+            overview = obj.getString("overview");
+        }
+        catch(JSONException ex)
+        {
+            System.out.println("Error parsing overview of show "+name);
+            overview = null;
+        }
+        try
+        {
+            status = obj.getString("status");
+        }
+        catch(JSONException ex)
+        {
+            System.out.println("Error parsing status of show "+name);
+            status = null;
+        }
+        isPopulated = true;
+    }
+
     /**
      * Creates new TV Show from JSON.
+     *
      * @param obj The JSON object to extract data from.
      * @return null if the TV Show could not be loaded.
      */
     public static TVShow loadFromJson(JSONObject obj)
     {
         TVShow tvs = new TVShow();
-        if(tvs.parseJSON(obj))
+        if (tvs.parseJSON(obj))
+        {
             return tvs;
+        }
         return null;
     }
 
