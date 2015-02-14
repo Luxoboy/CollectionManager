@@ -5,9 +5,13 @@
  */
 package com.luxoboy.collectionmanager.api.model;
 
+import com.luxoboy.collectionmanager.api.TVDetails;
+import com.luxoboy.collectionmanager.api.images.ImageTypes;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -37,12 +41,23 @@ public class TVShow extends ModelBase
     private double vote_average;
     private boolean in_production;
     private int number_of_seasons, number_of_episodes;
+    private Image main_backdrop;
+    
+    /**
+     * Basic informations extracted from search request.
+     */
+    private JSONObject json_base;
+    /**
+     * Detailed informations extracted from TVDetails.
+     */
+    private JSONObject json_details;
 
     static private final DateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
 
     private TVShow()
     {
         super(-1);
+        main_backdrop = null;
     }
 
     public String getBackdrop_filename()
@@ -51,7 +66,7 @@ public class TVShow extends ModelBase
     }
 
     /**
-     * Parses a JSON object and popualates object.
+     * Parses a JSON object and popualates object with base informations.
      *
      * @param obj The JSON object to parse.
      * @return False if the object could not be populated.
@@ -59,6 +74,7 @@ public class TVShow extends ModelBase
     @Override
     protected boolean parseJSON(JSONObject obj)
     {
+        System.out.println("Parsing base informations...");
         try
         {
             id = obj.getInt("id");
@@ -110,6 +126,7 @@ public class TVShow extends ModelBase
         {
             vote_average = -1;
         }
+        json_base = obj;
         return true;
     }
 
@@ -234,6 +251,41 @@ public class TVShow extends ModelBase
             status = null;
         }
         isPopulated = true;
+        json_details = obj;
+        save();
+    }
+    
+    /**
+     * Populates object wether from disk or from API.
+     */
+    public void load()
+    {
+        File f = new File(buildDataFilePath());
+        JSONObject obj = null;
+        if(f.exists())
+        {
+            String json = new String();
+            try
+            {
+                BufferedReader reader = new BufferedReader(new FileReader(f));
+                while(reader.ready())
+                    json+=reader.readLine();
+                obj = new JSONObject(json);
+                System.out.println(name+": loading from local file...");
+            }
+            catch(IOException ex)
+            {
+                ex.printStackTrace();
+                obj = null;
+            }
+        }
+        if(obj == null)
+        {
+            System.out.println(name+": loading from API...");
+            TVDetails tvd = new TVDetails();
+            obj = tvd.proceed(id);
+        }
+        this.parseJSONDetails(obj);
     }
 
     /**
@@ -249,6 +301,7 @@ public class TVShow extends ModelBase
         {
             return tvs;
         }
+        tvs = null;
         return null;
     }
 
@@ -315,6 +368,72 @@ public class TVShow extends ModelBase
         return first_air_date;
     }
 
+    public ArrayList<String> getAuthors()
+    {
+        return authors;
+    }
+
+    public ArrayList<String> getGenres()
+    {
+        return genres;
+    }
+
+    public Date getLast_air_date()
+    {
+        return last_air_date;
+    }
+
+    public String getHomepage()
+    {
+        return homepage;
+    }
+
+    public String getOriginal_language()
+    {
+        return original_language;
+    }
+
+    public String getOverview()
+    {
+        return overview;
+    }
+
+    public String getStatus()
+    {
+        return status;
+    }
+
+    public boolean isIn_production()
+    {
+        return in_production;
+    }
+
+    public int getNumber_of_seasons()
+    {
+        return number_of_seasons;
+    }
+
+    public int getNumber_of_episodes()
+    {
+        return number_of_episodes;
+    }
+    
+    public Image getMain_backdrop(String size)
+    {
+        if(main_backdrop != null)
+        {
+            if(!main_backdrop.getSize().equals(size))
+                main_backdrop = null;
+        }
+        if(main_backdrop == null)
+        {
+            main_backdrop = Image.get(ImageTypes.Backdrop, size, backdrop_filename);
+        }
+        return main_backdrop;
+    }
+    
+    
+
     @Override
     protected String buildDataFilePath()
     {
@@ -329,20 +448,9 @@ public class TVShow extends ModelBase
     @Override
     protected JSONObject toJSON()
     {
-        JSONObject ret = toJSON_base();
-
-        ret.put("name", name);
-        ret.put("original_name", original_name);
-        ret.put("vote_average", vote_average);
-        ret.put("first_air_date", date_format.format(first_air_date));
-
-        JSONArray origin_country_array = new JSONArray();
-        for (String country : origin_country)
-        {
-            origin_country_array.put(country);
-        }
-        ret.put("origin_country", origin_country_array);
-
+        JSONObject ret = new JSONObject(json_base, JSONObject.getNames(json_base));
+        for(String key : JSONObject.getNames(json_details))
+            ret.put(key, json_details.get(key));
         return ret;
     }
 

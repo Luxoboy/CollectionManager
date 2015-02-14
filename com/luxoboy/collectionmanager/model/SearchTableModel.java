@@ -5,6 +5,7 @@
  */
 package com.luxoboy.collectionmanager.model;
 
+import com.luxoboy.collectionmanager.api.model.ModelBase;
 import com.luxoboy.collectionmanager.api.model.TVShow;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,13 +24,13 @@ public class SearchTableModel extends DefaultTableModel
         String name;
         int year;
         String vote_average;
+        TVShow tvs;
 
         public Line(TVShow show)
         {
+            this.tvs = show;
             this.name = show.getName();
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(show.getFirst_air_date());
-            this.year = cal.get(Calendar.YEAR);
+            this.year = ModelBase.getYear(show.getFirst_air_date());
             Double vote_average_raw = show.getVote_average();
             if(vote_average_raw <= 0.0)
             {
@@ -51,6 +52,11 @@ public class SearchTableModel extends DefaultTableModel
     public SearchTableModel()
     {
         super();
+    }
+    
+    public TVShow getTVShow(int row)
+    {
+        return list.get(row).tvs;
     }
 
     @Override

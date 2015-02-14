@@ -5,11 +5,13 @@
  */
 package com.luxoboy.collectionmanager.api.images;
 
+import java.lang.reflect.Field;
+
 /**
  *
  * @author Anthony Correia
  */
-public interface ImageSizes
+public class ImageSizes
 {
     String W300 = "w300";
     String W780 = "w780";

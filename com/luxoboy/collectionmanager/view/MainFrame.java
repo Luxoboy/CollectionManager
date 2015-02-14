@@ -5,6 +5,7 @@
  */
 package com.luxoboy.collectionmanager.view;
 
+import com.luxoboy.collectionmanager.api.model.TVShow;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
@@ -15,9 +16,9 @@ import javax.swing.UIManager;
 public class MainFrame extends javax.swing.JFrame
 {
 
-    private final JPanel searchView;
-    private final JPanel detailsView;
-    private final JPanel userCollectionView;
+    private final Search searchView;
+    private final Details detailsView;
+    private final UserCollection userCollectionView;
 
     /**
      * Creates new form MainFrame
@@ -28,6 +29,12 @@ public class MainFrame extends javax.swing.JFrame
         this.searchView = new Search(this);
         this.detailsView = new Details(this);
         this.userCollectionView = new UserCollection(this);
+    }
+    
+    public void goToDetails(TVShow tvs)
+    {
+        this.setContentPane(detailsView);
+        detailsView.updateInformations(tvs);
     }
 
     /**

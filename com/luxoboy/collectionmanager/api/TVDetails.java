@@ -27,7 +27,6 @@ public class TVDetails extends ApiRequest implements ByIDRequest
         {
             JSONObject ret = null;
             ret = fetch();
-            System.out.println(ret.toString(1));
             return ret;
         }
         catch(Exception ex)

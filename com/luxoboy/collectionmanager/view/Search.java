@@ -19,12 +19,14 @@ import javax.swing.event.DocumentListener;
  */
 public class Search extends javax.swing.JPanel {
 
-    private JFrame parent;
+    private MainFrame parent;
+    SearchTableModel tableModel;
     /**
      * Creates new form Search
      */
-    public Search(JFrame parent) {
+    public Search(MainFrame parent) {
         this.parent = parent;
+        this.tableModel = new SearchTableModel();
         initComponents();
         moviesRadioButton.setSelected(true);
     }
@@ -112,7 +114,14 @@ public class Search extends javax.swing.JPanel {
             gridBagConstraints.insets = new java.awt.Insets(10, 0, 5, 0);
             add(searchPanel, gridBagConstraints);
 
-            resultsTable.setModel(new SearchTableModel());
+            resultsTable.setModel(tableModel);
+            resultsTable.addMouseListener(new java.awt.event.MouseAdapter()
+            {
+                public void mousePressed(java.awt.event.MouseEvent evt)
+                {
+                    resultsTableMousePressed(evt);
+                }
+            });
             scrollResultsPanel.setViewportView(resultsTable);
 
             gridBagConstraints = new java.awt.GridBagConstraints();
@@ -168,6 +177,15 @@ public class Search extends javax.swing.JPanel {
         if(searchButton.isEnabled())
             searchButtonActionPerformed(null);
     }//GEN-LAST:event_searchTextFieldActionPerformed
+
+    private void resultsTableMousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_resultsTableMousePressed
+    {//GEN-HEADEREND:event_resultsTableMousePressed
+        if(evt.getClickCount() == 2 && !evt.isConsumed())
+            {
+                parent.goToDetails(tableModel.getTVShow(resultsTable.getSelectedRow()));
+                evt.consume();
+            }
+    }//GEN-LAST:event_resultsTableMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -6,6 +6,7 @@
 package com.luxoboy.collectionmanager.api.images;
 
 import com.luxoboy.collectionmanager.api.ApiRequest;
+import com.luxoboy.collectionmanager.api.model.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,13 +17,13 @@ import java.net.URLConnection;
 import javax.imageio.ImageIO;
 
 /**
- *
+ * This class is used to access from tmdb's API.
  * @author Anthony Correia
  */
-public class Image
+public class Images
 {
 
-    static public com.luxoboy.collectionmanager.api.model.Image
+    static public Image
             downloadImage(ImageTypes type, String size, String file, boolean saveToDisk)
     {
         String path = ApiRequest.BASE_IMG_URL + size +"/"+ file;
@@ -33,14 +34,14 @@ public class Image
             if (!saveToDisk)
             {
                 img = ImageIO.read(url);
-                return new com.luxoboy.collectionmanager.api.model.Image(type, size, file, img);
+                return new Image(type, size, file, img);
             } else
             {
                 URLConnection con = url.openConnection();
                 InputStream in = con.getInputStream();
                 int read;
                 byte buffer[] = new byte[1024];
-                File f = new File(com.luxoboy.collectionmanager.api.model.Image.buildPath(size, file));
+                File f = new File(Image.buildPath(size, file));
                 f.getParentFile().mkdirs();
                 FileOutputStream out = new FileOutputStream(f);
                 while ((read = in.read(buffer)) > 0)
@@ -56,6 +57,6 @@ public class Image
             System.out.println("Error while downloading image from path: " + path);
             return null;
         }
-        return new com.luxoboy.collectionmanager.api.model.Image(type, size, file);
+        return new Image(type, size, file);
     }
 }

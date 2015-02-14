@@ -5,8 +5,8 @@
  */
 package com.luxoboy.collectionmanager.api.model;
 
-import com.luxoboy.collectionmanager.api.images.ImageSizes;
 import com.luxoboy.collectionmanager.api.images.ImageTypes;
+import com.luxoboy.collectionmanager.api.images.Images;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -50,6 +50,18 @@ public class Image
         loadImage();
     }
     
+    public static Image get(ImageTypes type, String size, String filename)
+    {
+        if(isStored(size, filename))
+        {
+            return new Image(type, size, filename);
+        }
+        else
+        {
+            return Images.downloadImage(type, size, size, true);
+        }
+    }
+    
     private void loadImage()
     {
         try
@@ -74,6 +86,12 @@ public class Image
         if(filename_.startsWith("/"))
             filename_ = filename_.substring(1);
         return ModelBase.BASE_CACHE_PATH+ModelBase.BASE_IMG_PATH+size+"/"+filename_;
+    }
+    
+    static public boolean isStored(String size, String filename)
+    {
+        File f = new File(buildPath(size, filename));
+        return f.exists();
     }
 
     public String getFilename()

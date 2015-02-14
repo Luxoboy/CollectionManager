@@ -5,7 +5,10 @@
  */
 package com.luxoboy.collectionmanager.view;
 
+import com.luxoboy.collectionmanager.api.model.ModelBase;
 import com.luxoboy.collectionmanager.api.model.TVShow;
+import java.awt.Desktop;
+import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -16,6 +19,7 @@ import javax.swing.JFrame;
 public class Details extends javax.swing.JPanel {
     
     private JFrame parent;
+    private TVShow current_tv_show;
 
     /**
      * Creates new form Details
@@ -26,7 +30,34 @@ public class Details extends javax.swing.JPanel {
     }
     
     public void updateInformations(TVShow tv){
+        tv.load();
+        current_tv_show = tv;
+        
         this.name.setText(tv.getName());
+        this.descriptionText.setText(tv.getOverview());
+        this.numberOfSeasonValue.setText(Integer.toString(tv.getNumber_of_seasons()));
+        this.numberOfEpisodesValue.setText(Integer.toString(tv.getNumber_of_episodes()));
+        
+        String authors ="";
+        for(String author : tv.getAuthors())
+            authors+=author+",";
+        authors = authors.substring(0, authors.length()-1);
+        this.authors.setText(authors);
+        
+        String genres ="";
+        for(String genre : tv.getGenres())
+            genres+=genre+",";
+        genres = genres.substring(0, genres.length()-1);
+        this.genresValue.setText(genres);
+        
+        this.status.setText(tv.getStatus());
+        
+        if(tv.getHomepage() != null)
+            goToHomepage.setEnabled(true);
+        else
+            goToHomepage.setEnabled(false);
+        
+        this.yearValue.setText(Integer.toString(ModelBase.getYear(tv.getFirst_air_date())));
     }
 
     /**
@@ -44,22 +75,16 @@ public class Details extends javax.swing.JPanel {
         picturePanel = new javax.swing.JPanel();
         infoPanel = new javax.swing.JPanel();
         name = new javax.swing.JLabel();
-        numberOfSeason = new javax.swing.JLabel();
         numberOfSeasonValue = new javax.swing.JLabel();
         yearValue = new javax.swing.JLabel();
-        rate = new javax.swing.JLabel();
         rateValue = new javax.swing.JLabel();
-        createdBy = new javax.swing.JLabel();
         authors = new javax.swing.JLabel();
-        genres = new javax.swing.JLabel();
         genresValue = new javax.swing.JLabel();
-        status = new javax.swing.JLabel();
         statusValue = new javax.swing.JLabel();
-        vote_average = new javax.swing.JLabel();
         vote_averageValue = new javax.swing.JLabel();
         goToHomepage = new javax.swing.JButton();
+        numberOfEpisodesValue = new javax.swing.JLabel();
         descriptionPanel = new javax.swing.JPanel();
-        description = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         descriptionText = new javax.swing.JTextArea();
         addButton = new javax.swing.JButton();
@@ -117,7 +142,7 @@ public class Details extends javax.swing.JPanel {
         rate.setText("Rate :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         infoPanel.add(rate, gridBagConstraints);
 
@@ -125,56 +150,56 @@ public class Details extends javax.swing.JPanel {
         rateValue.setText("0/10");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         infoPanel.add(rateValue, gridBagConstraints);
 
         createdBy.setText("Created by");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         infoPanel.add(createdBy, gridBagConstraints);
 
         authors.setText("Vince Gilligan");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         infoPanel.add(authors, gridBagConstraints);
 
         genres.setText("Genres");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         infoPanel.add(genres, gridBagConstraints);
 
         genresValue.setText("Drama");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         infoPanel.add(genresValue, gridBagConstraints);
 
         status.setText("Status");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         infoPanel.add(status, gridBagConstraints);
 
         statusValue.setText("Ended");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         infoPanel.add(statusValue, gridBagConstraints);
 
         vote_average.setText("Vote average");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         infoPanel.add(vote_average, gridBagConstraints);
 
         vote_averageValue.setText("9.1");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         infoPanel.add(vote_averageValue, gridBagConstraints);
 
         goToHomepage.setText("Go to homepage");
@@ -187,8 +212,20 @@ public class Details extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         infoPanel.add(goToHomepage, gridBagConstraints);
+
+        numberOfEpisodes.setText("Number of episodes");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        infoPanel.add(numberOfEpisodes, gridBagConstraints);
+
+        numberOfEpisodesValue.setText("98");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        infoPanel.add(numberOfEpisodesValue, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
@@ -276,7 +313,14 @@ public class Details extends javax.swing.JPanel {
 
     private void goToHomepageActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_goToHomepageActionPerformed
     {//GEN-HEADEREND:event_goToHomepageActionPerformed
-        // TODO add your handling code here:
+        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+            try {
+                desktop.browse(new URL(current_tv_show.getHomepage()).toURI());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_goToHomepageActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -284,25 +328,27 @@ public class Details extends javax.swing.JPanel {
     private javax.swing.JLabel authors;
     private javax.swing.JButton backButton;
     private javax.swing.JPanel buttonPanel;
-    private javax.swing.JLabel createdBy;
-    private javax.swing.JLabel description;
+    private static final javax.swing.JLabel createdBy = new javax.swing.JLabel();
+    private static final javax.swing.JLabel description = new javax.swing.JLabel();
     private javax.swing.JPanel descriptionPanel;
     private javax.swing.JTextArea descriptionText;
-    private javax.swing.JLabel genres;
+    private static final javax.swing.JLabel genres = new javax.swing.JLabel();
     private javax.swing.JLabel genresValue;
     private javax.swing.JButton goToHomepage;
     private javax.swing.JPanel infoPanel;
     private javax.swing.JPanel informationPanel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel name;
-    private javax.swing.JLabel numberOfSeason;
+    private static final javax.swing.JLabel numberOfEpisodes = new javax.swing.JLabel();
+    private javax.swing.JLabel numberOfEpisodesValue;
+    private static final javax.swing.JLabel numberOfSeason = new javax.swing.JLabel();
     private javax.swing.JLabel numberOfSeasonValue;
     private javax.swing.JPanel picturePanel;
-    private javax.swing.JLabel rate;
+    private static final javax.swing.JLabel rate = new javax.swing.JLabel();
     private javax.swing.JLabel rateValue;
-    private javax.swing.JLabel status;
+    private static final javax.swing.JLabel status = new javax.swing.JLabel();
     private javax.swing.JLabel statusValue;
-    private javax.swing.JLabel vote_average;
+    private static final javax.swing.JLabel vote_average = new javax.swing.JLabel();
     private javax.swing.JLabel vote_averageValue;
     private javax.swing.JLabel yearValue;
     // End of variables declaration//GEN-END:variables
