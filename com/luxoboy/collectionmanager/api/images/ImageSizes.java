@@ -16,18 +16,6 @@ import java.util.Set;
  */
 public class ImageSizes
 {
-    static public String W300 = "w300",
-            W780 = "w780",
-            W1280 = "w1280",
-            Original = "original",
-            W45 = "w45",
-            W92 = "w92",
-            W185 = "w185",
-            W500 = "w500",
-            W154 = "w154",
-            W342 = "w342",
-            H632 = "h632";
-    
     public static enum SizeList{
         w300,
         w780,
