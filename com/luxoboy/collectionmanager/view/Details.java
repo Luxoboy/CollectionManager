@@ -5,12 +5,17 @@
  */
 package com.luxoboy.collectionmanager.view;
 
+import com.luxoboy.collectionmanager.api.images.ImageSizes;
+import com.luxoboy.collectionmanager.api.images.ImageSizes.SizeList;
+import com.luxoboy.collectionmanager.api.model.Image;
 import com.luxoboy.collectionmanager.api.model.ModelBase;
 import com.luxoboy.collectionmanager.api.model.TVShow;
 import java.awt.Desktop;
+import java.awt.image.BufferedImage;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 /**
  *
@@ -41,7 +46,8 @@ public class Details extends javax.swing.JPanel {
         String authors ="";
         for(String author : tv.getAuthors())
             authors+=author+",";
-        authors = authors.substring(0, authors.length()-1);
+        if(!authors.isEmpty())
+            authors = authors.substring(0, authors.length()-1);
         this.authors.setText(authors);
         
         String genres ="";
@@ -50,7 +56,7 @@ public class Details extends javax.swing.JPanel {
         genres = genres.substring(0, genres.length()-1);
         this.genresValue.setText(genres);
         
-        this.status.setText(tv.getStatus());
+        this.statusValue.setText(tv.getStatus());
         
         if(tv.getHomepage() != null)
             goToHomepage.setEnabled(true);
@@ -58,6 +64,9 @@ public class Details extends javax.swing.JPanel {
             goToHomepage.setEnabled(false);
         
         this.yearValue.setText(Integer.toString(ModelBase.getYear(tv.getFirst_air_date())));
+        
+        Image backdrop = tv.getMain_backdrop(SizeList.w300);
+        picturePanel.add(new JLabel(new ImageIcon(backdrop.getImg())));
     }
 
     /**
@@ -106,7 +115,7 @@ public class Details extends javax.swing.JPanel {
 
         infoPanel.setLayout(new java.awt.GridBagLayout());
 
-        name.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        name.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         name.setText("Name");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -114,92 +123,110 @@ public class Details extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         infoPanel.add(name, gridBagConstraints);
 
-        numberOfSeason.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        numberOfSeason.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         numberOfSeason.setText("Number of seasons");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(numberOfSeason, gridBagConstraints);
 
-        numberOfSeasonValue.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        numberOfSeasonValue.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         numberOfSeasonValue.setText("0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(numberOfSeasonValue, gridBagConstraints);
 
-        yearValue.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        yearValue.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
         yearValue.setText("00/00/00");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         infoPanel.add(yearValue, gridBagConstraints);
 
-        rate.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        rate.setText("Rate :");
+        rate.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        rate.setText("Rate");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(rate, gridBagConstraints);
 
-        rateValue.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        rateValue.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         rateValue.setText("0/10");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(rateValue, gridBagConstraints);
 
+        createdBy.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         createdBy.setText("Created by");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(createdBy, gridBagConstraints);
 
+        authors.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         authors.setText("Vince Gilligan");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(authors, gridBagConstraints);
 
+        genres.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         genres.setText("Genres");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(genres, gridBagConstraints);
 
+        genresValue.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         genresValue.setText("Drama");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(genresValue, gridBagConstraints);
 
+        status.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         status.setText("Status");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(status, gridBagConstraints);
 
+        statusValue.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         statusValue.setText("Ended");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(statusValue, gridBagConstraints);
 
+        vote_average.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         vote_average.setText("Vote average");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(vote_average, gridBagConstraints);
 
+        vote_averageValue.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         vote_averageValue.setText("9.1");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(vote_averageValue, gridBagConstraints);
 
         goToHomepage.setText("Go to homepage");
@@ -213,21 +240,28 @@ public class Details extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(goToHomepage, gridBagConstraints);
 
+        numberOfEpisodes.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         numberOfEpisodes.setText("Number of episodes");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(numberOfEpisodes, gridBagConstraints);
 
+        numberOfEpisodesValue.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         numberOfEpisodesValue.setText("98");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(numberOfEpisodesValue, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         informationPanel.add(infoPanel, gridBagConstraints);
 

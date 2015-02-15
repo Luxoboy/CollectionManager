@@ -5,7 +5,10 @@
  */
 package com.luxoboy.collectionmanager.view;
 
+import com.luxoboy.collectionmanager.api.Configuration;
 import com.luxoboy.collectionmanager.api.model.TVShow;
+import java.awt.Dimension;
+import static java.awt.Frame.MAXIMIZED_BOTH;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
@@ -26,6 +29,8 @@ public class MainFrame extends javax.swing.JFrame
     public MainFrame()
     {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
+        this.setMinimumSize(new Dimension(1280, 720));
         this.searchView = new Search(this);
         this.detailsView = new Details(this);
         this.userCollectionView = new UserCollection(this);
@@ -55,6 +60,7 @@ public class MainFrame extends javax.swing.JFrame
         aboutMenu = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Collection manager");
 
         moviesMenu.setText("Movies");
         moviesMenu.addMouseListener(new java.awt.event.MouseAdapter()
@@ -139,6 +145,14 @@ public class MainFrame extends javax.swing.JFrame
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex)
         {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        try
+        {
+            Configuration.proceed();
+        }
+        catch(Exception ex)
+        {
+            return;
         }
 
         /* Create and display the form */
