@@ -438,7 +438,7 @@ public class TVShow extends ModelBase
     @Override
     protected String buildDataFilePath()
     {
-        return getDataBasePath() + BASE_TV_SHOW_PATH + Integer.toString(id);
+        return getDataBasePath() + BASE_TV_SHOW_PATH + Integer.toString(id)+DATA_FILE_EXTENSION;
     }
 
     /**

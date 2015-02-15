@@ -20,6 +20,7 @@ public abstract class ModelBase
     static public final String BASE_IMG_PATH = "img/";
     static public final String BASE_DATA_PATH = "data/";
     static public final String BASE_MOVIE_PATH = "movies/";
+    static public final String DATA_FILE_EXTENSION = ".json";
     protected int id;
 
     /**
