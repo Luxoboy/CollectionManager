@@ -11,9 +11,9 @@ package com.luxoboy.collectionmanager.api.images;
  */
 public enum ImageTypes
 {
-    Backdrop,
-    Logo,
-    Poster,
-    Profile,
-    Still;
+    backdrop,
+    logo,
+    poster,
+    profile,
+    still;
 }

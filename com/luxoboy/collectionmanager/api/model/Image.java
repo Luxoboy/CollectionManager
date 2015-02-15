@@ -58,7 +58,7 @@ public class Image
         }
         else
         {
-            return Images.downloadImage(type, size, size, true);
+            return Images.downloadImage(type, size, filename, true);
         }
     }
     

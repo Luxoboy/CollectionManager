@@ -27,6 +27,7 @@ public class Images
             downloadImage(ImageTypes type, String size, String file, boolean saveToDisk)
     {
         String path = ApiRequest.BASE_IMG_URL + size +"/"+ file;
+        System.out.println(path);
         BufferedImage img;
         try
         {

@@ -5,6 +5,9 @@
  */
 package com.luxoboy.collectionmanager.api;
 
+import com.luxoboy.collectionmanager.api.images.ImageSizes;
+import com.luxoboy.collectionmanager.api.images.ImageTypes;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,6 +23,10 @@ public class Configuration extends ApiRequest
         super(RESSOURCE_URL);
     }
     
+    /**
+     * Fetched configuration data from API and set variables accordingly.
+     * @throws Exception 
+     */
     static public void proceed() throws Exception
     {
         Configuration conf = new Configuration("configuration");
@@ -33,8 +40,22 @@ public class Configuration extends ApiRequest
         }
         try
         {
-            BASE_IMG_URL = res.getJSONObject("images").getString("base_url");
+            System.out.println("Beginning configuration...");
+            JSONObject images = res.getJSONObject("images");
+            BASE_IMG_URL = images.getString("base_url");
             System.out.println("Set BASE_IMG_URL to "+BASE_IMG_URL);
+            
+            for(ImageTypes type : ImageTypes.values())
+            {
+                String array_name = type.name()+"_sizes";
+                JSONArray array = images.getJSONArray(array_name);
+                for(int i=0; i < array.length(); i++)
+                {
+                    ImageSizes.addAssociation(type, array.getString(i));
+                }
+            }
+            System.out.println("Configuration done.");
+            ImageSizes.isValid(ImageTypes.logo, ImageSizes.SizeList.w300);
         }
         catch(JSONException ex)
         {

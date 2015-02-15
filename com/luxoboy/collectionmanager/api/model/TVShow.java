@@ -427,7 +427,7 @@ public class TVShow extends ModelBase
         }
         if(main_backdrop == null)
         {
-            main_backdrop = Image.get(ImageTypes.Backdrop, size, backdrop_filename);
+            main_backdrop = Image.get(ImageTypes.backdrop, size, backdrop_filename);
         }
         return main_backdrop;
     }
