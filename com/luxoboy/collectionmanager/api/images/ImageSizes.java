@@ -48,6 +48,12 @@ public class ImageSizes
     private static final HashMap<ImageTypes, Set<SizeList>> 
             associations = new HashMap<>(ImageTypes.values().length);
     
+    /**
+     * Adds a size to a type's allowed sizes.
+     * @param type
+     * @param size
+     * @throws Exception 
+     */
     public static void addAssociation(ImageTypes type, String size) throws Exception
     {
         Set<SizeList> set = associations.get(type);
@@ -68,6 +74,13 @@ public class ImageSizes
         throw new Exception("Size "+size+" does not exist in ListSize enum.");
     }
     
+    /**
+     * Tells wether a size if available for a given type.
+     * @param type
+     * @param size
+     * @return True if the size is available for the given type, false otherwise.
+     * @throws Exception Thrown if there is no association for the given type.
+     */
     public static boolean isValid(ImageTypes type, SizeList size) throws Exception
     {
         Set<SizeList> set = associations.get(type);
@@ -80,5 +93,28 @@ public class ImageSizes
                 return true;
         
         return false;
+    }
+    
+    /**
+     * Returns available sizes for a given type.
+     * @param type The type you want the allowed sizes of.
+     * @return A SizeList table.
+     * @throws Exception An exception is throws if no assosiations exist for
+     * this particular type. It generally means configuration was not done for
+     * this type.
+     */
+    public SizeList[] getSizes(ImageTypes type) throws Exception
+    {
+        Set<SizeList> set = associations.get(type);
+        if(set == null)
+            throw new Exception("Configuration was not done for this type.");
+        SizeList[] ret = new SizeList[set.size()];
+        int i=0;
+        for(SizeList size : set)
+        {
+            ret[i] = size;
+            i++;
+        }
+        return ret;
     }
 }
