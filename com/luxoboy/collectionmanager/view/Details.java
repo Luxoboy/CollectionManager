@@ -5,13 +5,11 @@
  */
 package com.luxoboy.collectionmanager.view;
 
-import com.luxoboy.collectionmanager.api.images.ImageSizes;
 import com.luxoboy.collectionmanager.api.images.ImageSizes.SizeList;
 import com.luxoboy.collectionmanager.api.model.Image;
 import com.luxoboy.collectionmanager.api.model.ModelBase;
 import com.luxoboy.collectionmanager.api.model.TVShow;
 import java.awt.Desktop;
-import java.awt.image.BufferedImage;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -65,7 +63,10 @@ public class Details extends javax.swing.JPanel {
         
         this.yearValue.setText(Integer.toString(ModelBase.getYear(tv.getFirst_air_date())));
         
-        Image backdrop = tv.getMain_backdrop(SizeList.w300);
+        picturePanel.removeAll();
+        picturePanel.add(new JLabel("Loading..."));
+        Image backdrop = tv.getMain_backdrop(SizeList.w780);
+        picturePanel.removeAll();
         picturePanel.add(new JLabel(new ImageIcon(backdrop.getImg())));
     }
 
@@ -94,9 +95,9 @@ public class Details extends javax.swing.JPanel {
         goToHomepage = new javax.swing.JButton();
         numberOfEpisodesValue = new javax.swing.JLabel();
         descriptionPanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        descriptionText = new javax.swing.JTextArea();
         addButton = new javax.swing.JButton();
+        descriptionScrollPane = new javax.swing.JScrollPane();
+        descriptionText = new javax.swing.JTextArea();
         buttonPanel = new javax.swing.JPanel();
         ImageIcon backButtonImage = new ImageIcon("Back-Button.png");
         backButton = new javax.swing.JButton(backButtonImage);
@@ -265,35 +266,17 @@ public class Details extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         informationPanel.add(infoPanel, gridBagConstraints);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 30, 0);
-        add(informationPanel, gridBagConstraints);
-
         descriptionPanel.setLayout(new java.awt.GridBagLayout());
 
         description.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        description.setText("Description :");
+        description.setText("Overview");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 0);
         descriptionPanel.add(description, gridBagConstraints);
-
-        descriptionText.setColumns(20);
-        descriptionText.setFont(new java.awt.Font("Ubuntu", 0, 15)); // NOI18N
-        descriptionText.setLineWrap(true);
-        descriptionText.setRows(5);
-        descriptionText.setEnabled(false);
-        jScrollPane1.setViewportView(descriptionText);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        descriptionPanel.add(jScrollPane1, gridBagConstraints);
 
         addButton.setText("Add to my Collection");
         addButton.addActionListener(new java.awt.event.ActionListener()
@@ -306,13 +289,42 @@ public class Details extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         descriptionPanel.add(addButton, gridBagConstraints);
+
+        descriptionScrollPane.setBorder(null);
+        descriptionScrollPane.setViewportBorder(null);
+
+        descriptionText.setEditable(false);
+        descriptionText.setColumns(20);
+        descriptionText.setLineWrap(true);
+        descriptionText.setRows(5);
+        descriptionText.setWrapStyleWord(true);
+        descriptionText.setBorder(null);
+        descriptionText.setDisabledTextColor(javax.swing.UIManager.getDefaults().getColor("textText"));
+        descriptionScrollPane.setViewportView(descriptionText);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        descriptionPanel.add(descriptionScrollPane, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        add(descriptionPanel, gridBagConstraints);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        informationPanel.add(descriptionPanel, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 30, 0);
+        add(informationPanel, gridBagConstraints);
 
         buttonPanel.setLayout(new java.awt.GridBagLayout());
 
@@ -365,13 +377,13 @@ public class Details extends javax.swing.JPanel {
     private static final javax.swing.JLabel createdBy = new javax.swing.JLabel();
     private static final javax.swing.JLabel description = new javax.swing.JLabel();
     private javax.swing.JPanel descriptionPanel;
+    private javax.swing.JScrollPane descriptionScrollPane;
     private javax.swing.JTextArea descriptionText;
     private static final javax.swing.JLabel genres = new javax.swing.JLabel();
     private javax.swing.JLabel genresValue;
     private javax.swing.JButton goToHomepage;
     private javax.swing.JPanel infoPanel;
     private javax.swing.JPanel informationPanel;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel name;
     private static final javax.swing.JLabel numberOfEpisodes = new javax.swing.JLabel();
     private javax.swing.JLabel numberOfEpisodesValue;
