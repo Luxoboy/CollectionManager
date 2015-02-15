@@ -55,7 +55,6 @@ public class Configuration extends ApiRequest
                 }
             }
             System.out.println("Configuration done.");
-            ImageSizes.isValid(ImageTypes.logo, ImageSizes.SizeList.w300);
         }
         catch(JSONException ex)
         {

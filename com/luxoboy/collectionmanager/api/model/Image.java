@@ -5,6 +5,7 @@
  */
 package com.luxoboy.collectionmanager.api.model;
 
+import com.luxoboy.collectionmanager.api.images.ImageSizes.SizeList;
 import com.luxoboy.collectionmanager.api.images.ImageTypes;
 import com.luxoboy.collectionmanager.api.images.Images;
 import java.awt.image.BufferedImage;
@@ -19,7 +20,7 @@ import javax.imageio.ImageIO;
 public class Image
 {
     private ImageTypes type;
-    private String size;
+    private SizeList size;
     private String filename;
     private BufferedImage img;
     
@@ -30,7 +31,7 @@ public class Image
      * @param img
      * @param filename 
      */
-    public Image(ImageTypes type, String size, String filename, BufferedImage img)
+    public Image(ImageTypes type, SizeList size, String filename, BufferedImage img)
     {
         this.type = type;
         this.size = size;
@@ -40,7 +41,7 @@ public class Image
             this.filename = this.filename.substring(1);
     }
     
-    public Image(ImageTypes type, String size, String filename)
+    public Image(ImageTypes type, SizeList size, String filename)
     {
         this.type = type;
         this.size = size;
@@ -50,7 +51,7 @@ public class Image
         loadImage();
     }
     
-    public static Image get(ImageTypes type, String size, String filename)
+    public static Image get(ImageTypes type, SizeList size, String filename)
     {
         if(isStored(size, filename))
         {
@@ -80,15 +81,15 @@ public class Image
         return buildPath(size, filename);
     }
     
-    static public String buildPath(String size, String filemane)
+    static public String buildPath(SizeList size, String filemane)
     {
         String filename_ = new String(filemane);
         if(filename_.startsWith("/"))
             filename_ = filename_.substring(1);
-        return ModelBase.BASE_CACHE_PATH+ModelBase.BASE_IMG_PATH+size+"/"+filename_;
+        return ModelBase.BASE_CACHE_PATH+ModelBase.BASE_IMG_PATH+size.name()+"/"+filename_;
     }
     
-    static public boolean isStored(String size, String filename)
+    static public boolean isStored(SizeList size, String filename)
     {
         File f = new File(buildPath(size, filename));
         return f.exists();
@@ -104,7 +105,7 @@ public class Image
         return type;
     }
 
-    public String getSize()
+    public SizeList getSize()
     {
         return size;
     }

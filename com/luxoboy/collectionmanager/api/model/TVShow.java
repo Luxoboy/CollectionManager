@@ -6,6 +6,7 @@
 package com.luxoboy.collectionmanager.api.model;
 
 import com.luxoboy.collectionmanager.api.TVDetails;
+import com.luxoboy.collectionmanager.api.images.ImageSizes.SizeList;
 import com.luxoboy.collectionmanager.api.images.ImageTypes;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -418,7 +419,7 @@ public class TVShow extends ModelBase
         return number_of_episodes;
     }
     
-    public Image getMain_backdrop(String size)
+    public Image getMain_backdrop(SizeList size)
     {
         if(main_backdrop != null)
         {

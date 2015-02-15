@@ -6,6 +6,7 @@
 package com.luxoboy.collectionmanager.api.images;
 
 import com.luxoboy.collectionmanager.api.ApiRequest;
+import com.luxoboy.collectionmanager.api.images.ImageSizes.SizeList;
 import com.luxoboy.collectionmanager.api.model.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -24,7 +25,7 @@ public class Images
 {
 
     static public Image
-            downloadImage(ImageTypes type, String size, String file, boolean saveToDisk)
+            downloadImage(ImageTypes type, SizeList size, String file, boolean saveToDisk)
     {
         String path = ApiRequest.BASE_IMG_URL + size +"/"+ file;
         System.out.println(path);
