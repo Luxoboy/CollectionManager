@@ -55,9 +55,9 @@ public class TVShow extends ModelBase
 
     static private final DateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
 
-    private TVShow()
+    private TVShow(int id)
     {
-        super(-1);
+        super(id);
         main_backdrop = null;
     }
 
@@ -78,7 +78,6 @@ public class TVShow extends ModelBase
         System.out.println("Parsing base informations...");
         try
         {
-            id = obj.getInt("id");
             name = obj.getString("name");
         } catch (JSONException ex)
         {
@@ -297,7 +296,16 @@ public class TVShow extends ModelBase
      */
     public static TVShow loadFromJson(JSONObject obj)
     {
-        TVShow tvs = new TVShow();
+        int id;
+        try
+        {
+            id = obj.getInt("id");
+        }
+        catch(JSONException ex)
+        {
+            return null;
+        }
+        TVShow tvs = new TVShow(id);
         if (tvs.parseJSON(obj))
         {
             return tvs;
