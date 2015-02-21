@@ -5,6 +5,8 @@
  */
 package com.luxoboy.collectionmanager.api.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import org.json.JSONObject;
@@ -22,6 +24,8 @@ public abstract class ModelBase
     static public final String BASE_MOVIE_PATH = "movies/";
     static public final String DATA_FILE_EXTENSION = ".json";
     protected int id;
+    
+    static protected final DateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * Indicates whether the object has all data loaded. If not, a fetch action

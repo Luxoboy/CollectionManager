@@ -53,8 +53,6 @@ public class TVShow extends ModelBase
      */
     private JSONObject json_details;
 
-    static private final DateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
-
     private TVShow(int id)
     {
         super(id);
