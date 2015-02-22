@@ -118,6 +118,8 @@ public abstract class ApiRequest
      */
     protected JSONObject fetch() throws Exception
     {
+        if(RESSOURCE_URL == null)
+            throw new Exception("RESSOURCE URL was not specied");
         final String FINAL_URL = buildURL();
         try
         {
