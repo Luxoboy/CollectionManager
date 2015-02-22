@@ -5,6 +5,14 @@
  */
 package com.luxoboy.collectionmanager.api.model;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -42,8 +50,6 @@ public abstract class ModelBase
 
     abstract protected boolean parseJSON(JSONObject obj);
 
-    abstract protected void parseJSONDetails(JSONObject obj);
-
     abstract protected String buildDataFilePath();
 
     public int getId()
@@ -74,5 +80,79 @@ public abstract class ModelBase
         cal = null;
         return year;
     }
-
+    
+    /**
+     * Saves data to disk in a JSON file.
+     */
+    protected void save()
+    {
+        String path = buildDataFilePath();
+        Writer writer = null;
+        try
+        {
+            File f = getDataFile();
+            if (!f.exists())
+            {
+                f.getParentFile().mkdirs();
+            }
+            writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(f)));
+            writer.write(toJSON().toString());
+        } catch (IOException ex)
+        {
+            System.out.println("Error occured when writing data file item "
+                    + "id " + id + ".");
+        } finally
+        {
+            if (writer != null)
+            {
+                try
+                {
+                    writer.close();
+                } catch (IOException ex)
+                {
+                    ;
+                }
+            }
+        }
+    }
+    
+    /**
+     * Reads a JSON object stored on disk.
+     * @return The read object, null if file doesn't exist.
+     */
+    protected JSONObject readFromDisk()
+    {
+        File f = new File(buildDataFilePath());
+        JSONObject obj = null;
+        if(f.exists())
+        {
+            String json = new String();
+            try
+            {
+                BufferedReader reader = new BufferedReader(new FileReader(f));
+                while(reader.ready())
+                    json+=reader.readLine();
+                obj = new JSONObject(json);
+                System.out.println(id+": loading from local file...");
+            }
+            catch(IOException ex)
+            {
+                ex.printStackTrace();
+                obj = null;
+            }
+        }
+        return obj;
+    }
+    
+    /**
+     * Abstract method which should implement data loading form disk if present,
+     * or from API otherwise.
+     */
+    abstract protected void load();
+    
+    protected File getDataFile()
+    {
+        return new File(buildDataFilePath());
+    }
 }

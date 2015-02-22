@@ -134,7 +134,6 @@ public class TVShow extends ModelBase
      * @param obj
      * @return
      */
-    @Override
     protected void parseJSONDetails(JSONObject obj)
     {
         JSONArray array = null;
@@ -258,25 +257,7 @@ public class TVShow extends ModelBase
      */
     public void load()
     {
-        File f = new File(buildDataFilePath());
-        JSONObject obj = null;
-        if(f.exists())
-        {
-            String json = new String();
-            try
-            {
-                BufferedReader reader = new BufferedReader(new FileReader(f));
-                while(reader.ready())
-                    json+=reader.readLine();
-                obj = new JSONObject(json);
-                System.out.println(name+": loading from local file...");
-            }
-            catch(IOException ex)
-            {
-                ex.printStackTrace();
-                obj = null;
-            }
-        }
+        JSONObject obj = readFromDisk();
         if(obj == null)
         {
             System.out.println(name+": loading from API...");
@@ -310,44 +291,6 @@ public class TVShow extends ModelBase
         }
         tvs = null;
         return null;
-    }
-
-    /**
-     * Saves the data to a file containing data formatted in JSON.
-     *
-     * @throws Exception
-     */
-    private void save()
-    {
-        String path = buildDataFilePath();
-        Writer writer = null;
-        try
-        {
-            File f = new File(path);
-            if (!f.exists())
-            {
-                f.getParentFile().mkdirs();
-            }
-            writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(f)));
-            writer.write(toJSON().toString());
-        } catch (IOException ex)
-        {
-            System.out.println("Error occured when writing data file for TV Show"
-                    + "id " + id + ".");
-        } finally
-        {
-            if (writer != null)
-            {
-                try
-                {
-                    writer.close();
-                } catch (IOException ex)
-                {
-                    ;
-                }
-            }
-        }
     }
 
     public double getVote_average()
