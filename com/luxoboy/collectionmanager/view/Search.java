@@ -12,6 +12,8 @@ import com.luxoboy.collectionmanager.model.SearchTableModel;
 import javax.swing.JFrame;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -51,6 +53,7 @@ public class Search extends javax.swing.JPanel {
         selectPanel = new javax.swing.JPanel();
         moviesRadioButton = new javax.swing.JRadioButton();
         tvShowsRadioButton = new javax.swing.JRadioButton();
+        goToButton = new javax.swing.JButton();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -115,6 +118,7 @@ public class Search extends javax.swing.JPanel {
             add(searchPanel, gridBagConstraints);
 
             resultsTable.setModel(tableModel);
+            resultsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
             resultsTable.addMouseListener(new java.awt.event.MouseAdapter()
             {
                 public void mousePressed(java.awt.event.MouseEvent evt)
@@ -122,41 +126,68 @@ public class Search extends javax.swing.JPanel {
                     resultsTableMousePressed(evt);
                 }
             });
-            scrollResultsPanel.setViewportView(resultsTable);
+            resultsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener()
+                {
 
-            gridBagConstraints = new java.awt.GridBagConstraints();
-            gridBagConstraints.gridx = 0;
-            gridBagConstraints.gridy = 1;
-            gridBagConstraints.gridwidth = 2;
-            gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-            gridBagConstraints.insets = new java.awt.Insets(5, 10, 10, 10);
-            add(scrollResultsPanel, gridBagConstraints);
+                    @Override
+                    public void valueChanged(ListSelectionEvent e)
+                    {
+                        if(resultsTable.getSelectedRowCount() > 0)
+                        goToButton.setEnabled(true);
+                        else
+                        goToButton.setEnabled(false);
+                    }
+                });
+                scrollResultsPanel.setViewportView(resultsTable);
 
-            selectPanel.setLayout(new java.awt.GridBagLayout());
+                gridBagConstraints = new java.awt.GridBagConstraints();
+                gridBagConstraints.gridx = 0;
+                gridBagConstraints.gridy = 1;
+                gridBagConstraints.gridwidth = 2;
+                gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+                gridBagConstraints.insets = new java.awt.Insets(5, 10, 10, 10);
+                add(scrollResultsPanel, gridBagConstraints);
 
-            buttonGroup.add(moviesRadioButton);
-            moviesRadioButton.setText("Movies");
-            gridBagConstraints = new java.awt.GridBagConstraints();
-            gridBagConstraints.gridx = 0;
-            gridBagConstraints.gridy = 0;
-            gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-            gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-            selectPanel.add(moviesRadioButton, gridBagConstraints);
+                selectPanel.setLayout(new java.awt.GridBagLayout());
 
-            buttonGroup.add(tvShowsRadioButton);
-            tvShowsRadioButton.setText("TV Shows");
-            gridBagConstraints = new java.awt.GridBagConstraints();
-            gridBagConstraints.gridx = 0;
-            gridBagConstraints.gridy = 1;
-            gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-            gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-            selectPanel.add(tvShowsRadioButton, gridBagConstraints);
+                buttonGroup.add(moviesRadioButton);
+                moviesRadioButton.setText("Movies");
+                gridBagConstraints = new java.awt.GridBagConstraints();
+                gridBagConstraints.gridx = 0;
+                gridBagConstraints.gridy = 0;
+                gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+                gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+                selectPanel.add(moviesRadioButton, gridBagConstraints);
 
-            gridBagConstraints = new java.awt.GridBagConstraints();
-            gridBagConstraints.gridx = 0;
-            gridBagConstraints.gridy = 0;
-            add(selectPanel, gridBagConstraints);
-        }// </editor-fold>//GEN-END:initComponents
+                buttonGroup.add(tvShowsRadioButton);
+                tvShowsRadioButton.setText("TV Shows");
+                gridBagConstraints = new java.awt.GridBagConstraints();
+                gridBagConstraints.gridx = 0;
+                gridBagConstraints.gridy = 1;
+                gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+                gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+                selectPanel.add(tvShowsRadioButton, gridBagConstraints);
+
+                gridBagConstraints = new java.awt.GridBagConstraints();
+                gridBagConstraints.gridx = 0;
+                gridBagConstraints.gridy = 0;
+                add(selectPanel, gridBagConstraints);
+
+                goToButton.setText("See details");
+                goToButton.setEnabled(false);
+                goToButton.addActionListener(new java.awt.event.ActionListener()
+                {
+                    public void actionPerformed(java.awt.event.ActionEvent evt)
+                    {
+                        goToButtonActionPerformed(evt);
+                    }
+                });
+                gridBagConstraints = new java.awt.GridBagConstraints();
+                gridBagConstraints.gridx = 1;
+                gridBagConstraints.gridy = 2;
+                gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+                add(goToButton, gridBagConstraints);
+            }// </editor-fold>//GEN-END:initComponents
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_searchButtonActionPerformed
     {//GEN-HEADEREND:event_searchButtonActionPerformed
@@ -187,9 +218,15 @@ public class Search extends javax.swing.JPanel {
             }
     }//GEN-LAST:event_resultsTableMousePressed
 
+    private void goToButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_goToButtonActionPerformed
+    {//GEN-HEADEREND:event_goToButtonActionPerformed
+        parent.goToDetails(tableModel.getTVShow(resultsTable.getSelectedRow()));
+    }//GEN-LAST:event_goToButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup;
+    private javax.swing.JButton goToButton;
     private javax.swing.JRadioButton moviesRadioButton;
     private javax.swing.JTable resultsTable;
     private javax.swing.JScrollPane scrollResultsPanel;
