@@ -387,7 +387,11 @@ public class TVShow extends ModelBase
         }
         return main_backdrop;
     }
-    
+
+    public ArrayList<Season> getSeasons()
+    {
+        return seasons;
+    }
     
 
     @Override

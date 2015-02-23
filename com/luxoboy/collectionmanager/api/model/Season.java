@@ -142,4 +142,29 @@ public class Season extends ModelBase
         }
         save();
     }
+
+    public String getPoster_filename()
+    {
+        return poster_filename;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getOverview()
+    {
+        return overview;
+    }
+
+    public ArrayList<Episode> getEpisodes()
+    {
+        return episodes;
+    }
+    
+    public int getNumberOfEpisode()
+    {
+        return episodes.size();
+    }
 }
