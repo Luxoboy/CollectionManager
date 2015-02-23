@@ -106,4 +106,10 @@ public class Episode extends ModelBase
     {
         throw new UnsupportedOperationException("Episodes do not need to be loaded.");
     }
+
+    @Override
+    protected void parseJSONDetails(JSONObject obj)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

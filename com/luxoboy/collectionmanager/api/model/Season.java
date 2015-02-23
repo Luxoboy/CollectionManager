@@ -22,7 +22,7 @@ public class Season extends ModelBase
     public static final String BASE_SEASON_DATA_PATH = "season/";
     
     private int season_number;
-    private String poster_filename;
+    private String poster_filename, name, overview;
     private ArrayList<Episode> episodes;
     private Date air_date;
     
@@ -45,7 +45,9 @@ public class Season extends ModelBase
         try
         {
             air_date = date_format.parse(obj.getString("air_date"));
-            poster_filename = obj.getString("poster_filename");
+            poster_filename = obj.getString("poster_path");
+            if(poster_filename.startsWith("/"))
+                poster_filename = poster_filename.substring(1);
             season_number = obj.getInt("season_number");
             JSONArray episodesJson = obj.getJSONArray("episodes");
             episodes = new ArrayList<>(episodesJson.length());
@@ -62,6 +64,7 @@ public class Season extends ModelBase
             ex.printStackTrace();
             return false;
         }
+        json = obj;
         isPopulated = true;
         return true;
     }
@@ -109,6 +112,12 @@ public class Season extends ModelBase
 
     @Override
     protected void load()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected void parseJSONDetails(JSONObject obj)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

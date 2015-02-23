@@ -8,17 +8,7 @@ package com.luxoboy.collectionmanager.api.model;
 import com.luxoboy.collectionmanager.api.TVDetails;
 import com.luxoboy.collectionmanager.api.images.ImageSizes.SizeList;
 import com.luxoboy.collectionmanager.api.images.ImageTypes;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import org.json.JSONArray;
@@ -43,6 +33,7 @@ public class TVShow extends ModelBase
     private boolean in_production;
     private int number_of_seasons, number_of_episodes;
     private Image main_backdrop;
+    private ArrayList<Season> seasons;
     
     /**
      * Basic informations extracted from search request.
@@ -246,6 +237,21 @@ public class TVShow extends ModelBase
         {
             System.out.println("Error parsing status of show "+name);
             status = null;
+        }
+        seasons = new ArrayList<>();
+        try
+        {
+            JSONArray seasonsJson = obj.getJSONArray("seasons");
+            seasons.ensureCapacity(seasonsJson.length());
+            for(int i=0; i < seasonsJson.length(); i++)
+            {
+                seasons.add(Season.loadFromJson(seasonsJson.getJSONObject(i)));
+            }
+        }
+        catch(JSONException ex)
+        {
+            System.out.println("Error while parsing seasons of show "+name);
+            seasons.clear();
         }
         isPopulated = true;
         json_details = obj;

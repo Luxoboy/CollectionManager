@@ -49,6 +49,8 @@ public abstract class ModelBase
     abstract protected JSONObject toJSON();
 
     abstract protected boolean parseJSON(JSONObject obj);
+    
+    abstract protected void parseJSONDetails(JSONObject obj);
 
     abstract protected String buildDataFilePath();
 
