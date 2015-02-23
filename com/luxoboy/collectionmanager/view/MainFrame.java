@@ -20,7 +20,7 @@ public class MainFrame extends javax.swing.JFrame
 {
 
     private final Search searchView;
-    private final Details detailsView;
+    private final TVShowDetails detailsView;
     private final UserCollection userCollectionView;
 
     /**
@@ -32,7 +32,7 @@ public class MainFrame extends javax.swing.JFrame
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setMinimumSize(new Dimension(1280, 720));
         this.searchView = new Search(this);
-        this.detailsView = new Details(this);
+        this.detailsView = new TVShowDetails(this);
         this.userCollectionView = new UserCollection(this);
     }
     

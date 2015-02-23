@@ -19,7 +19,7 @@ import javax.swing.JLabel;
  *
  * @author orann
  */
-public class Details extends javax.swing.JPanel {
+public class TVShowDetails extends DetailsBase {
     
     private JFrame parent;
     private TVShow current_tv_show;
@@ -27,7 +27,7 @@ public class Details extends javax.swing.JPanel {
     /**
      * Creates new form Details
      */
-    public Details(JFrame parent) {
+    public TVShowDetails(JFrame parent) {
         this.parent = parent;       
         initComponents();
     }
