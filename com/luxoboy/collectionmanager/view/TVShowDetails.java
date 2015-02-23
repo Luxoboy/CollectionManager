@@ -65,7 +65,7 @@ public class TVShowDetails extends DetailsBase {
         
         picturePanel.removeAll();
         picturePanel.add(new JLabel("Loading..."));
-        Image backdrop = tv.getMain_backdrop(SizeList.w780);
+        Image backdrop = tv.getMain_backdrop(SizeList.w300);
         picturePanel.removeAll();
         picturePanel.add(new JLabel(new ImageIcon(backdrop.getImg())));
     }
@@ -77,8 +77,7 @@ public class TVShowDetails extends DetailsBase {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
         informationPanel = new javax.swing.JPanel();
@@ -101,6 +100,8 @@ public class TVShowDetails extends DetailsBase {
         buttonPanel = new javax.swing.JPanel();
         ImageIcon backButtonImage = new ImageIcon("Back-Button.png");
         backButton = new javax.swing.JButton(backButtonImage);
+        seasonScollPane = new javax.swing.JScrollPane();
+        seasonList = new javax.swing.JList();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -231,10 +232,8 @@ public class TVShowDetails extends DetailsBase {
         infoPanel.add(vote_averageValue, gridBagConstraints);
 
         goToHomepage.setText("Go to homepage");
-        goToHomepage.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        goToHomepage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goToHomepageActionPerformed(evt);
             }
         });
@@ -261,8 +260,8 @@ public class TVShowDetails extends DetailsBase {
         infoPanel.add(numberOfEpisodesValue, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         informationPanel.add(infoPanel, gridBagConstraints);
 
@@ -279,10 +278,8 @@ public class TVShowDetails extends DetailsBase {
         descriptionPanel.add(description, gridBagConstraints);
 
         addButton.setText("Add to my Collection");
-        addButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
             }
         });
@@ -293,7 +290,6 @@ public class TVShowDetails extends DetailsBase {
         descriptionPanel.add(addButton, gridBagConstraints);
 
         descriptionScrollPane.setBorder(null);
-        descriptionScrollPane.setViewportBorder(null);
 
         descriptionText.setEditable(false);
         descriptionText.setColumns(20);
@@ -307,12 +303,14 @@ public class TVShowDetails extends DetailsBase {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         descriptionPanel.add(descriptionScrollPane, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
@@ -320,7 +318,7 @@ public class TVShowDetails extends DetailsBase {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 30, 0);
@@ -329,10 +327,8 @@ public class TVShowDetails extends DetailsBase {
         buttonPanel.setLayout(new java.awt.GridBagLayout());
 
         backButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        backButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
             }
         });
@@ -347,6 +343,21 @@ public class TVShowDetails extends DetailsBase {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         add(buttonPanel, gridBagConstraints);
+
+        seasonScollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        seasonList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        seasonScollPane.setViewportView(seasonList);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        add(seasonScollPane, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -392,6 +403,8 @@ public class TVShowDetails extends DetailsBase {
     private javax.swing.JPanel picturePanel;
     private static final javax.swing.JLabel rate = new javax.swing.JLabel();
     private javax.swing.JLabel rateValue;
+    private javax.swing.JList seasonList;
+    private javax.swing.JScrollPane seasonScollPane;
     private static final javax.swing.JLabel status = new javax.swing.JLabel();
     private javax.swing.JLabel statusValue;
     private static final javax.swing.JLabel vote_average = new javax.swing.JLabel();
