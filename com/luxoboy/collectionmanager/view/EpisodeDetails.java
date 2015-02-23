@@ -5,12 +5,19 @@
  */
 package com.luxoboy.collectionmanager.view;
 
+import com.luxoboy.collectionmanager.api.model.TVShow;
+import java.awt.Desktop;
+import java.net.URL;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+
 /**
  *
  * @author orann
  */
 public class EpisodeDetails extends DetailsBase {
 
+    private TVShow current_tv_show;
     /**
      * Creates new form EpisodeDetails
      */
