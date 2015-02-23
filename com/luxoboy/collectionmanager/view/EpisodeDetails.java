@@ -17,11 +17,13 @@ import javax.swing.JFrame;
  */
 public class EpisodeDetails extends DetailsBase {
 
+    private JFrame parent;
     private TVShow current_tv_show;
     /**
      * Creates new form EpisodeDetails
      */
-    public EpisodeDetails() {
+    public EpisodeDetails(JFrame parent) {
+        this.parent = parent;
         initComponents();
     }
 
