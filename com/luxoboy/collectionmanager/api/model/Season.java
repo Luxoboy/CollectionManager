@@ -5,6 +5,7 @@
  */
 package com.luxoboy.collectionmanager.api.model;
 
+import com.luxoboy.collectionmanager.api.SeasonDetails;
 import static com.luxoboy.collectionmanager.api.model.TVShow.BASE_TV_SHOW_PATH;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -25,12 +26,14 @@ public class Season extends ModelBase
     private String poster_filename, name, overview;
     private ArrayList<Episode> episodes;
     private Date air_date;
+    private int tvShowId;
     
     private JSONObject json;
     
-    private Season(int id)
+    private Season(int id, int tvShowId)
     {
         super(id);
+        this.tvShowId = tvShowId;
     }
 
     @Override
@@ -74,7 +77,7 @@ public class Season extends ModelBase
      * @param obj The JSON object containing data to build new season.
      * @return null if season could not be created from JSON.
      */
-    public static Season loadFromJson(JSONObject obj)
+    public static Season loadFromJson(JSONObject obj, int tvShowId)
     {
         int id;
         try
@@ -85,7 +88,7 @@ public class Season extends ModelBase
         {
             return null;
         }
-        Season sea = new Season(id);
+        Season sea = new Season(id, tvShowId);
         if (sea.parseJSON(obj))
         {
             return sea;
@@ -113,12 +116,30 @@ public class Season extends ModelBase
     @Override
     protected void load()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JSONObject obj = readFromDisk();
+        if(obj == null)
+        {
+            System.out.println(name+": loading from API...");
+            SeasonDetails request = new SeasonDetails(tvShowId);
+            obj = request.proceed(id);
+        }
+        this.parseJSONDetails(obj);
     }
 
     @Override
     protected void parseJSONDetails(JSONObject obj)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            name = obj.getString("name");
+            overview = obj.getString("overview");
+        }
+        catch(JSONException ex)
+        {
+            System.out.println("Error while parsing details of season id "+id);
+            name = null;
+            overview = null;
+        }
+        save();
     }
 }

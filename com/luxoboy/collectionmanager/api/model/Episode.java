@@ -66,6 +66,7 @@ public class Episode extends ModelBase
         {
             ex.printStackTrace();
         }
+        save();
         isPopulated = true;
         return true;
     }

@@ -245,7 +245,7 @@ public class TVShow extends ModelBase
             seasons.ensureCapacity(seasonsJson.length());
             for(int i=0; i < seasonsJson.length(); i++)
             {
-                seasons.add(Season.loadFromJson(seasonsJson.getJSONObject(i)));
+                seasons.add(Season.loadFromJson(seasonsJson.getJSONObject(i), id));
             }
         }
         catch(JSONException ex)
