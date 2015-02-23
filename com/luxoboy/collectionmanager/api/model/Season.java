@@ -22,7 +22,7 @@ public class Season extends ModelBase
 {
     public static final String BASE_SEASON_DATA_PATH = "season/";
     
-    private int season_number;
+    private int season_number, episode_count;
     private String poster_filename, name, overview;
     private ArrayList<Episode> episodes;
     private Date air_date;
@@ -52,15 +52,7 @@ public class Season extends ModelBase
             if(poster_filename.startsWith("/"))
                 poster_filename = poster_filename.substring(1);
             season_number = obj.getInt("season_number");
-            JSONArray episodesJson = obj.getJSONArray("episodes");
-            episodes = new ArrayList<>(episodesJson.length());
-            for(int i=0; i < episodesJson.length(); i++)
-            {
-                JSONObject epJson = episodesJson.getJSONObject(i);
-                Episode ep = Episode.loadFromJson(obj);
-                if(ep != null)
-                    episodes.add(ep);
-            }
+            episode_count = obj.getInt("episode_count");
         }
         catch(JSONException | ParseException ex)
         {
@@ -140,6 +132,23 @@ public class Season extends ModelBase
             name = null;
             overview = null;
         }
+        try
+        {
+            JSONArray episodesJson = obj.getJSONArray("episodes");
+            episodes = new ArrayList<>(episodesJson.length());
+            for(int i=0; i < episodesJson.length(); i++)
+            {
+                JSONObject epJson = episodesJson.getJSONObject(i);
+                Episode ep = Episode.loadFromJson(obj);
+                if(ep != null)
+                    episodes.add(ep);
+            }
+        }
+        catch(JSONException ex)
+        {
+            System.out.println("Error parsing episodes of season id "+id);
+            episodes = null;
+        }
         save();
     }
 
@@ -162,9 +171,18 @@ public class Season extends ModelBase
     {
         return episodes;
     }
-    
-    public int getNumberOfEpisode()
+
+    public int getEpisode_count()
     {
-        return episodes.size();
+        return episode_count;
+    }
+    
+    @Override
+    public String toString()
+    {
+        if(name != null)
+            return name;
+        else
+            return "Season "+season_number;
     }
 }

@@ -8,9 +8,11 @@ package com.luxoboy.collectionmanager.view;
 import com.luxoboy.collectionmanager.api.images.ImageSizes.SizeList;
 import com.luxoboy.collectionmanager.api.model.Image;
 import com.luxoboy.collectionmanager.api.model.ModelBase;
+import com.luxoboy.collectionmanager.api.model.Season;
 import com.luxoboy.collectionmanager.api.model.TVShow;
 import java.awt.Desktop;
 import java.net.URL;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -68,6 +70,11 @@ public class TVShowDetails extends DetailsBase {
         Image backdrop = tv.getMain_backdrop(SizeList.w300);
         picturePanel.removeAll();
         picturePanel.add(new JLabel(new ImageIcon(backdrop.getImg())));
+        
+        DefaultListModel<Season> model = new DefaultListModel<Season>();
+        for(Season s : tv.getSeasons())
+            model.addElement(s);
+        seasonList.setModel(model);
     }
 
     /**
