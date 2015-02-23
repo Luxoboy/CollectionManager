@@ -6,6 +6,8 @@
 package com.luxoboy.collectionmanager.api.model;
 
 import com.luxoboy.collectionmanager.api.SeasonDetails;
+import com.luxoboy.collectionmanager.api.images.ImageSizes;
+import com.luxoboy.collectionmanager.api.images.ImageTypes;
 import static com.luxoboy.collectionmanager.api.model.TVShow.BASE_TV_SHOW_PATH;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ public class Season extends ModelBase
     private ArrayList<Episode> episodes;
     private Date air_date;
     private int tvShowId;
+    private Image poster;
     
     private JSONObject json;
     
@@ -34,6 +37,7 @@ public class Season extends ModelBase
     {
         super(id);
         this.tvShowId = tvShowId;
+        poster = null;
     }
 
     @Override
@@ -175,6 +179,20 @@ public class Season extends ModelBase
     public int getEpisode_count()
     {
         return episode_count;
+    }
+    
+    public Image getPoster(ImageSizes.SizeList size)
+    {
+        if(poster != null)
+        {
+            if(!poster.getSize().equals(size))
+                poster = null;
+        }
+        if(poster == null)
+        {
+            poster = Image.get(ImageTypes.poster, size, poster_filename);
+        }
+        return poster;
     }
     
     @Override
