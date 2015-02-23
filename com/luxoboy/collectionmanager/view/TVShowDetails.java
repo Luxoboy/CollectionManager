@@ -93,13 +93,13 @@ public class TVShowDetails extends DetailsBase {
         name = new javax.swing.JLabel();
         numberOfSeasonValue = new javax.swing.JLabel();
         yearValue = new javax.swing.JLabel();
-        rateValue = new javax.swing.JLabel();
         authors = new javax.swing.JLabel();
         genresValue = new javax.swing.JLabel();
         statusValue = new javax.swing.JLabel();
         vote_averageValue = new javax.swing.JLabel();
         goToHomepage = new javax.swing.JButton();
         numberOfEpisodesValue = new javax.swing.JLabel();
+        rateBar = new com.luxoboy.collectionmanager.view.RateBar();
         descriptionPanel = new javax.swing.JPanel();
         addButton = new javax.swing.JButton();
         descriptionScrollPane = new javax.swing.JScrollPane();
@@ -155,24 +155,6 @@ public class TVShowDetails extends DetailsBase {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         infoPanel.add(yearValue, gridBagConstraints);
-
-        rate.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        rate.setText("Rate");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        infoPanel.add(rate, gridBagConstraints);
-
-        rateValue.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        rateValue.setText("0/10");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        infoPanel.add(rateValue, gridBagConstraints);
 
         createdBy.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         createdBy.setText("Created by");
@@ -265,6 +247,11 @@ public class TVShowDetails extends DetailsBase {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(numberOfEpisodesValue, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        infoPanel.add(rateBar, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -358,6 +345,12 @@ public class TVShowDetails extends DetailsBase {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        seasonList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        seasonList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                seasonListMouseClicked(evt);
+            }
+        });
         seasonScollPane.setViewportView(seasonList);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -386,6 +379,12 @@ public class TVShowDetails extends DetailsBase {
             }
         }
     }//GEN-LAST:event_goToHomepageActionPerformed
+
+    private void seasonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seasonListMouseClicked
+        if(evt.getClickCount() == 2 && !evt.isConsumed()){
+            
+        }
+    }//GEN-LAST:event_seasonListMouseClicked
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
@@ -408,8 +407,7 @@ public class TVShowDetails extends DetailsBase {
     private static final javax.swing.JLabel numberOfSeason = new javax.swing.JLabel();
     private javax.swing.JLabel numberOfSeasonValue;
     private javax.swing.JPanel picturePanel;
-    private static final javax.swing.JLabel rate = new javax.swing.JLabel();
-    private javax.swing.JLabel rateValue;
+    private com.luxoboy.collectionmanager.view.RateBar rateBar;
     private javax.swing.JList seasonList;
     private javax.swing.JScrollPane seasonScollPane;
     private static final javax.swing.JLabel status = new javax.swing.JLabel();

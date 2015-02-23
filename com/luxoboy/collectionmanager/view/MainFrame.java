@@ -6,6 +6,9 @@
 package com.luxoboy.collectionmanager.view;
 
 import com.luxoboy.collectionmanager.api.Configuration;
+import com.luxoboy.collectionmanager.api.model.Episode;
+import com.luxoboy.collectionmanager.api.model.ModelBase;
+import com.luxoboy.collectionmanager.api.model.Season;
 import com.luxoboy.collectionmanager.api.model.TVShow;
 import java.awt.Dimension;
 import static java.awt.Frame.MAXIMIZED_BOTH;
@@ -20,7 +23,9 @@ public class MainFrame extends javax.swing.JFrame
 {
 
     private final Search searchView;
-    private final TVShowDetails detailsView;
+    private final TVShowDetails tvsDetails;
+    private final SeasonDetails seasonDetails;
+    private final EpisodeDetails episodeDetails;
     private final UserCollection userCollectionView;
 
     /**
@@ -32,14 +37,30 @@ public class MainFrame extends javax.swing.JFrame
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setMinimumSize(new Dimension(1280, 720));
         this.searchView = new Search(this);
-        this.detailsView = new TVShowDetails(this);
+        this.tvsDetails = new TVShowDetails(this);
+        this.seasonDetails = new SeasonDetails(this);
+        this.episodeDetails = new EpisodeDetails(this);
         this.userCollectionView = new UserCollection(this);
     }
     
-    public void goToDetails(TVShow tvs)
+    public void goToDetails(ModelBase db)
     {
-        this.setContentPane(detailsView);
-        detailsView.updateInformations(tvs);
+        if(db instanceof TVShow)
+        {
+            tvsDetails.updateInformations((TVShow)db);
+            this.setContentPane(tvsDetails);
+        }
+        else if(db instanceof Season)
+        {
+            seasonDetails.updateInformations((Season)db);
+            this.setContentPane(seasonDetails);
+        }    
+        else if(db instanceof Episode)
+        {
+            //episodeDetails.updateInformations((Episode)db);
+            this.setContentPane(episodeDetails);
+        }    
+        
     }
 
     /**
@@ -117,7 +138,7 @@ public class MainFrame extends javax.swing.JFrame
 
     private void moviesMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moviesMenuMouseClicked
         // TODO add your handling code here:
-        this.setContentPane(detailsView);
+        this.setContentPane(tvsDetails);
         this.pack();
     }//GEN-LAST:event_moviesMenuMouseClicked
 

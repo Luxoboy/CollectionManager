@@ -13,5 +13,5 @@ import javax.swing.JPanel;
  */
 public class DetailsBase extends JPanel
 {
-    
+
 }
