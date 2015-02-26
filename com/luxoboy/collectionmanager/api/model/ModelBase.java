@@ -151,7 +151,7 @@ public abstract class ModelBase
      * Abstract method which should implement data loading form disk if present,
      * or from API otherwise.
      */
-    abstract protected void load();
+    abstract public void load();
     
     protected File getDataFile()
     {

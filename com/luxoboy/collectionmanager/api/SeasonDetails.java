@@ -22,9 +22,9 @@ public class SeasonDetails extends ApiRequest implements ByIDRequest
     }
 
     @Override
-    public JSONObject proceed(int seasonId)
+    public JSONObject proceed(int seasonNumber)
     {
-        this.setRESSOURCE_URL("/tv/"+tvShowId+"/season/"+seasonId);
+        this.setRESSOURCE_URL("tv/"+tvShowId+"/season/"+seasonNumber);
         try
         {
             JSONObject ret = null;
@@ -34,7 +34,7 @@ public class SeasonDetails extends ApiRequest implements ByIDRequest
         catch(Exception ex)
         {
             System.out.println("Problem occured while fetching details for"
-                    + " season number "+seasonId+" of show with id "+tvShowId);
+                    + " season number "+seasonNumber+" of show with id "+tvShowId);
             return null;
         }
     }

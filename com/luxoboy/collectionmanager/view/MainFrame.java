@@ -43,24 +43,25 @@ public class MainFrame extends javax.swing.JFrame
         this.userCollectionView = new UserCollection(this);
     }
     
-    public void goToDetails(ModelBase db)
+    public void goToDetails(TVShow obj)
     {
-        if(db instanceof TVShow)
-        {
-            tvsDetails.updateInformations((TVShow)db);
-            this.setContentPane(tvsDetails);
-        }
-        else if(db instanceof Season)
-        {
-            seasonDetails.updateInformations((Season)db);
-            this.setContentPane(seasonDetails);
-        }    
-        else if(db instanceof Episode)
-        {
-            //episodeDetails.updateInformations((Episode)db);
-            this.setContentPane(episodeDetails);
-        }    
-        
+        tvsDetails.updateInformations(obj);
+        this.setContentPane(tvsDetails);
+        this.revalidate();
+    }
+    
+    public void goToDetails(Season obj)
+    {
+        seasonDetails.updateInformations(obj);
+        this.setContentPane(seasonDetails);
+        this.revalidate();
+    }  
+    
+    public void goToDetails(Episode obj)
+    {
+        episodeDetails.updateInformations(obj);
+        this.setContentPane(episodeDetails);
+        this.revalidate();
     }
 
     /**

@@ -23,13 +23,15 @@ import javax.swing.JLabel;
  */
 public class TVShowDetails extends DetailsBase {
     
-    private JFrame parent;
+    private MainFrame parent;
     private TVShow current_tv_show;
+    private final DefaultListModel<Season> seasonsModel;
 
     /**
      * Creates new form Details
      */
-    public TVShowDetails(JFrame parent) {
+    public TVShowDetails(MainFrame parent) {
+        seasonsModel = new DefaultListModel<>();
         this.parent = parent;       
         initComponents();
     }
@@ -57,7 +59,8 @@ public class TVShowDetails extends DetailsBase {
         String genres ="";
         for(String genre : tv.getGenres())
             genres+=genre+",";
-        genres = genres.substring(0, genres.length()-1);
+        if(genres.length() > 0)
+            genres = genres.substring(0, genres.length()-1);
         this.genresValue.setText(genres);
         
         this.statusValue.setText(tv.getStatus());
@@ -74,11 +77,9 @@ public class TVShowDetails extends DetailsBase {
         Image backdrop = tv.getMain_backdrop(SizeList.w300);
         picturePanel.removeAll();
         picturePanel.add(new JLabel(new ImageIcon(backdrop.getImg())));
-        
-        DefaultListModel<Season> model = new DefaultListModel<Season>();
+        seasonsModel.clear();
         for(Season s : tv.getSeasons())
-            model.addElement(s);
-        seasonList.setModel(model);
+            seasonsModel.addElement(s);
     }
 
     /**
@@ -88,11 +89,11 @@ public class TVShowDetails extends DetailsBase {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
         java.awt.GridBagConstraints gridBagConstraints;
 
         informationPanel = new javax.swing.JPanel();
-        picturePanel = new javax.swing.JPanel();
         infoPanel = new javax.swing.JPanel();
         name = new javax.swing.JLabel();
         numberOfSeasonValue = new javax.swing.JLabel();
@@ -108,23 +109,14 @@ public class TVShowDetails extends DetailsBase {
         addButton = new javax.swing.JButton();
         descriptionScrollPane = new javax.swing.JScrollPane();
         descriptionText = new javax.swing.JTextArea();
-        buttonPanel = new javax.swing.JPanel();
-        ImageIcon backButtonImage = new ImageIcon("Back-Button.png");
-        backButton = new javax.swing.JButton(backButtonImage);
         seasonScollPane = new javax.swing.JScrollPane();
         seasonList = new javax.swing.JList();
+        picturePanel = new javax.swing.JPanel();
 
+        setBorder(javax.swing.BorderFactory.createTitledBorder("Details"));
         setLayout(new java.awt.GridBagLayout());
 
         informationPanel.setLayout(new java.awt.GridBagLayout());
-
-        picturePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
-        informationPanel.add(picturePanel, gridBagConstraints);
 
         infoPanel.setLayout(new java.awt.GridBagLayout());
 
@@ -225,8 +217,10 @@ public class TVShowDetails extends DetailsBase {
         infoPanel.add(vote_averageValue, gridBagConstraints);
 
         goToHomepage.setText("Go to homepage");
-        goToHomepage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        goToHomepage.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 goToHomepageActionPerformed(evt);
             }
         });
@@ -255,13 +249,8 @@ public class TVShowDetails extends DetailsBase {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(rateBar, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        informationPanel.add(infoPanel, gridBagConstraints);
 
         descriptionPanel.setLayout(new java.awt.GridBagLayout());
 
@@ -276,8 +265,10 @@ public class TVShowDetails extends DetailsBase {
         descriptionPanel.add(description, gridBagConstraints);
 
         addButton.setText("Add to my Collection");
-        addButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        addButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 addButtonActionPerformed(evt);
             }
         });
@@ -307,51 +298,34 @@ public class TVShowDetails extends DetailsBase {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
-        informationPanel.add(descriptionPanel, gridBagConstraints);
+        infoPanel.add(descriptionPanel, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 30, 0);
+        informationPanel.add(infoPanel, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(25, 25, 25, 25);
         add(informationPanel, gridBagConstraints);
-
-        buttonPanel.setLayout(new java.awt.GridBagLayout());
-
-        backButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        backButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backButtonActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        buttonPanel.add(backButton, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        add(buttonPanel, gridBagConstraints);
 
         seasonScollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        seasonList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        seasonList.setModel(seasonsModel);
         seasonList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        seasonList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        seasonList.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 seasonListMouseClicked(evt);
             }
         });
@@ -359,14 +333,19 @@ public class TVShowDetails extends DetailsBase {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 50, 0, 0);
         add(seasonScollPane, gridBagConstraints);
-    }// </editor-fold>//GEN-END:initComponents
 
-    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        this.setVisible(false);        
-    }//GEN-LAST:event_backButtonActionPerformed
+        picturePanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        add(picturePanel, gridBagConstraints);
+    }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
@@ -386,15 +365,14 @@ public class TVShowDetails extends DetailsBase {
 
     private void seasonListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seasonListMouseClicked
         if(evt.getClickCount() == 2 && !evt.isConsumed()){
-            
+            Season season = seasonsModel.get(seasonList.getSelectedIndex());
+            parent.goToDetails(season);
         }
     }//GEN-LAST:event_seasonListMouseClicked
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JLabel authors;
-    private javax.swing.JButton backButton;
-    private javax.swing.JPanel buttonPanel;
     private static final javax.swing.JLabel createdBy = new javax.swing.JLabel();
     private static final javax.swing.JLabel description = new javax.swing.JLabel();
     private javax.swing.JPanel descriptionPanel;

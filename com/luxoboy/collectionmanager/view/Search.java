@@ -23,6 +23,9 @@ public class Search extends javax.swing.JPanel {
 
     private MainFrame parent;
     SearchTableModel tableModel;
+    
+    static private final String LOADING_TEXT = "Fetching data...",
+            NO_RESULTS_TEXT = "No results, please verify request.";
     /**
      * Creates new form Search
      */
@@ -54,6 +57,8 @@ public class Search extends javax.swing.JPanel {
         moviesRadioButton = new javax.swing.JRadioButton();
         tvShowsRadioButton = new javax.swing.JRadioButton();
         goToButton = new javax.swing.JButton();
+        statusLabel = new javax.swing.JLabel();
+        statusLabel.setVisible(false);
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -112,10 +117,12 @@ public class Search extends javax.swing.JPanel {
 
             gridBagConstraints = new java.awt.GridBagConstraints();
             gridBagConstraints.gridx = 1;
-            gridBagConstraints.gridy = 0;
+            gridBagConstraints.gridy = 1;
             gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
             gridBagConstraints.insets = new java.awt.Insets(10, 0, 5, 0);
             add(searchPanel, gridBagConstraints);
+
+            scrollResultsPanel.setVisible(false);
 
             resultsTable.setModel(tableModel);
             resultsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -142,10 +149,10 @@ public class Search extends javax.swing.JPanel {
 
                 gridBagConstraints = new java.awt.GridBagConstraints();
                 gridBagConstraints.gridx = 0;
-                gridBagConstraints.gridy = 1;
+                gridBagConstraints.gridy = 2;
                 gridBagConstraints.gridwidth = 2;
                 gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-                gridBagConstraints.insets = new java.awt.Insets(5, 10, 10, 10);
+                gridBagConstraints.insets = new java.awt.Insets(25, 25, 25, 25);
                 add(scrollResultsPanel, gridBagConstraints);
 
                 selectPanel.setLayout(new java.awt.GridBagLayout());
@@ -157,13 +164,14 @@ public class Search extends javax.swing.JPanel {
                 gridBagConstraints.gridy = 0;
                 gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
                 gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+                gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 25);
                 selectPanel.add(moviesRadioButton, gridBagConstraints);
 
                 buttonGroup.add(tvShowsRadioButton);
                 tvShowsRadioButton.setText("TV Shows");
                 gridBagConstraints = new java.awt.GridBagConstraints();
-                gridBagConstraints.gridx = 0;
-                gridBagConstraints.gridy = 1;
+                gridBagConstraints.gridx = 1;
+                gridBagConstraints.gridy = 0;
                 gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
                 gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
                 selectPanel.add(tvShowsRadioButton, gridBagConstraints);
@@ -171,10 +179,12 @@ public class Search extends javax.swing.JPanel {
                 gridBagConstraints = new java.awt.GridBagConstraints();
                 gridBagConstraints.gridx = 0;
                 gridBagConstraints.gridy = 0;
+                gridBagConstraints.gridwidth = 2;
                 add(selectPanel, gridBagConstraints);
 
                 goToButton.setText("See details");
                 goToButton.setEnabled(false);
+                goToButton.setVisible(false);
                 goToButton.addActionListener(new java.awt.event.ActionListener()
                 {
                     public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -184,9 +194,17 @@ public class Search extends javax.swing.JPanel {
                 });
                 gridBagConstraints = new java.awt.GridBagConstraints();
                 gridBagConstraints.gridx = 1;
-                gridBagConstraints.gridy = 2;
+                gridBagConstraints.gridy = 4;
                 gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
                 add(goToButton, gridBagConstraints);
+
+                statusLabel.setText("Informations");
+                gridBagConstraints = new java.awt.GridBagConstraints();
+                gridBagConstraints.gridx = 0;
+                gridBagConstraints.gridy = 3;
+                gridBagConstraints.gridwidth = 2;
+                gridBagConstraints.insets = new java.awt.Insets(25, 25, 25, 25);
+                add(statusLabel, gridBagConstraints);
             }// </editor-fold>//GEN-END:initComponents
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_searchButtonActionPerformed
@@ -196,10 +214,25 @@ public class Search extends javax.swing.JPanel {
             SearchTV search = new SearchTV(searchTextField.getText());
             SearchTableModel model = (SearchTableModel)resultsTable.getModel();
             model.clear();
+            statusLabel.setText(LOADING_TEXT);
+            statusLabel.setVisible(true);
+            scrollResultsPanel.setVisible(false);
+            goToButton.setVisible(false);
             for(TVShow show : search.proceed())
             {
                 model.addLigne(show);
             }
+            if(model.getRowCount() > 0)
+            {
+                statusLabel.setVisible(false);
+                scrollResultsPanel.setVisible(true);
+                goToButton.setVisible(true);
+            }
+            else
+            {
+                statusLabel.setText(NO_RESULTS_TEXT);
+            }
+                
         }
     }//GEN-LAST:event_searchButtonActionPerformed
 
@@ -234,6 +267,7 @@ public class Search extends javax.swing.JPanel {
     private javax.swing.JPanel searchPanel;
     private javax.swing.JTextField searchTextField;
     private javax.swing.JPanel selectPanel;
+    private javax.swing.JLabel statusLabel;
     private javax.swing.JRadioButton tvShowsRadioButton;
     // End of variables declaration//GEN-END:variables
 }

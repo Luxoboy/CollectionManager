@@ -97,7 +97,7 @@ public class Season extends ModelBase
     @Override
     protected String buildDataFilePath()
     {
-        return BASE_DATA_PATH+BASE_TV_SHOW_PATH+BASE_SEASON_DATA_PATH+id+DATA_FILE_EXTENSION;
+        return BASE_CACHE_PATH+BASE_DATA_PATH+BASE_TV_SHOW_PATH+BASE_SEASON_DATA_PATH+id+DATA_FILE_EXTENSION;
     }
 
     public int getSeason_number()
@@ -111,14 +111,14 @@ public class Season extends ModelBase
     }
 
     @Override
-    protected void load()
+    public void load()
     {
         JSONObject obj = readFromDisk();
         if(obj == null)
         {
             System.out.println(name+": loading from API...");
             SeasonDetails request = new SeasonDetails(tvShowId);
-            obj = request.proceed(id);
+            obj = request.proceed(season_number);
         }
         this.parseJSONDetails(obj);
     }
@@ -144,7 +144,7 @@ public class Season extends ModelBase
             for(int i=0; i < episodesJson.length(); i++)
             {
                 JSONObject epJson = episodesJson.getJSONObject(i);
-                Episode ep = Episode.loadFromJson(obj);
+                Episode ep = Episode.loadFromJson(epJson);
                 if(ep != null)
                     episodes.add(ep);
             }
@@ -154,6 +154,7 @@ public class Season extends ModelBase
             System.out.println("Error parsing episodes of season id "+id);
             episodes = null;
         }
+        json = obj;
         save();
     }
 

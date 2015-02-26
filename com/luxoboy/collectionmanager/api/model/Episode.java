@@ -99,11 +99,11 @@ public class Episode extends ModelBase
     @Override
     protected String buildDataFilePath()
     {
-        return BASE_DATA_PATH+BASE_TV_SHOW_PATH+BASE_EPISODE_DATA_PATH+id+DATA_FILE_EXTENSION;
+        return BASE_CACHE_PATH+BASE_DATA_PATH+BASE_TV_SHOW_PATH+BASE_EPISODE_DATA_PATH+id+DATA_FILE_EXTENSION;
     }
 
     @Override
-    protected void load()
+    public void load()
     {
         throw new UnsupportedOperationException("Episodes do not need to be loaded.");
     }
@@ -112,5 +112,11 @@ public class Episode extends ModelBase
     protected void parseJSONDetails(JSONObject obj)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public String toString()
+    {
+        return "E"+episode_number+" - "+name;
     }
 }
