@@ -34,7 +34,11 @@ public class TVShowDetails extends DetailsBase {
         initComponents();
     }
     
-    public void updateInformations(TVShow tv){
+    @Override
+    public void updateInformations(ModelBase obj){
+        if(!(obj instanceof TVShow))
+            return;
+        TVShow tv = (TVShow)obj;
         tv.load();
         current_tv_show = tv;
         

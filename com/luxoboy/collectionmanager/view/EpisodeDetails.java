@@ -5,6 +5,7 @@
  */
 package com.luxoboy.collectionmanager.view;
 
+import com.luxoboy.collectionmanager.api.model.ModelBase;
 import com.luxoboy.collectionmanager.api.model.TVShow;
 import java.awt.Desktop;
 import java.net.URL;
@@ -25,6 +26,12 @@ public class EpisodeDetails extends DetailsBase {
     public EpisodeDetails(JFrame parent) {
         this.parent = parent;
         initComponents();
+    }
+    
+    @Override
+    void updateInformations(ModelBase obj)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

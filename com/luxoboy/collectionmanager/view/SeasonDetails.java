@@ -35,7 +35,13 @@ public class SeasonDetails extends DetailsBase {
         initComponents();
     }
     
-    public void updateInformations(Season season){
+    @Override
+    public void updateInformations(ModelBase obj){
+        if(!(obj instanceof Season))
+        {
+            return;
+        }
+        Season season = (Season)obj;
         current_season = season;
         
         this.seasonNumber.setText(Integer.toString(season.getSeason_number()));
@@ -49,7 +55,7 @@ public class SeasonDetails extends DetailsBase {
         picturePanel.removeAll();
         picturePanel.add(new JLabel(new ImageIcon(backdrop.getImg())));
         
-        DefaultListModel<Episode> model = new DefaultListModel<Episode>();
+        DefaultListModel<Episode> model = new DefaultListModel<>();
         for(Episode e : season.getEpisodes())
             model.addElement(e);
         episodeList.setModel(model);
