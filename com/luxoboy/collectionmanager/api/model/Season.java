@@ -52,15 +52,16 @@ public class Season extends ModelBase
         try
         {
             air_date = date_format.parse(obj.getString("air_date"));
-            poster_filename = obj.getString("poster_path");
-            if(poster_filename.startsWith("/"))
+            poster_filename = obj.optString("poster_path", null);
+            if(poster_filename != null && poster_filename.startsWith("/"))
                 poster_filename = poster_filename.substring(1);
-            season_number = obj.getInt("season_number");
-            episode_count = obj.getInt("episode_count");
+            season_number = obj.optInt("season_number", -1);
+            episode_count = obj.optInt("episode_count", -1);
         }
         catch(JSONException | ParseException ex)
         {
             ex.printStackTrace();
+            System.out.println(obj.toString(1));
             return false;
         }
         json = obj;

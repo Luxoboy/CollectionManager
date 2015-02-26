@@ -261,6 +261,7 @@ public class TVShow extends ModelBase
     /**
      * Populates object wether from disk or from API.
      */
+    @Override
     public void load()
     {
         JSONObject obj = readFromDisk();
