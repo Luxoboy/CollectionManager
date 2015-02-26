@@ -1,4 +1,4 @@
-# CollectionManager
+# Collection Manager
 This software is a tool to manage TV shows and movies collections.
 
 ## Origin
