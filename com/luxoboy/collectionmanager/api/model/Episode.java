@@ -119,4 +119,31 @@ public class Episode extends ModelBase
     {
         return "E"+episode_number+" - "+name;
     }
+
+    public int getEpisode_number()
+    {
+        return episode_number;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getOverview()
+    {
+        return overview;
+    }
+
+    public double getVote_average()
+    {
+        return vote_average;
+    }
+
+    public Date getAir_date()
+    {
+        return air_date;
+    }
+    
+    
 }
