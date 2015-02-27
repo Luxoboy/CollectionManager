@@ -44,7 +44,6 @@ public class EpisodeDetails extends DetailsBase {
             return;
         }
         Episode episode = (Episode)obj;
-        episode.load();
         current_episode = episode;
         
         this.name.setText(episode.getName());
