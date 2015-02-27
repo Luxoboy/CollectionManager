@@ -368,6 +368,7 @@ public class TVShowDetails extends DetailsBase {
         if(evt.getClickCount() == 2 && !evt.isConsumed()){
             Season season = seasonsModel.get(seasonList.getSelectedIndex());
             parent.goToDetails(season);
+            evt.consume();
         }
     }//GEN-LAST:event_seasonListMouseClicked
     
