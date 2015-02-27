@@ -21,13 +21,15 @@ import javax.swing.JLabel;
  */
 public class SeasonDetails extends DetailsBase {
     
-    private JFrame parent;
+    private MainFrame parent;
     private Season current_season;
+    DefaultListModel<Episode> episodesModel;
 
     /**
      * Creates new form SeasonDetails
      */
-    public SeasonDetails(JFrame parent) {
+    public SeasonDetails(MainFrame parent) {
+        episodesModel = new DefaultListModel<>();
         this.parent = parent;
         initComponents();
     }
@@ -53,10 +55,10 @@ public class SeasonDetails extends DetailsBase {
         picturePanel.removeAll();
         picturePanel.add(new JLabel(new ImageIcon(backdrop.getImg())));
         
-        DefaultListModel<Episode> model = new DefaultListModel<>();
+        episodesModel.clear();
         for(Episode e : season.getEpisodes())
-            model.addElement(e);
-        episodeList.setModel(model);
+            episodesModel.addElement(e);
+        episodeList.setModel(episodesModel);
     }
 
     /**
@@ -233,11 +235,13 @@ public class SeasonDetails extends DetailsBase {
         gridBagConstraints.insets = new java.awt.Insets(50, 50, 50, 50);
         add(informationPanel, gridBagConstraints);
 
-        episodeList.setModel(new javax.swing.AbstractListModel()
+        episodeList.setModel(episodesModel);
+        episodeList.addMouseListener(new java.awt.event.MouseAdapter()
         {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                episodeListMouseClicked(evt);
+            }
         });
         jScrollPane1.setViewportView(episodeList);
 
@@ -259,6 +263,15 @@ public class SeasonDetails extends DetailsBase {
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addButtonActionPerformed
+
+    private void episodeListMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_episodeListMouseClicked
+    {//GEN-HEADEREND:event_episodeListMouseClicked
+        if(evt.getClickCount() == 2 && !evt.isConsumed()){
+            Episode ep = episodesModel.get(episodeList.getSelectedIndex());
+            parent.goToDetails(ep);
+            evt.consume();
+        }
+    }//GEN-LAST:event_episodeListMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
