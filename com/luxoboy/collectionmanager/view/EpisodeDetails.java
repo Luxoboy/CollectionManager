@@ -45,55 +45,39 @@ public class EpisodeDetails extends DetailsBase {
         java.awt.GridBagConstraints gridBagConstraints;
 
         informationPanel = new javax.swing.JPanel();
-        picturePanel = new javax.swing.JPanel();
         infoPanel = new javax.swing.JPanel();
         name = new javax.swing.JLabel();
         numberOfSeasonValue = new javax.swing.JLabel();
         yearValue = new javax.swing.JLabel();
-        rateValue = new javax.swing.JLabel();
-        authors = new javax.swing.JLabel();
-        genresValue = new javax.swing.JLabel();
-        statusValue = new javax.swing.JLabel();
         vote_averageValue = new javax.swing.JLabel();
-        goToHomepage = new javax.swing.JButton();
-        numberOfEpisodesValue = new javax.swing.JLabel();
+        rateBar1 = new com.luxoboy.collectionmanager.view.RateBar();
         descriptionPanel = new javax.swing.JPanel();
         addButton = new javax.swing.JButton();
         descriptionScrollPane = new javax.swing.JScrollPane();
         descriptionText = new javax.swing.JTextArea();
-        buttonPanel = new javax.swing.JPanel();
-        ImageIcon backButtonImage = new ImageIcon("Back-Button.png");
-        backButton = new javax.swing.JButton(backButtonImage);
+        picturePanel = new javax.swing.JPanel();
 
         setLayout(new java.awt.GridBagLayout());
 
         informationPanel.setLayout(new java.awt.GridBagLayout());
 
-        picturePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
-        informationPanel.add(picturePanel, gridBagConstraints);
-
         infoPanel.setLayout(new java.awt.GridBagLayout());
 
         name.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        name.setText("Name");
+        name.setText("Episode name ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         infoPanel.add(name, gridBagConstraints);
 
-        numberOfSeason.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        numberOfSeason.setText("Number of seasons");
+        episodeNumber.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        episodeNumber.setText("Episode number ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        infoPanel.add(numberOfSeason, gridBagConstraints);
+        infoPanel.add(episodeNumber, gridBagConstraints);
 
         numberOfSeasonValue.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         numberOfSeasonValue.setText("0");
@@ -111,77 +95,11 @@ public class EpisodeDetails extends DetailsBase {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         infoPanel.add(yearValue, gridBagConstraints);
 
-        rate.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        rate.setText("Rate");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        infoPanel.add(rate, gridBagConstraints);
-
-        rateValue.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        rateValue.setText("0/10");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        infoPanel.add(rateValue, gridBagConstraints);
-
-        createdBy.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        createdBy.setText("Created by");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        infoPanel.add(createdBy, gridBagConstraints);
-
-        authors.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        authors.setText("Vince Gilligan");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        infoPanel.add(authors, gridBagConstraints);
-
-        genres.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        genres.setText("Genres");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        infoPanel.add(genres, gridBagConstraints);
-
-        genresValue.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        genresValue.setText("Drama");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        infoPanel.add(genresValue, gridBagConstraints);
-
-        status.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        status.setText("Status");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        infoPanel.add(status, gridBagConstraints);
-
-        statusValue.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        statusValue.setText("Ended");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        infoPanel.add(statusValue, gridBagConstraints);
-
         vote_average.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         vote_average.setText("Vote average");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(vote_average, gridBagConstraints);
 
@@ -189,41 +107,19 @@ public class EpisodeDetails extends DetailsBase {
         vote_averageValue.setText("9.1");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(vote_averageValue, gridBagConstraints);
-
-        goToHomepage.setText("Go to homepage");
-        goToHomepage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                goToHomepageActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        infoPanel.add(goToHomepage, gridBagConstraints);
-
-        numberOfEpisodes.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        numberOfEpisodes.setText("Number of episodes");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        infoPanel.add(numberOfEpisodes, gridBagConstraints);
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        infoPanel.add(rateBar1, gridBagConstraints);
 
-        numberOfEpisodesValue.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        numberOfEpisodesValue.setText("98");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        infoPanel.add(numberOfEpisodesValue, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         informationPanel.add(infoPanel, gridBagConstraints);
 
@@ -271,86 +167,47 @@ public class EpisodeDetails extends DetailsBase {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         informationPanel.add(descriptionPanel, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 30, 0);
         add(informationPanel, gridBagConstraints);
 
-        buttonPanel.setLayout(new java.awt.GridBagLayout());
-
-        backButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        backButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backButtonActionPerformed(evt);
-            }
-        });
+        picturePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        buttonPanel.add(backButton, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        add(buttonPanel, gridBagConstraints);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
+        add(picturePanel, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void goToHomepageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goToHomepageActionPerformed
-        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
-        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-            try {
-                desktop.browse(new URL(current_tv_show.getHomepage()).toURI());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }//GEN-LAST:event_goToHomepageActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addButtonActionPerformed
 
-    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        this.setVisible(false);
-    }//GEN-LAST:event_backButtonActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
-    private javax.swing.JLabel authors;
-    private javax.swing.JButton backButton;
-    private javax.swing.JPanel buttonPanel;
-    private static final javax.swing.JLabel createdBy = new javax.swing.JLabel();
     private static final javax.swing.JLabel description = new javax.swing.JLabel();
     private javax.swing.JPanel descriptionPanel;
     private javax.swing.JScrollPane descriptionScrollPane;
     private javax.swing.JTextArea descriptionText;
-    private static final javax.swing.JLabel genres = new javax.swing.JLabel();
-    private javax.swing.JLabel genresValue;
-    private javax.swing.JButton goToHomepage;
+    private static final javax.swing.JLabel episodeNumber = new javax.swing.JLabel();
     private javax.swing.JPanel infoPanel;
     private javax.swing.JPanel informationPanel;
     private javax.swing.JLabel name;
-    private static final javax.swing.JLabel numberOfEpisodes = new javax.swing.JLabel();
-    private javax.swing.JLabel numberOfEpisodesValue;
-    private static final javax.swing.JLabel numberOfSeason = new javax.swing.JLabel();
     private javax.swing.JLabel numberOfSeasonValue;
     private javax.swing.JPanel picturePanel;
-    private static final javax.swing.JLabel rate = new javax.swing.JLabel();
-    private javax.swing.JLabel rateValue;
-    private static final javax.swing.JLabel status = new javax.swing.JLabel();
-    private javax.swing.JLabel statusValue;
+    private com.luxoboy.collectionmanager.view.RateBar rateBar1;
     private static final javax.swing.JLabel vote_average = new javax.swing.JLabel();
     private javax.swing.JLabel vote_averageValue;
     private javax.swing.JLabel yearValue;
