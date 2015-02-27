@@ -49,7 +49,8 @@ public class EpisodeDetails extends DetailsBase {
         this.name.setText(episode.getName());
         this.yearValue.setText(Integer.toString(ModelBase.getYear(episode.getAir_date())));
         this.episodeNumber.setText(Integer.toString(episode.getEpisode_number()));
-        this.descriptionText.setText(episode.getOverview());            
+        this.descriptionText.setText(episode.getOverview()); 
+        this.vote_averageValue.setText(Double.toString(episode.getVote_average()));
         
         
         picturePanel.removeAll();
