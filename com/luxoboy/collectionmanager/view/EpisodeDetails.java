@@ -5,12 +5,18 @@
  */
 package com.luxoboy.collectionmanager.view;
 
+import com.luxoboy.collectionmanager.api.images.ImageSizes;
+import com.luxoboy.collectionmanager.api.model.Episode;
+import com.luxoboy.collectionmanager.api.model.Image;
 import com.luxoboy.collectionmanager.api.model.ModelBase;
+import com.luxoboy.collectionmanager.api.model.Season;
 import com.luxoboy.collectionmanager.api.model.TVShow;
 import java.awt.Desktop;
 import java.net.URL;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 /**
  *
@@ -19,7 +25,7 @@ import javax.swing.JFrame;
 public class EpisodeDetails extends DetailsBase {
 
     private JFrame parent;
-    private TVShow current_tv_show;
+    private Episode current_episode;
     /**
      * Creates new form EpisodeDetails
      */
@@ -31,7 +37,25 @@ public class EpisodeDetails extends DetailsBase {
     @Override
     void updateInformations(ModelBase obj)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(!(obj instanceof Episode))
+        {
+            return;
+        }
+        Episode episode = (Episode)obj;
+        episode.load();
+        current_episode = episode;
+        
+        this.name.setText(episode.getName());
+        this.yearValue.setText(Integer.toString(ModelBase.getYear(episode.getAir_date())));
+        this.episodeNumber.setText(Integer.toString(episode.getEpisode_number()));
+        this.descriptionText.setText(episode.getOverview());            
+        
+        
+        picturePanel.removeAll();
+        picturePanel.add(new JLabel("Loading..."));
+        Image backdrop = episode.getStill(ImageSizes.SizeList.w342);
+        picturePanel.removeAll();
+        picturePanel.add(new JLabel(new ImageIcon(backdrop.getImg())));
     }
 
     /**
