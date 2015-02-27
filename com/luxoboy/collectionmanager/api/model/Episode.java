@@ -5,6 +5,8 @@
  */
 package com.luxoboy.collectionmanager.api.model;
 
+import com.luxoboy.collectionmanager.api.images.ImageSizes;
+import com.luxoboy.collectionmanager.api.images.ImageTypes;
 import static com.luxoboy.collectionmanager.api.model.TVShow.BASE_TV_SHOW_PATH;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -25,6 +27,7 @@ public class Episode extends ModelBase
     private String name, overview, still_path;
     private double vote_average;
     private JSONObject json;
+    private Image still;
     
     private Episode(int id)
     {
@@ -145,5 +148,17 @@ public class Episode extends ModelBase
         return air_date;
     }
     
-    
+    public Image getStill(ImageSizes.SizeList size)
+    {
+        if(still != null)
+        {
+            if(!still.getSize().equals(size))
+                still = null;
+        }
+        if(still == null)
+        {
+            still = Image.get(ImageTypes.still, size, still_path);
+        }
+        return still;
+    }
 }
