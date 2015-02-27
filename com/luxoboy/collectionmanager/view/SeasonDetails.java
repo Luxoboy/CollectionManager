@@ -21,15 +21,17 @@ import javax.swing.JLabel;
  */
 public class SeasonDetails extends DetailsBase {
     
-    private JFrame parent;
+    private MainFrame parent;
     private Season current_season;
 
     /**
      * Creates new form SeasonDetails
      */
-    public SeasonDetails(JFrame parent) {
+    public SeasonDetails(MainFrame parent) {
         this.parent = parent;
         initComponents();
+        backButton.setDetailbase(this);
+        backButton.setMainFrame(parent);   
     }
     
     @Override
@@ -66,8 +68,7 @@ public class SeasonDetails extends DetailsBase {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
         informationPanel = new javax.swing.JPanel();
@@ -75,9 +76,9 @@ public class SeasonDetails extends DetailsBase {
         name = new javax.swing.JLabel();
         seasonNumber = new javax.swing.JLabel();
         yearValue = new javax.swing.JLabel();
-        rateValue = new javax.swing.JLabel();
         vote_averageValue = new javax.swing.JLabel();
         numberOfEpisodesValue = new javax.swing.JLabel();
+        rateBar1 = new com.luxoboy.collectionmanager.view.RateBar();
         descriptionPanel = new javax.swing.JPanel();
         addButton = new javax.swing.JButton();
         descriptionScrollPane = new javax.swing.JScrollPane();
@@ -85,6 +86,7 @@ public class SeasonDetails extends DetailsBase {
         jScrollPane1 = new javax.swing.JScrollPane();
         episodeList = new javax.swing.JList();
         picturePanel = new javax.swing.JPanel();
+        backButton = new com.luxoboy.collectionmanager.view.BackButton();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -116,29 +118,11 @@ public class SeasonDetails extends DetailsBase {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         infoPanel.add(yearValue, gridBagConstraints);
 
-        rate.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        rate.setText("Rate");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        infoPanel.add(rate, gridBagConstraints);
-
-        rateValue.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        rateValue.setText("0/10");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        infoPanel.add(rateValue, gridBagConstraints);
-
         vote_average.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         vote_average.setText("Vote average");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(vote_average, gridBagConstraints);
 
@@ -146,7 +130,7 @@ public class SeasonDetails extends DetailsBase {
         vote_averageValue.setText("9.1");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(vote_averageValue, gridBagConstraints);
 
@@ -154,7 +138,7 @@ public class SeasonDetails extends DetailsBase {
         numberOfEpisodes.setText("Number of episodes ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(numberOfEpisodes, gridBagConstraints);
 
@@ -162,9 +146,14 @@ public class SeasonDetails extends DetailsBase {
         numberOfEpisodesValue.setText("98");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(numberOfEpisodesValue, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        infoPanel.add(rateBar1, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -185,10 +174,8 @@ public class SeasonDetails extends DetailsBase {
         descriptionPanel.add(description, gridBagConstraints);
 
         addButton.setText("Add to my Collection");
-        addButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
             }
         });
@@ -199,7 +186,6 @@ public class SeasonDetails extends DetailsBase {
         descriptionPanel.add(addButton, gridBagConstraints);
 
         descriptionScrollPane.setBorder(null);
-        descriptionScrollPane.setViewportBorder(null);
 
         descriptionText.setEditable(false);
         descriptionText.setColumns(20);
@@ -227,14 +213,13 @@ public class SeasonDetails extends DetailsBase {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(50, 50, 50, 50);
         add(informationPanel, gridBagConstraints);
 
-        episodeList.setModel(new javax.swing.AbstractListModel()
-        {
+        episodeList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -243,17 +228,18 @@ public class SeasonDetails extends DetailsBase {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         add(jScrollPane1, gridBagConstraints);
 
         picturePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
         add(picturePanel, gridBagConstraints);
+        add(backButton, new java.awt.GridBagConstraints());
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
@@ -263,6 +249,7 @@ public class SeasonDetails extends DetailsBase {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
+    private com.luxoboy.collectionmanager.view.BackButton backButton;
     private static final javax.swing.JLabel description = new javax.swing.JLabel();
     private javax.swing.JPanel descriptionPanel;
     private javax.swing.JScrollPane descriptionScrollPane;
@@ -275,8 +262,7 @@ public class SeasonDetails extends DetailsBase {
     private static final javax.swing.JLabel numberOfEpisodes = new javax.swing.JLabel();
     private javax.swing.JLabel numberOfEpisodesValue;
     private javax.swing.JPanel picturePanel;
-    private static final javax.swing.JLabel rate = new javax.swing.JLabel();
-    private javax.swing.JLabel rateValue;
+    private com.luxoboy.collectionmanager.view.RateBar rateBar1;
     private javax.swing.JLabel seasonNumber;
     private static final javax.swing.JLabel vote_average = new javax.swing.JLabel();
     private javax.swing.JLabel vote_averageValue;

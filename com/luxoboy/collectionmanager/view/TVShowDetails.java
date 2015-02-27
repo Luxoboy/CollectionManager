@@ -34,6 +34,8 @@ public class TVShowDetails extends DetailsBase {
         seasonsModel = new DefaultListModel<>();
         this.parent = parent;       
         initComponents();
+        backButton.setDetailbase(this);
+        backButton.setMainFrame(parent);
     }
     
     @Override
@@ -89,8 +91,7 @@ public class TVShowDetails extends DetailsBase {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
         informationPanel = new javax.swing.JPanel();
@@ -112,6 +113,7 @@ public class TVShowDetails extends DetailsBase {
         seasonScollPane = new javax.swing.JScrollPane();
         seasonList = new javax.swing.JList();
         picturePanel = new javax.swing.JPanel();
+        backButton = new com.luxoboy.collectionmanager.view.BackButton();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Details"));
         setLayout(new java.awt.GridBagLayout());
@@ -217,10 +219,8 @@ public class TVShowDetails extends DetailsBase {
         infoPanel.add(vote_averageValue, gridBagConstraints);
 
         goToHomepage.setText("Go to homepage");
-        goToHomepage.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        goToHomepage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goToHomepageActionPerformed(evt);
             }
         });
@@ -265,10 +265,8 @@ public class TVShowDetails extends DetailsBase {
         descriptionPanel.add(description, gridBagConstraints);
 
         addButton.setText("Add to my Collection");
-        addButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
             }
         });
@@ -313,7 +311,7 @@ public class TVShowDetails extends DetailsBase {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(25, 25, 25, 25);
         add(informationPanel, gridBagConstraints);
@@ -322,10 +320,8 @@ public class TVShowDetails extends DetailsBase {
 
         seasonList.setModel(seasonsModel);
         seasonList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        seasonList.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        seasonList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 seasonListMouseClicked(evt);
             }
         });
@@ -333,7 +329,7 @@ public class TVShowDetails extends DetailsBase {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = new java.awt.Insets(0, 50, 0, 0);
         add(seasonScollPane, gridBagConstraints);
@@ -341,10 +337,15 @@ public class TVShowDetails extends DetailsBase {
         picturePanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         add(picturePanel, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        add(backButton, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
@@ -373,6 +374,7 @@ public class TVShowDetails extends DetailsBase {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JLabel authors;
+    private com.luxoboy.collectionmanager.view.BackButton backButton;
     private static final javax.swing.JLabel createdBy = new javax.swing.JLabel();
     private static final javax.swing.JLabel description = new javax.swing.JLabel();
     private javax.swing.JPanel descriptionPanel;
