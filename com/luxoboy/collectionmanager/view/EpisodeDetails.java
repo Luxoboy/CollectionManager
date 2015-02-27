@@ -24,14 +24,16 @@ import javax.swing.JLabel;
  */
 public class EpisodeDetails extends DetailsBase {
 
-    private JFrame parent;
+    private MainFrame parent;
     private Episode current_episode;
     /**
      * Creates new form EpisodeDetails
      */
-    public EpisodeDetails(JFrame parent) {
+    public EpisodeDetails(MainFrame parent) {
         this.parent = parent;
         initComponents();
+        backButton.setDetailbase(this);
+        backButton.setMainFrame(parent);
     }
     
     @Override
@@ -80,6 +82,7 @@ public class EpisodeDetails extends DetailsBase {
         descriptionScrollPane = new javax.swing.JScrollPane();
         descriptionText = new javax.swing.JTextArea();
         picturePanel = new javax.swing.JPanel();
+        backButton = new com.luxoboy.collectionmanager.view.BackButton();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -172,7 +175,6 @@ public class EpisodeDetails extends DetailsBase {
         descriptionPanel.add(addButton, gridBagConstraints);
 
         descriptionScrollPane.setBorder(null);
-        descriptionScrollPane.setViewportBorder(null);
 
         descriptionText.setEditable(false);
         descriptionText.setColumns(20);
@@ -200,7 +202,7 @@ public class EpisodeDetails extends DetailsBase {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 30, 0);
         add(informationPanel, gridBagConstraints);
@@ -208,10 +210,11 @@ public class EpisodeDetails extends DetailsBase {
         picturePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
         add(picturePanel, gridBagConstraints);
+        add(backButton, new java.awt.GridBagConstraints());
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
@@ -221,6 +224,7 @@ public class EpisodeDetails extends DetailsBase {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
+    private com.luxoboy.collectionmanager.view.BackButton backButton;
     private static final javax.swing.JLabel description = new javax.swing.JLabel();
     private javax.swing.JPanel descriptionPanel;
     private javax.swing.JScrollPane descriptionScrollPane;

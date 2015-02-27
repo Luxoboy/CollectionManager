@@ -63,6 +63,24 @@ public class MainFrame extends javax.swing.JFrame
         this.setContentPane(episodeDetails);
         this.revalidate();
     }
+    
+    public void goToSearch()
+    {
+        this.setContentPane(searchView);
+        this.revalidate();
+    }
+    
+    public void goToTVShowDetails()
+    {
+        this.setContentPane(tvsDetails);
+        this.revalidate();
+    }
+    
+    public void goToSeasonDetails()
+    {
+        this.setContentPane(seasonDetails);
+        this.revalidate();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
