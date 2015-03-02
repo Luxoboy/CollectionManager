@@ -78,7 +78,6 @@ public class SeasonDetails extends DetailsBase {
         name = new javax.swing.JLabel();
         seasonNumber = new javax.swing.JLabel();
         yearValue = new javax.swing.JLabel();
-        vote_averageValue = new javax.swing.JLabel();
         numberOfEpisodesValue = new javax.swing.JLabel();
         rateBar1 = new com.luxoboy.collectionmanager.view.RateBar();
         descriptionPanel = new javax.swing.JPanel();
@@ -119,22 +118,6 @@ public class SeasonDetails extends DetailsBase {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         infoPanel.add(yearValue, gridBagConstraints);
-
-        vote_average.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        vote_average.setText("Vote average");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        infoPanel.add(vote_average, gridBagConstraints);
-
-        vote_averageValue.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        vote_averageValue.setText("9.1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        infoPanel.add(vote_averageValue, gridBagConstraints);
 
         numberOfEpisodes.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         numberOfEpisodes.setText("Number of episodes ");
@@ -222,10 +205,8 @@ public class SeasonDetails extends DetailsBase {
         add(informationPanel, gridBagConstraints);
 
         episodeList.setModel(episodesModel);
-        episodeList.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        episodeList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 episodeListMouseClicked(evt);
             }
         });
@@ -282,8 +263,6 @@ public class SeasonDetails extends DetailsBase {
     private javax.swing.JPanel picturePanel;
     private com.luxoboy.collectionmanager.view.RateBar rateBar1;
     private javax.swing.JLabel seasonNumber;
-    private static final javax.swing.JLabel vote_average = new javax.swing.JLabel();
-    private javax.swing.JLabel vote_averageValue;
     private javax.swing.JLabel yearValue;
     // End of variables declaration//GEN-END:variables
 }

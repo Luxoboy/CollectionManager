@@ -50,6 +50,7 @@ public class TVShowDetails extends DetailsBase {
         this.descriptionText.setText(tv.getOverview());
         this.numberOfSeasonValue.setText(Integer.toString(tv.getNumber_of_seasons()));
         this.numberOfEpisodesValue.setText(Integer.toString(tv.getNumber_of_episodes()));
+        this.vote_averageValue.setText(Double.toString(tv.getVote_average()));
         
         String authors ="";
         for(String author : tv.getAuthors())
