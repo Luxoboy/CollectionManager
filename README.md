@@ -6,6 +6,8 @@ This software is developped for a course taking place at UCBL - IUT Lyon 1 (Bour
 
 ### Authors
 * Anthony Correia <anthony.correia71@gmail.com>
+* Orann Weber <orann.weber@gmail.com>
+* Thibaud Sabatier <thibaud.sabatier@gmail.com>
 
 ## Data fetching
 Currently, all data cencerning shows and movies is fetched from themoviedatabase.org, using the free API they provide.
