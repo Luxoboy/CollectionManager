@@ -20,17 +20,17 @@ import org.json.JSONObject;
  *
  * @author orann
  */
-public class Movie extends ModelBase{
+public class Movie extends ModelBase{ 
     
-    static public final String BASE_TV_SHOW_PATH = "movie/";
+    static public final String BASE_MOVIE_PATH = "movie/";
 
-    private String original_name, name;
+    private String original_title, name;
     private ArrayList<String> origin_country, authors, genres;
-    private Date first_air_date, last_air_date;
-    private String backdrop_filename, homepage, original_language, overview,
-            status;
+    private Date release_date;
+    private String poster_path, backdrop_path, homepage, original_language, overview, status, tagline;
+
     private double vote_average;
-    private boolean in_production;
+
     private Image main_backdrop;
     
     /**
@@ -46,10 +46,14 @@ public class Movie extends ModelBase{
         super(id);
         main_backdrop = null;
     }
+    
+    public String getPoster_path() {
+        return poster_path;
+    }
 
-    public String getBackdrop_filename()
+    public String getBackdrop_path()
     {
-        return backdrop_filename;
+        return backdrop_path;
     }
 
     /**
@@ -60,24 +64,23 @@ public class Movie extends ModelBase{
      */
     @Override
     protected boolean parseJSON(JSONObject obj)
-    {
-        System.out.println("Parsing base informations...");
+    {        
         try
         {
-            name = obj.getString("name");
-        } catch (JSONException ex)
-        {
-            return false;
-        }
-        try
-        {
-            original_name = obj.getString("original_name");
+            original_title = obj.getString("original_name");
             if (!obj.isNull("backdrop_path"))
             {
-                backdrop_filename = obj.getString("backdrop_path").substring(1);
+                backdrop_path = obj.getString("backdrop_path").substring(1);
             } else
             {
-                backdrop_filename = "";
+                backdrop_path = "";
+            }
+            if (!obj.isNull("poster_path"))
+            {
+                poster_path = obj.getString("poster_path").substring(1);
+            } else
+            {
+                poster_path = "";
             }
 
         } catch (JSONException ex)
@@ -85,7 +88,8 @@ public class Movie extends ModelBase{
             ex.printStackTrace();
             System.out.println("Error while parsing Movie JSON DATA:\n" + obj.toString(1));
             return false;
-        }
+        }       
+        
         try
         {
             origin_country = new ArrayList<>();
@@ -100,10 +104,10 @@ public class Movie extends ModelBase{
         }
         try
         {
-            first_air_date = date_format.parse(obj.getString("first_air_date"));
+            release_date = date_format.parse(obj.getString("first_air_date"));
         } catch (JSONException | ParseException ex)
         {
-            first_air_date = new Date(0);
+            release_date = new Date(0);
         }
         try
         {
@@ -170,25 +174,6 @@ public class Movie extends ModelBase{
         {
             System.out.println("Error parsing homepage of movie "+name);
             homepage = null;
-        }
-        try
-        {
-            in_production = obj.getBoolean("in_production");
-        }
-        catch(JSONException ex)
-        {
-            System.out.println("Error parsing in_production of movie "+name);
-            in_production = false;
-        }
-        try
-        {
-            String last_air_date_str = obj.getString("last_air_date");
-            last_air_date = date_format.parse(last_air_date_str);
-        }
-        catch(JSONException | ParseException ex)
-        {
-            System.out.println("Error parsing last_air_date of movie "+name);
-            last_air_date = new Date(0);
         }
 
         try
@@ -271,9 +256,9 @@ public class Movie extends ModelBase{
         return vote_average;
     }
 
-    public String getOriginal_name()
+    public String getOriginal_title()
     {
-        return original_name;
+        return original_title;
     }
 
     public String getName()
@@ -286,9 +271,9 @@ public class Movie extends ModelBase{
         return origin_country;
     }
 
-    public Date getFirst_air_date()
+    public Date getRelease_date()
     {
-        return first_air_date;
+        return release_date;
     }
 
     public ArrayList<String> getAuthors()
@@ -299,11 +284,6 @@ public class Movie extends ModelBase{
     public ArrayList<String> getGenres()
     {
         return genres;
-    }
-
-    public Date getLast_air_date()
-    {
-        return last_air_date;
     }
 
     public String getHomepage()
@@ -320,15 +300,14 @@ public class Movie extends ModelBase{
     {
         return overview;
     }
+    
+    public String getTagline() {
+        return tagline;
+    }
 
     public String getStatus()
     {
         return status;
-    }
-
-    public boolean isIn_production()
-    {
-        return in_production;
     }
     
     public Image getMain_backdrop(ImageSizes.SizeList size)
@@ -340,7 +319,7 @@ public class Movie extends ModelBase{
         }
         if(main_backdrop == null)
         {
-            main_backdrop = Image.get(ImageTypes.backdrop, size, backdrop_filename);
+            main_backdrop = Image.get(ImageTypes.backdrop, size, backdrop_path);
         }
         return main_backdrop;
     }
@@ -349,7 +328,7 @@ public class Movie extends ModelBase{
     @Override
     protected String buildDataFilePath()
     {
-        return getDataBasePath() + BASE_TV_SHOW_PATH + Integer.toString(id)+DATA_FILE_EXTENSION;
+        return getDataBasePath() + BASE_MOVIE_PATH + Integer.toString(id)+DATA_FILE_EXTENSION;
     }
 
     /**
