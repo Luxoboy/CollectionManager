@@ -131,12 +131,10 @@ public class Movie extends ModelBase{
         try
         {
             authors = new ArrayList<>();
-            array = obj.getJSONArray("cast");
+            array = obj.getJSONArray("crew");
             for (int i = 0; i < array.length(); i++)
             {
-                if((array.getJSONObject(i).getString("department")=="Directing") && (array.getJSONObject(i).getString("job")=="Director")){
                     authors.add(array.getJSONObject(i).getString("name"));
-                }
             }
             array = null;
         } catch (JSONException ex)
