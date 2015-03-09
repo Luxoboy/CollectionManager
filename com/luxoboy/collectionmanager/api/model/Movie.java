@@ -24,8 +24,8 @@ public class Movie extends ModelBase{
     
     static public final String BASE_MOVIE_PATH = "movie/";
 
-    private String original_title, name;
-    private ArrayList<String> origin_country, authors, genres;
+    private String original_title, title;
+    private ArrayList<String> authors, genres;
     private Date release_date;
     private String poster_path, backdrop_path, homepage, original_language, overview, status, tagline;
 
@@ -38,7 +38,7 @@ public class Movie extends ModelBase{
      */
     private JSONObject json_base;
     /**
-     * Detailed informations extracted from TVDetails.
+     * Detailed informations extracted from MovieDetails.
      */
     private JSONObject json_details;
     
@@ -57,14 +57,23 @@ public class Movie extends ModelBase{
     }
 
     /**
-     * Parses a JSON object and popualates object with base informations.
+     * Parses a JSON object and populates object with base informations.
      *
      * @param obj The JSON object to parse.
      * @return False if the object could not be populated.
      */
     @Override
     protected boolean parseJSON(JSONObject obj)
-    {        
+    {     
+        System.out.println("Parsing base informations...");
+        try
+        {
+            title = obj.getString("name");
+        } catch (JSONException ex)
+        {
+            return false;
+        }
+        
         try
         {
             original_title = obj.getString("original_name");
@@ -88,20 +97,8 @@ public class Movie extends ModelBase{
             ex.printStackTrace();
             System.out.println("Error while parsing Movie JSON DATA:\n" + obj.toString(1));
             return false;
-        }       
-        
-        try
-        {
-            origin_country = new ArrayList<>();
-            JSONArray countries = obj.getJSONArray("origin_country");
-            for (int i = 0; i < countries.length(); i++)
-            {
-                origin_country.add(countries.getString(i));
-            }
-        } catch (JSONException ex)
-        {
-            origin_country = null;
         }
+        
         try
         {
             release_date = date_format.parse(obj.getString("first_air_date"));
@@ -127,26 +124,9 @@ public class Movie extends ModelBase{
      * @return
      */
     protected void parseJSONDetails(JSONObject obj)
-    {
+    {        
         JSONArray array = null;
-        try
-        {
-            authors = new ArrayList<>();
-            array = obj.getJSONArray("created_by");
-            for (int i = 0; i < array.length(); i++)
-            {
-                authors.add(array.getJSONObject(i).getString("name"));
-            }
-            array = null;
-        } catch (JSONException ex)
-        {
-            System.out.println("Error parsing authors in movie " + name);
-            if (array != null)
-            {
-                System.out.println(array.toString(1));
-            }
-            authors = null;
-        }
+        
         try
         {
             genres = new ArrayList<>();
@@ -159,7 +139,7 @@ public class Movie extends ModelBase{
         }
         catch(JSONException ex)
         {
-            System.out.println("Error parsing genres in movie " + name);
+            System.out.println("Error parsing genres in movie " + title);
             if (array != null)
             {
                 System.out.println(array.toString(1));
@@ -172,7 +152,7 @@ public class Movie extends ModelBase{
         }
         catch(JSONException ex )
         {
-            System.out.println("Error parsing homepage of movie "+name);
+            System.out.println("Error parsing homepage of movie "+title);
             homepage = null;
         }
 
@@ -182,7 +162,7 @@ public class Movie extends ModelBase{
         }
         catch(JSONException ex)
         {
-            System.out.println("Error parsing original language of movie "+name);
+            System.out.println("Error parsing original language of movie "+title);
             original_language = null;
         }
         try
@@ -191,7 +171,7 @@ public class Movie extends ModelBase{
         }
         catch(JSONException ex)
         {
-            System.out.println("Error parsing overview of movie "+name);
+            System.out.println("Error parsing overview of movie "+title);
             overview = null;
         }
         try
@@ -200,8 +180,18 @@ public class Movie extends ModelBase{
         }
         catch(JSONException ex)
         {
-            System.out.println("Error parsing status of movie "+name);
+            System.out.println("Error parsing status of movie "+title);
             status = null;
+        }
+        
+        try
+        {
+            tagline = obj.getString("tagline");
+        }
+        catch(JSONException ex)
+        {
+            System.out.println("Error parsing status of movie "+title);
+            tagline = null;
         }
 
         isPopulated = true;
@@ -218,18 +208,18 @@ public class Movie extends ModelBase{
         JSONObject obj = readFromDisk();
         if(obj == null)
         {
-            System.out.println(name+": loading from API...");
-            TVDetails tvd = new TVDetails();
-            obj = tvd.proceed(id);
+            System.out.println(title+": loading from API...");
+            //MovieDetails md = new MovieDetails();
+            //obj = md.proceed(id);
         }
         this.parseJSONDetails(obj);
     }
 
     /**
-     * Creates new TV Show from JSON.
+     * Creates new Movie from JSON.
      *
      * @param obj The JSON object to extract data from.
-     * @return null if the TV Show could not be loaded.
+     * @return null if the Movie could not be loaded.
      */
     public static Movie loadFromJson(JSONObject obj)
     {
@@ -261,14 +251,9 @@ public class Movie extends ModelBase{
         return original_title;
     }
 
-    public String getName()
+    public String getTitle()
     {
-        return name;
-    }
-
-    public ArrayList<String> getOrigin_country()
-    {
-        return origin_country;
+        return title;
     }
 
     public Date getRelease_date()
