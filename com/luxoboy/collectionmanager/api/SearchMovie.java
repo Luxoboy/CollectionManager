@@ -36,7 +36,7 @@ public class SearchMovie extends ApiRequest implements MovieRequest
             int total_pages = res.getInt("total_pages"),
                     fetched_pages = 0;
             ArrayList<Movie> movie = new ArrayList<>();
-            JSONArray res_shows; 
+            JSONArray res_movie; 
             while(fetched_pages < total_pages && fetched_pages < MAX_FETCHED_PAGES)
             {
                 if(fetched_pages != 0)
@@ -44,10 +44,10 @@ public class SearchMovie extends ApiRequest implements MovieRequest
                     addParameter("page", Integer.toString(fetched_pages+1));
                     res = fetch();
                 }
-                res_shows = res.getJSONArray("results");
-                for(int i=0; i < res_shows.length(); i++)
+                res_movie = res.getJSONArray("results");
+                for(int i=0; i < res_movie.length(); i++)
                 {
-                    Movie m = Movie.loadFromJson(res_shows.getJSONObject(i));
+                    Movie m = Movie.loadFromJson(res_movie.getJSONObject(i));
                     if(m != null)
                         movie.add(m);
                 }

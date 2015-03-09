@@ -5,6 +5,7 @@
  */
 package com.luxoboy.collectionmanager.api.model;
 
+import com.luxoboy.collectionmanager.api.MovieDetails;
 import com.luxoboy.collectionmanager.api.TVDetails;
 import com.luxoboy.collectionmanager.api.images.ImageSizes;
 import com.luxoboy.collectionmanager.api.images.ImageTypes;
@@ -129,6 +130,27 @@ public class Movie extends ModelBase{
         
         try
         {
+            authors = new ArrayList<>();
+            array = obj.getJSONArray("cast");
+            for (int i = 0; i < array.length(); i++)
+            {
+                if((array.getJSONObject(i).getString("department")=="Directing") && (array.getJSONObject(i).getString("job")=="Director")){
+                    authors.add(array.getJSONObject(i).getString("name"));
+                }
+            }
+            array = null;
+        } catch (JSONException ex)
+        {
+            System.out.println("Error parsing authors in show " + title);
+            if (array != null)
+            {
+                System.out.println(array.toString(1));
+            }
+            authors = null;
+        }
+        
+        try
+        {
             genres = new ArrayList<>();
             array = obj.getJSONArray("genres");
             for (int i = 0; i < array.length(); i++)
@@ -209,8 +231,8 @@ public class Movie extends ModelBase{
         if(obj == null)
         {
             System.out.println(title+": loading from API...");
-            //MovieDetails md = new MovieDetails();
-            //obj = md.proceed(id);
+            MovieDetails md = new MovieDetails();
+            obj = md.proceed(id);
         }
         this.parseJSONDetails(obj);
     }

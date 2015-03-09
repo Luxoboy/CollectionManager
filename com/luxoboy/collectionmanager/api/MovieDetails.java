@@ -23,6 +23,7 @@ public class MovieDetails extends ApiRequest implements ByIDRequest
     public JSONObject proceed(int id)
     {
         this.setRESSOURCE_URL("movie/"+Integer.toString(id));
+        addParameter("append_to_response", "credits");
         try
         {
             JSONObject ret = null;
