@@ -18,6 +18,7 @@ import com.luxoboy.collectionmanager.api.model.Movie;
 import com.luxoboy.collectionmanager.api.model.TVShow;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONObject;
 
 /**
  *
@@ -34,8 +35,8 @@ public class Main
             MovieDetails details = new MovieDetails();
             for(Movie tvs : s.proceed())
             {
-                details.proceed(tvs.getId());
-                System.out.println(tvs.getId());
+                tvs.load();
+                System.out.println(tvs.getTitle());
             }
         } catch (Exception ex)
         {
