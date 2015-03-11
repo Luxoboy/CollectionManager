@@ -139,7 +139,7 @@ public class Movie extends ModelBase{
             array = null;
         } catch (JSONException ex)
         {
-            System.out.println("Error parsing authors in show " + title);
+            System.out.println("Error parsing authors in movie " + title);
             if (array != null)
             {
                 System.out.println(array.toString(1));

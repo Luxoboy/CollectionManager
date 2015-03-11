@@ -9,8 +9,6 @@ import com.luxoboy.collectionmanager.api.images.ImageSizes;
 import com.luxoboy.collectionmanager.api.model.Image;
 import com.luxoboy.collectionmanager.api.model.ModelBase;
 import com.luxoboy.collectionmanager.api.model.Movie;
-import com.luxoboy.collectionmanager.api.model.Season;
-import com.luxoboy.collectionmanager.api.model.TVShow;
 import java.awt.Desktop;
 import java.net.URL;
 import javax.swing.ImageIcon;
@@ -20,7 +18,7 @@ import javax.swing.JLabel;
  *
  * @author orann
  */
-public class MovieDetails extends DetailsBase {
+public class MovieDetailsView extends DetailsBase {
 
     private MainFrame parent;
     private Movie current_Movie;
@@ -28,7 +26,7 @@ public class MovieDetails extends DetailsBase {
     /**
      * Creates new form MovieDetails
      */
-    public MovieDetails(MainFrame parent) {
+    public MovieDetailsView(MainFrame parent) {
         this.parent = parent;       
         initComponents();
         backButton.setDetailbase(this);
@@ -44,16 +42,15 @@ public class MovieDetails extends DetailsBase {
         current_Movie = movie;
         
         this.title.setText(movie.getTitle());
-        this.tagline.setText(movie.getTagline());
         this.descriptionText.setText(movie.getOverview());
         this.vote_averageValue.setText(Double.toString(movie.getVote_average()));
         
-        String authors ="";
-        for(String author : movie.getAuthors())
-            authors+=author+",";
-        if(!authors.isEmpty())
-            authors = authors.substring(0, authors.length()-1);
-        this.authors.setText(authors);
+//        String authors ="";
+//        for(String author : movie.getAuthors())
+//            authors+=author+",";
+//        if(!authors.isEmpty())
+//            authors = authors.substring(0, authors.length()-1);
+//        this.authors.setText(authors);
         
         String genres ="";
         for(String genre : movie.getGenres())
@@ -88,11 +85,9 @@ public class MovieDetails extends DetailsBase {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new javax.swing.JPanel();
         informationPanel = new javax.swing.JPanel();
         infoPanel = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
-        tagline = new javax.swing.JLabel();
         yearValue = new javax.swing.JLabel();
         authors = new javax.swing.JLabel();
         genresValue = new javax.swing.JLabel();
@@ -107,8 +102,7 @@ public class MovieDetails extends DetailsBase {
         picturePanel = new javax.swing.JPanel();
         backButton = new com.luxoboy.collectionmanager.view.BackButton();
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Details"));
-        jPanel1.setLayout(new java.awt.GridBagLayout());
+        setLayout(new java.awt.GridBagLayout());
 
         informationPanel.setLayout(new java.awt.GridBagLayout());
 
@@ -122,14 +116,6 @@ public class MovieDetails extends DetailsBase {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         infoPanel.add(title, gridBagConstraints);
 
-        tagline.setFont(new java.awt.Font("Ubuntu", 2, 15)); // NOI18N
-        tagline.setText("Tagline");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        infoPanel.add(tagline, gridBagConstraints);
-
         yearValue.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
         yearValue.setText("00/00/00");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -142,7 +128,7 @@ public class MovieDetails extends DetailsBase {
         createdBy.setText("Created by");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(createdBy, gridBagConstraints);
 
@@ -150,7 +136,7 @@ public class MovieDetails extends DetailsBase {
         authors.setText("Vince Gilligan");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(authors, gridBagConstraints);
 
@@ -158,7 +144,7 @@ public class MovieDetails extends DetailsBase {
         genres.setText("Genres");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(genres, gridBagConstraints);
 
@@ -166,7 +152,7 @@ public class MovieDetails extends DetailsBase {
         genresValue.setText("Drama");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(genresValue, gridBagConstraints);
 
@@ -174,15 +160,15 @@ public class MovieDetails extends DetailsBase {
         status.setText("Status");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(status, gridBagConstraints);
 
         statusValue.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        statusValue.setText("Released");
+        statusValue.setText("Ended");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(statusValue, gridBagConstraints);
 
@@ -190,7 +176,7 @@ public class MovieDetails extends DetailsBase {
         vote_average.setText("Vote average");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(vote_average, gridBagConstraints);
 
@@ -198,7 +184,7 @@ public class MovieDetails extends DetailsBase {
         vote_averageValue.setText("9.1");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(vote_averageValue, gridBagConstraints);
 
@@ -210,12 +196,12 @@ public class MovieDetails extends DetailsBase {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(goToHomepage, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         infoPanel.add(rateBar, gridBagConstraints);
@@ -264,7 +250,7 @@ public class MovieDetails extends DetailsBase {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
@@ -282,7 +268,7 @@ public class MovieDetails extends DetailsBase {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(25, 25, 25, 25);
-        jPanel1.add(informationPanel, gridBagConstraints);
+        add(informationPanel, gridBagConstraints);
 
         picturePanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -290,33 +276,12 @@ public class MovieDetails extends DetailsBase {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        jPanel1.add(picturePanel, gridBagConstraints);
+        add(picturePanel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
-        jPanel1.add(backButton, gridBagConstraints);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        add(backButton, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void goToHomepageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goToHomepageActionPerformed
@@ -349,12 +314,10 @@ public class MovieDetails extends DetailsBase {
     private javax.swing.JButton goToHomepage;
     private javax.swing.JPanel infoPanel;
     private javax.swing.JPanel informationPanel;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel picturePanel;
     private com.luxoboy.collectionmanager.view.RateBar rateBar;
     private static final javax.swing.JLabel status = new javax.swing.JLabel();
     private javax.swing.JLabel statusValue;
-    private javax.swing.JLabel tagline;
     private javax.swing.JLabel title;
     private static final javax.swing.JLabel vote_average = new javax.swing.JLabel();
     private javax.swing.JLabel vote_averageValue;
