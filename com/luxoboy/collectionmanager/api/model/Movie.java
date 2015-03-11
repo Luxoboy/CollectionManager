@@ -69,7 +69,7 @@ public class Movie extends ModelBase{
         System.out.println("Parsing base informations...");
         try
         {
-            title = obj.getString("name");
+            title = obj.getString("title");
         } catch (JSONException ex)
         {
             return false;
@@ -77,7 +77,7 @@ public class Movie extends ModelBase{
         
         try
         {
-            original_title = obj.getString("original_name");
+            original_title = obj.getString("original_title");
             if (!obj.isNull("backdrop_path"))
             {
                 backdrop_path = obj.getString("backdrop_path").substring(1);
