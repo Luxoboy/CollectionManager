@@ -76,6 +76,9 @@ public class BackButton extends javax.swing.JPanel {
         {
             mainFrame.goToSeasonDetails();
         }
+        else if(detailbase instanceof  MovieDetailsView){
+            mainFrame.goToMovieDetails();
+        }
     }//GEN-LAST:event_backButtonActionPerformed
 
 
