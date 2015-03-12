@@ -27,6 +27,7 @@ public class MainFrame extends javax.swing.JFrame
     private final SeasonDetails seasonDetails;
     private final EpisodeDetails episodeDetails;
     private final UserCollection userCollectionView;
+    static public MainFrame mainFrame;
 
     /**
      * Creates new form MainFrame
@@ -41,6 +42,7 @@ public class MainFrame extends javax.swing.JFrame
         this.seasonDetails = new SeasonDetails(this);
         this.episodeDetails = new EpisodeDetails(this);
         this.userCollectionView = new UserCollection(this);
+        this.mainFrame = this;
     }
     
     public void goToDetails(TVShow obj)

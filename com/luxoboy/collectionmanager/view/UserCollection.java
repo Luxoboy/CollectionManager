@@ -5,12 +5,11 @@
  */
 package com.luxoboy.collectionmanager.view;
 
+import com.luxoboy.collectionmanager.api.SearchTV;
+import com.luxoboy.collectionmanager.api.model.TVShow;
+import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.Date;
-import javax.swing.AbstractListModel;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
+import javax.swing.JLabel;
 
 /**
  *
@@ -18,43 +17,18 @@ import javax.swing.JRadioButton;
  */
 public class UserCollection extends javax.swing.JPanel {
 
-    private JFrame parent;
-    private ArrayList<JRadioButton> rateBar;
+    private MainFrame parent;
+    
     /**
      * Creates new form List
      */
-    public UserCollection(JFrame parent) {
+    public UserCollection(MainFrame parent) {
         this.parent = parent;
         initComponents();
-        this.rateBar = new ArrayList<>();
-        rateBar.add(note1);
-        rateBar.add(note2);
-        rateBar.add(note3);
-        rateBar.add(note4);
-        rateBar.add(note5);
-        rateBar.add(note6);
-        rateBar.add(note7);
-        rateBar.add(note8);
-        rateBar.add(note9);
-        rateBar.add(note10);
-    }
-    
-    public void updateInformations(int id){
-        
-    }
-    
-    /**
-     * Update the selection of the radio button for the rate bar
-     * @param rate
-     */
-    public void updateRadionButtonRate(int rate){
-        for(int j = 0; j < rateBar.size(); j++){
-            if(j < rate){
-                rateBar.get(j).setSelected(true);
-            }else{
-                rateBar.get(j).setSelected(false);
-            }
-        }
+        //itemPanel.setMaximumSize(parent.getSize());
+        itemPanel.setSize(new Dimension(parent.getWidth(), 1));
+        itemScrollPane.setPreferredSize(new Dimension(parent.getWidth() - 50, parent.getHeight() - (menuPanel.getHeight() + 100)));
+        itemPanel.revalidate();
     }
 
     /**
@@ -67,451 +41,92 @@ public class UserCollection extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        scrollList = new javax.swing.JScrollPane();
-        list = new javax.swing.JList();
-        detailPanel = new javax.swing.JPanel();
-        informationsPanel = new javax.swing.JPanel();
-        picturePanel = new javax.swing.JPanel();
-        infoPanel = new javax.swing.JPanel();
-        name = new javax.swing.JLabel();
-        year = new javax.swing.JLabel();
-        numberOfSeason = new javax.swing.JLabel();
-        numberOfSeasonValue = new javax.swing.JLabel();
-        yearValue = new javax.swing.JLabel();
-        rate = new javax.swing.JLabel();
-        rateValue = new javax.swing.JLabel();
-        descriptionPanel = new javax.swing.JPanel();
-        description = new javax.swing.JLabel();
-        scrollPane = new javax.swing.JScrollPane();
-        descriptionTextArea = new javax.swing.JTextArea();
-        reviewPanel = new javax.swing.JPanel();
-        review = new javax.swing.JLabel();
-        reviewScroll = new javax.swing.JScrollPane();
-        reviewTextArea = new javax.swing.JTextArea();
-        ratePanel = new javax.swing.JPanel();
-        userRate = new javax.swing.JLabel();
-        note1 = new javax.swing.JRadioButton();
-        note2 = new javax.swing.JRadioButton();
-        note3 = new javax.swing.JRadioButton();
-        note4 = new javax.swing.JRadioButton();
-        note5 = new javax.swing.JRadioButton();
-        note6 = new javax.swing.JRadioButton();
-        note7 = new javax.swing.JRadioButton();
-        note8 = new javax.swing.JRadioButton();
-        note9 = new javax.swing.JRadioButton();
-        note10 = new javax.swing.JRadioButton();
-        buttonPanel = new javax.swing.JPanel();
-        removeButton = new javax.swing.JButton();
-        sabeButton = new javax.swing.JButton();
+        buttonGroup = new javax.swing.ButtonGroup();
+        menuPanel = new javax.swing.JPanel();
+        searchButton = new javax.swing.JButton();
+        searchTextField = new javax.swing.JTextField();
+        movieRadioButton = new javax.swing.JRadioButton();
+        tvRadioButton = new javax.swing.JRadioButton();
+        itemScrollPane = new javax.swing.JScrollPane();
+        itemPanel = new javax.swing.JPanel();
 
+        setPreferredSize(new java.awt.Dimension(500, 75));
         setLayout(new java.awt.GridBagLayout());
 
-        list.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        list.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                listValueChanged(evt);
-            }
-        });
-        scrollList.setViewportView(list);
+        menuPanel.setLayout(new java.awt.GridBagLayout());
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        add(scrollList, gridBagConstraints);
-
-        detailPanel.setLayout(new java.awt.GridBagLayout());
-
-        informationsPanel.setLayout(new java.awt.GridBagLayout());
-
-        picturePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        informationsPanel.add(picturePanel, gridBagConstraints);
-
-        infoPanel.setLayout(new java.awt.GridBagLayout());
-
-        name.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        name.setText("Name");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        infoPanel.add(name, gridBagConstraints);
-
-        year.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        year.setText("Year :");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        infoPanel.add(year, gridBagConstraints);
-
-        numberOfSeason.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        numberOfSeason.setText("Number of season :");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        infoPanel.add(numberOfSeason, gridBagConstraints);
-
-        numberOfSeasonValue.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        numberOfSeasonValue.setText("0");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        infoPanel.add(numberOfSeasonValue, gridBagConstraints);
-
-        yearValue.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        yearValue.setText("00/00/0000");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        infoPanel.add(yearValue, gridBagConstraints);
-
-        rate.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        rate.setText("Rate :");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        infoPanel.add(rate, gridBagConstraints);
-
-        rateValue.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        rateValue.setText("0/10");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        infoPanel.add(rateValue, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        informationsPanel.add(infoPanel, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        detailPanel.add(informationsPanel, gridBagConstraints);
-
-        descriptionPanel.setLayout(new java.awt.GridBagLayout());
-
-        description.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        description.setText("Description :");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        descriptionPanel.add(description, gridBagConstraints);
-
-        descriptionTextArea.setColumns(20);
-        descriptionTextArea.setRows(5);
-        descriptionTextArea.setEnabled(false);
-        scrollPane.setViewportView(descriptionTextArea);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        descriptionPanel.add(scrollPane, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        detailPanel.add(descriptionPanel, gridBagConstraints);
-
-        reviewPanel.setLayout(new java.awt.GridBagLayout());
-
-        review.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        review.setText("Review :");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        reviewPanel.add(review, gridBagConstraints);
-
-        reviewTextArea.setColumns(20);
-        reviewTextArea.setRows(5);
-        reviewScroll.setViewportView(reviewTextArea);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        reviewPanel.add(reviewScroll, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        detailPanel.add(reviewPanel, gridBagConstraints);
-
-        ratePanel.setLayout(new java.awt.GridBagLayout());
-
-        userRate.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        userRate.setText("My rate :");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        ratePanel.add(userRate, gridBagConstraints);
-
-        note1.addActionListener(new java.awt.event.ActionListener() {
+        searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                note1ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        ratePanel.add(note1, gridBagConstraints);
-
-        note2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                note2ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        ratePanel.add(note2, gridBagConstraints);
-
-        note3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                note3ActionPerformed(evt);
+                searchButtonActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        ratePanel.add(note3, gridBagConstraints);
+        menuPanel.add(searchButton, gridBagConstraints);
 
-        note4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                note4ActionPerformed(evt);
-            }
-        });
+        searchTextField.setMinimumSize(new java.awt.Dimension(100, 20));
+        searchTextField.setPreferredSize(new java.awt.Dimension(100, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        ratePanel.add(note4, gridBagConstraints);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        menuPanel.add(searchTextField, gridBagConstraints);
 
-        note5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                note5ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 0;
-        ratePanel.add(note5, gridBagConstraints);
-
-        note6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                note6ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 0;
-        ratePanel.add(note6, gridBagConstraints);
-
-        note7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                note7ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 0;
-        ratePanel.add(note7, gridBagConstraints);
-
-        note8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                note8ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 0;
-        ratePanel.add(note8, gridBagConstraints);
-
-        note9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                note9ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 9;
-        gridBagConstraints.gridy = 0;
-        ratePanel.add(note9, gridBagConstraints);
-
-        note10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                note10ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 0;
-        ratePanel.add(note10, gridBagConstraints);
-
+        buttonGroup.add(movieRadioButton);
+        movieRadioButton.setText("Movie");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        detailPanel.add(ratePanel, gridBagConstraints);
+        gridBagConstraints.gridy = 0;
+        menuPanel.add(movieRadioButton, gridBagConstraints);
 
-        buttonPanel.setLayout(new java.awt.GridBagLayout());
-
-        removeButton.setText("Remove");
-        removeButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removeButtonActionPerformed(evt);
-            }
-        });
+        buttonGroup.add(tvRadioButton);
+        tvRadioButton.setSelected(true);
+        tvRadioButton.setText("TV Show");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        buttonPanel.add(removeButton, gridBagConstraints);
-
-        sabeButton.setText("Save");
-        sabeButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sabeButtonActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
-        buttonPanel.add(sabeButton, gridBagConstraints);
+        menuPanel.add(tvRadioButton, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        detailPanel.add(buttonPanel, gridBagConstraints);
+        gridBagConstraints.gridy = 0;
+        add(menuPanel, gridBagConstraints);
+
+        itemScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        itemScrollPane.setPreferredSize(new java.awt.Dimension(200, 200));
+        itemScrollPane.setViewportView(itemPanel);
+        itemPanel.setLayout(new WrapLayout());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        add(detailPanel, gridBagConstraints);
+        add(itemScrollPane, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listValueChanged
-        
-    }//GEN-LAST:event_listValueChanged
-
-    private void note1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_note1ActionPerformed
-        // TODO add your handling code here:
-        updateRadionButtonRate(1);
-    }//GEN-LAST:event_note1ActionPerformed
-
-    private void note2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_note2ActionPerformed
-        // TODO add your handling code here:
-        updateRadionButtonRate(2);
-    }//GEN-LAST:event_note2ActionPerformed
-
-    private void note3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_note3ActionPerformed
-        // TODO add your handling code here:
-        updateRadionButtonRate(3);
-    }//GEN-LAST:event_note3ActionPerformed
-
-    private void note4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_note4ActionPerformed
-        // TODO add your handling code here:
-        updateRadionButtonRate(4);
-    }//GEN-LAST:event_note4ActionPerformed
-
-    private void note5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_note5ActionPerformed
-        // TODO add your handling code here:
-        updateRadionButtonRate(5);
-    }//GEN-LAST:event_note5ActionPerformed
-
-    private void note6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_note6ActionPerformed
-        // TODO add your handling code here:
-        updateRadionButtonRate(6);
-    }//GEN-LAST:event_note6ActionPerformed
-
-    private void note7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_note7ActionPerformed
-        // TODO add your handling code here:
-        updateRadionButtonRate(7);
-    }//GEN-LAST:event_note7ActionPerformed
-
-    private void note8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_note8ActionPerformed
-        // TODO add your handling code here:
-        updateRadionButtonRate(8);
-    }//GEN-LAST:event_note8ActionPerformed
-
-    private void note9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_note9ActionPerformed
-        // TODO add your handling code here:
-        updateRadionButtonRate(9);
-    }//GEN-LAST:event_note9ActionPerformed
-
-    private void note10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_note10ActionPerformed
-        // TODO add your handling code here:
-        updateRadionButtonRate(10);
-    }//GEN-LAST:event_note10ActionPerformed
-
-    private void sabeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sabeButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sabeButtonActionPerformed
-
-    private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
-        // TODO add your handling code here:
-        int res = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove this element from your collection ?", "Remove ?", JOptionPane.YES_NO_OPTION);
-        if (res == JOptionPane.YES_OPTION) {
-            
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        itemPanel.removeAll();
+        SearchTV search = new SearchTV(searchTextField.getText());
+        for(TVShow tv : search.proceed()){
+            itemPanel.add(new IconPanel(tv));
         }
-    }//GEN-LAST:event_removeButtonActionPerformed
+        if(itemPanel.getComponentCount() == 0){
+            itemPanel.add(new JLabel("No result correspond to your search"));
+        }
+        itemScrollPane.setViewportView(itemPanel);
+    }//GEN-LAST:event_searchButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel buttonPanel;
-    private javax.swing.JLabel description;
-    private javax.swing.JPanel descriptionPanel;
-    private javax.swing.JTextArea descriptionTextArea;
-    private javax.swing.JPanel detailPanel;
-    private javax.swing.JPanel infoPanel;
-    private javax.swing.JPanel informationsPanel;
-    private javax.swing.JList list;
-    private javax.swing.JLabel name;
-    private javax.swing.JRadioButton note1;
-    private javax.swing.JRadioButton note10;
-    private javax.swing.JRadioButton note2;
-    private javax.swing.JRadioButton note3;
-    private javax.swing.JRadioButton note4;
-    private javax.swing.JRadioButton note5;
-    private javax.swing.JRadioButton note6;
-    private javax.swing.JRadioButton note7;
-    private javax.swing.JRadioButton note8;
-    private javax.swing.JRadioButton note9;
-    private javax.swing.JLabel numberOfSeason;
-    private javax.swing.JLabel numberOfSeasonValue;
-    private javax.swing.JPanel picturePanel;
-    private javax.swing.JLabel rate;
-    private javax.swing.JPanel ratePanel;
-    private javax.swing.JLabel rateValue;
-    private javax.swing.JButton removeButton;
-    private javax.swing.JLabel review;
-    private javax.swing.JPanel reviewPanel;
-    private javax.swing.JScrollPane reviewScroll;
-    private javax.swing.JTextArea reviewTextArea;
-    private javax.swing.JButton sabeButton;
-    private javax.swing.JScrollPane scrollList;
-    private javax.swing.JScrollPane scrollPane;
-    private javax.swing.JLabel userRate;
-    private javax.swing.JLabel year;
-    private javax.swing.JLabel yearValue;
+    private javax.swing.ButtonGroup buttonGroup;
+    private javax.swing.JPanel itemPanel;
+    private javax.swing.JScrollPane itemScrollPane;
+    private javax.swing.JPanel menuPanel;
+    private javax.swing.JRadioButton movieRadioButton;
+    private javax.swing.JButton searchButton;
+    private javax.swing.JTextField searchTextField;
+    private javax.swing.JRadioButton tvRadioButton;
     // End of variables declaration//GEN-END:variables
 }
