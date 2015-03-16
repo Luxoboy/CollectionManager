@@ -127,14 +127,20 @@ public class Movie extends ModelBase{
     protected void parseJSONDetails(JSONObject obj)
     {        
         JSONArray array = null;
+        JSONObject object = null;
         
         try
         {
             authors = new ArrayList<>();
-            array = obj.getJSONArray("crew");
+            object = obj.getJSONObject("credits");
+
+            array = object.getJSONArray("crew");
+            
             for (int i = 0; i < array.length(); i++)
-            {
-                    authors.add(array.getJSONObject(i).getString("name"));
+            {                
+                if(array.getJSONObject(i).getString("job").equals("Director")){
+                    authors.add(array.getJSONObject(i).getString("name"));  
+                }
             }
             array = null;
         } catch (JSONException ex)

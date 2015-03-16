@@ -45,12 +45,12 @@ public class MovieDetailsView extends DetailsBase {
         this.descriptionText.setText(movie.getOverview());
         this.vote_averageValue.setText(Double.toString(movie.getVote_average()));
         
-//        String authors ="";
-//        for(String author : movie.getAuthors())
-//            authors+=author+",";
-//        if(!authors.isEmpty())
-//            authors = authors.substring(0, authors.length()-1);
-//        this.authors.setText(authors);
+        String authors ="";
+        for(String author : movie.getAuthors())
+            authors+=author+",";
+        if(!authors.isEmpty())
+            authors = authors.substring(0, authors.length()-1);
+        this.authors.setText(authors);
         
         String genres ="";
         for(String genre : movie.getGenres())

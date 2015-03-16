@@ -6,8 +6,6 @@
 
 package com.luxoboy.collectionmanager.view;
 
-import javax.swing.JFrame;
-
 /**
  *
  * @author thiba_000
@@ -68,6 +66,10 @@ public class BackButton extends javax.swing.JPanel {
         {
             mainFrame.goToSearch();
         }
+        else if(detailbase instanceof  MovieDetailsView)
+        {
+            mainFrame.goToSearch();
+        }
         else if(detailbase instanceof SeasonDetails)
         {
             mainFrame.goToTVShowDetails();
@@ -75,11 +77,7 @@ public class BackButton extends javax.swing.JPanel {
         else if(detailbase instanceof EpisodeDetails)
         {
             mainFrame.goToSeasonDetails();
-        }
-        else if(detailbase instanceof  MovieDetailsView)
-        {
-            mainFrame.goToMovieDetails();
-        }
+        }        
     }//GEN-LAST:event_backButtonActionPerformed
 
 
