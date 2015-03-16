@@ -29,8 +29,6 @@ public class IconPanel extends javax.swing.JPanel {
         if(item instanceof TVShow)
         {
             TVShow tvItem = (TVShow)item;
-            nameLabel.setText(tvItem.getName());
-            yearLabel.setText(Integer.toString(ModelBase.getYear(tvItem.getFirst_air_date())));
             picturePanel.add(new JLabel("Loading..."));
             Thread t;
             t = new Thread(){
@@ -38,10 +36,15 @@ public class IconPanel extends javax.swing.JPanel {
                 public void run(){
                     try
                     {
+                        nameLabel.setText(tvItem.getName());
+                        yearLabel.setText(Integer.toString(ModelBase.getYear(tvItem.getFirst_air_date())));
                         Image backdrop = tvItem.getMain_backdrop(ImageSizes.SizeList.w154);
-                        picturePanel.removeAll();
-                        picturePanel.add(new JLabel(new ImageIcon(backdrop.getImg())));
-                        
+                        picturePanel.removeAll();                  
+                        if(backdrop == null){
+                            picturePanel.add(new JLabel("Image not available"));
+                        }else{
+                            picturePanel.add(new JLabel(new ImageIcon(backdrop.getImg())));
+                        }
                     }
                     catch(Exception ex)
                     {
