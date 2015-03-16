@@ -183,8 +183,15 @@ public class Season extends ModelBase
         return episode_count;
     }
     
+    /**
+     * Returns poster.
+     * @param size
+     * @return null if no image.
+     */
     public Image getPoster(ImageSizes.SizeList size)
     {
+        if(poster_filename == null)
+            return null;
         if(poster != null)
         {
             if(!poster.getSize().equals(size))
