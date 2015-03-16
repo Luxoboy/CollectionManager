@@ -58,8 +58,8 @@ public class Episode extends ModelBase
         {
             overview = obj.getString("overview");
             air_date = date_format.parse(obj.getString("air_date"));
-            still_path = obj.getString("still_path");
-            if(still_path.startsWith("/"))
+            still_path = obj.optString("still_path", null);
+            if(still_path != null && still_path.startsWith("/"))
             {
                 still_path = still_path.substring(1);
             }
@@ -148,8 +148,15 @@ public class Episode extends ModelBase
         return air_date;
     }
     
+    /**
+     * Return still image.
+     * @param size
+     * @return null if no image.
+     */
     public Image getStill(ImageSizes.SizeList size)
     {
+        if(still_path == null)
+            return null;
         if(still != null)
         {
             if(!still.getSize().equals(size))

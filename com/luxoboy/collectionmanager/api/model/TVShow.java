@@ -80,7 +80,7 @@ public class TVShow extends ModelBase
                 backdrop_filename = obj.getString("backdrop_path").substring(1);
             } else
             {
-                backdrop_filename = "";
+                backdrop_filename = null;
             }
 
         } catch (JSONException ex)
@@ -375,8 +375,15 @@ public class TVShow extends ModelBase
         return number_of_episodes;
     }
     
+    /**
+     * Returns the main backdrop.
+     * @param size
+     * @return null if there is no image.
+     */
     public Image getMain_backdrop(SizeList size)
     {
+        if(backdrop_filename == null)
+            return null;
         if(main_backdrop != null)
         {
             if(!main_backdrop.getSize().equals(size))
