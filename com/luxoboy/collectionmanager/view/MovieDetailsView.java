@@ -10,6 +10,7 @@ import com.luxoboy.collectionmanager.api.model.Image;
 import com.luxoboy.collectionmanager.api.model.ModelBase;
 import com.luxoboy.collectionmanager.api.model.Movie;
 import java.awt.Desktop;
+import java.awt.Event;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -286,13 +287,15 @@ public class MovieDetailsView extends DetailsBase {
 
     private void goToHomepageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goToHomepageActionPerformed
         Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
-        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE) && current_Movie.getHomepage().isEmpty()==false) {
             try {
                 desktop.browse(new URL(current_Movie.getHomepage()).toURI());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        
+        else System.out.println("Homepage not found");
     }//GEN-LAST:event_goToHomepageActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed

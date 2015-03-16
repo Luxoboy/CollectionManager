@@ -138,7 +138,10 @@ public class Movie extends ModelBase{
             
             for (int i = 0; i < array.length(); i++)
             {                
-                if(array.getJSONObject(i).getString("job").equals("Director")){
+                if(array.getJSONObject(i).getString("job").isEmpty()){
+                    System.out.println("job is empty");
+                }
+                else if(array.getJSONObject(i).getString("job").equals("Director")){
                     authors.add(array.getJSONObject(i).getString("name"));  
                 }
             }
