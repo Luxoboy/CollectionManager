@@ -102,7 +102,7 @@ public class Movie extends ModelBase{
         
         try
         {
-            release_date = date_format.parse(obj.getString("first_air_date"));
+            release_date = date_format.parse(obj.getString("release_date"));
         } catch (JSONException | ParseException ex)
         {
             release_date = new Date(0);
