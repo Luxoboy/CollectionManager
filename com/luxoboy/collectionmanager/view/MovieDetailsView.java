@@ -72,8 +72,10 @@ public class MovieDetailsView extends DetailsBase {
         picturePanel.removeAll();
         picturePanel.add(new JLabel("Loading..."));
         Image backdrop = movie.getMain_backdrop(ImageSizes.SizeList.w300);
-        picturePanel.removeAll();
-        picturePanel.add(new JLabel(new ImageIcon(backdrop.getImg())));
+        if (backdrop != null)
+        {            
+            picturePanel.add(new JLabel(new ImageIcon(backdrop.getImg())));
+        }        
     }
 
     /**

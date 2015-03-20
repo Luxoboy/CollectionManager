@@ -326,6 +326,10 @@ public class Movie extends ModelBase{
     
     public Image getMain_backdrop(ImageSizes.SizeList size)
     {
+        if(backdrop_path == null)
+        {
+            return null;
+        }
         if(main_backdrop != null)
         {
             if(!main_backdrop.getSize().equals(size))
