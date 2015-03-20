@@ -6,7 +6,9 @@
 
 package com.luxoboy.collectionmanager.view;
 
+import com.luxoboy.collectionmanager.api.SearchMovie;
 import com.luxoboy.collectionmanager.api.SearchTV;
+import com.luxoboy.collectionmanager.api.model.Movie;
 import com.luxoboy.collectionmanager.api.model.TVShow;
 import com.luxoboy.collectionmanager.model.SearchTableModel;
 import javax.swing.JFrame;
@@ -220,7 +222,7 @@ public class Search extends javax.swing.JPanel {
             goToButton.setVisible(false);
             for(TVShow show : search.proceed())
             {
-                model.addLigne(show);
+                model.addLigneTVShow(show);
             }
             if(model.getRowCount() > 0)
             {
@@ -234,6 +236,36 @@ public class Search extends javax.swing.JPanel {
             }
                 
         }
+        
+        else if(moviesRadioButton.isSelected())
+        {
+         SearchMovie search = new SearchMovie(searchTextField.getText());
+         SearchTableModel model = (SearchTableModel)resultsTable.getModel();
+            model.clear();
+            statusLabel.setText(LOADING_TEXT);
+            statusLabel.setVisible(true);
+            scrollResultsPanel.setVisible(false);
+            goToButton.setVisible(false);
+            for(Movie movie : search.proceed())
+            {
+                model.addLigneMovie(movie);
+            }
+            if(model.getRowCount() > 0)
+            {
+                statusLabel.setVisible(false);
+                scrollResultsPanel.setVisible(true);
+                goToButton.setVisible(true);
+            }
+            else
+            {
+                statusLabel.setText(NO_RESULTS_TEXT);
+            }       
+        }
+        
+        else
+        {
+            System.err.println("Error in searchButtonActionPerformed");
+        }
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void searchTextFieldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_searchTextFieldActionPerformed
@@ -246,14 +278,39 @@ public class Search extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_resultsTableMousePressed
         if(evt.getClickCount() == 2 && !evt.isConsumed())
             {
-                parent.goToDetails(tableModel.getTVShow(resultsTable.getSelectedRow()));
-                evt.consume();
+                if(tvShowsRadioButton.isSelected())
+                {
+                    parent.goToDetails((TVShow)tableModel.getModel(resultsTable.getSelectedRow()));
+                    evt.consume();
+                }
+                else if(moviesRadioButton.isSelected())
+                {
+                    parent.goToDetails((Movie)tableModel.getModel(resultsTable.getSelectedRow()));
+                    evt.consume();
+                }
+                else
+                {
+                    System.err.println("Error in resultsTableMousePerformed");
+                }
+                
             }
     }//GEN-LAST:event_resultsTableMousePressed
 
     private void goToButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_goToButtonActionPerformed
     {//GEN-HEADEREND:event_goToButtonActionPerformed
-        parent.goToDetails(tableModel.getTVShow(resultsTable.getSelectedRow()));
+        if(tvShowsRadioButton.isSelected())
+        {
+            parent.goToDetails((TVShow)tableModel.getModel(resultsTable.getSelectedRow()));
+        }
+        else if (moviesRadioButton.isSelected())
+        {
+            parent.goToDetails((Movie)tableModel.getModel(resultsTable.getSelectedRow()));
+        }
+        else
+        {
+            System.err.println("Error in goToButtonActionPerformed");
+        }
+        
     }//GEN-LAST:event_goToButtonActionPerformed
 
 

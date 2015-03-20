@@ -6,6 +6,7 @@
 package com.luxoboy.collectionmanager.model;
 
 import com.luxoboy.collectionmanager.api.model.ModelBase;
+import com.luxoboy.collectionmanager.api.model.Movie;
 import com.luxoboy.collectionmanager.api.model.TVShow;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,14 +25,30 @@ public class SearchTableModel extends DefaultTableModel
         String name;
         int year;
         String vote_average;
-        TVShow tvs;
+        ModelBase model;
 
         public Line(TVShow show)
         {
-            this.tvs = show;
+            this.model = show;
             this.name = show.getName();
             this.year = ModelBase.getYear(show.getFirst_air_date());
             Double vote_average_raw = show.getVote_average();
+            if(vote_average_raw <= 0.0)
+            {
+                this.vote_average = "Unknown";
+            }
+            else
+            {
+                this.vote_average = Double.toString(vote_average_raw);
+            }
+        }
+        
+        public Line(Movie movie)
+        {
+            this.model = movie;
+            this.name = movie.getTitle();
+            this.year = ModelBase.getYear(movie.getRelease_date());
+            Double vote_average_raw = movie.getVote_average();
             if(vote_average_raw <= 0.0)
             {
                 this.vote_average = "Unknown";
@@ -54,9 +71,9 @@ public class SearchTableModel extends DefaultTableModel
         super();
     }
     
-    public TVShow getTVShow(int row)
+    public ModelBase getModel(int row)
     {
-        return list.get(row).tvs;
+        return list.get(row).model;
     }
 
     @Override
@@ -104,9 +121,14 @@ public class SearchTableModel extends DefaultTableModel
         return list.get(row).name;
     }
 
-    public void addLigne(TVShow show)
+    public void addLigneTVShow(TVShow show)
     {
         addLine(new Line(show));
+    }
+    
+    public void addLigneMovie(Movie movie)
+    {
+        addLine(new Line(movie));
     }
 
     private void addLine(Line l)

@@ -7,12 +7,11 @@ package com.luxoboy.collectionmanager.view;
 
 import com.luxoboy.collectionmanager.api.Configuration;
 import com.luxoboy.collectionmanager.api.model.Episode;
-import com.luxoboy.collectionmanager.api.model.ModelBase;
+import com.luxoboy.collectionmanager.api.model.Movie;
 import com.luxoboy.collectionmanager.api.model.Season;
 import com.luxoboy.collectionmanager.api.model.TVShow;
 import java.awt.Dimension;
 import static java.awt.Frame.MAXIMIZED_BOTH;
-import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 /**
@@ -24,6 +23,7 @@ public class MainFrame extends javax.swing.JFrame
 
     private final Search searchView;
     private final TVShowDetails tvsDetails;
+    private final MovieDetailsView movieDetails;
     private final SeasonDetails seasonDetails;
     private final EpisodeDetails episodeDetails;
     private final UserCollection userCollectionView;
@@ -38,6 +38,7 @@ public class MainFrame extends javax.swing.JFrame
         this.setMinimumSize(new Dimension(1280, 720));
         this.searchView = new Search(this);
         this.tvsDetails = new TVShowDetails(this);
+        this.movieDetails = new MovieDetailsView(this);
         this.seasonDetails = new SeasonDetails(this);
         this.episodeDetails = new EpisodeDetails(this);
         this.userCollectionView = new UserCollection(this);
@@ -47,6 +48,13 @@ public class MainFrame extends javax.swing.JFrame
     {
         tvsDetails.updateInformations(obj);
         this.setContentPane(tvsDetails);
+        this.revalidate();
+    }
+    
+    public void goToDetails(Movie obj)
+    {
+        movieDetails.updateInformations(obj);
+        this.setContentPane(movieDetails);
         this.revalidate();
     }
     
@@ -79,6 +87,12 @@ public class MainFrame extends javax.swing.JFrame
     public void goToSeasonDetails()
     {
         this.setContentPane(seasonDetails);
+        this.revalidate();
+    }
+    
+    public void goToMovieDetails()
+    {
+        this.setContentPane(movieDetails);
         this.revalidate();
     }
 
