@@ -83,14 +83,14 @@ public class Movie extends ModelBase{
                 backdrop_path = obj.getString("backdrop_path").substring(1);
             } else
             {
-                backdrop_path = "";
+                backdrop_path = null;
             }
             if (!obj.isNull("poster_path"))
             {
                 poster_path = obj.getString("poster_path").substring(1);
             } else
             {
-                poster_path = "";
+                poster_path = null;
             }
 
         } catch (JSONException ex)
